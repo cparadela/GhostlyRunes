@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
         float Probemoselmerge=1.0f;
 
+        int Pues_probemosolo = 0;
 
 
     }
