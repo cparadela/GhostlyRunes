@@ -13,6 +13,9 @@ import java.text.DecimalFormat;
  */
 
 public class SensorHandler implements SensorEventListener {
+
+    //------------- GYROSCOPE VARIABLES BEGIN ---------------------
+
     // Create a constant to convert nanoseconds to seconds.
     private static final float NS2S = 1.0f / 1000000000.0f;
     private final float[] deltaRotationVector = new float[4];
@@ -26,7 +29,25 @@ public class SensorHandler implements SensorEventListener {
         rotationCurrent[8]=1.0f;
     }
 
+    //------------- GYROSCOPE VARIABLES END ---------------------
+
+    //------------- ACCELEROMETER VARIABLES BEGIN ---------------------
+    private float accX, accY, accZ;
+    private float max = 19, min = -19;
+    private boolean move=false;
+
+
+
+
+    //------------- ACCELEROMETER VARIABLES END ---------------------
+
+
+
     public void onSensorChanged(SensorEvent event) {
+
+        //------------- GYROSCOPE BEGIN---------------------
+        /*
+
         // This timestep's delta rotation to be multiplied by the current rotation
         // after computing it from the gyro sample data.
         if (timestamp != 0) {
@@ -83,11 +104,37 @@ public class SensorHandler implements SensorEventListener {
         float[] gyroscopeOrientation = new float[3];
         SensorManager.getOrientation(rotationCurrent,
                 gyroscopeOrientation);
+        /*
 
         Log.d( "Orientacion","\n\nOrientation X (Roll) :" + (new DecimalFormat("#.##").format((double)gyroscopeOrientation[0]))
                 + "\n\n" + "Orientation Y (Pitch) :"
                 + (new DecimalFormat("#.##").format((double)gyroscopeOrientation[1]))+ "\n\n"
                 + "Orientation Z (Yaw) :" + (new DecimalFormat("#.##").format((double)gyroscopeOrientation[2])));
+        */
+
+        //------------- GYROSCOPE END ---------------------
+
+        //------------- ACCELEROMETER BEGIN---------------------
+
+        //We get the values of the axis X,Y,Z of the accelerometer
+
+        accX = event.values[0];
+        accY = event.values[1];
+        accZ = event.values[2];
+
+
+
+        if((accX> max && accY > max) || (accX > max && accZ > max) || (accY > max && accZ > max) ||
+                (accX < min && accY < min) || (accX < min && accZ < min) || (accY < min && accZ < min)){
+            move=true;
+            Log.d("MOVE", "Se mueve!");
+
+        }
+
+
+
+
+
 
     }
 
