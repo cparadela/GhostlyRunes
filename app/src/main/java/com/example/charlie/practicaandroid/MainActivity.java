@@ -15,7 +15,7 @@ import android.widget.ImageView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private SensorManager mSensorManager;
     private Sensor mSensor;
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity{
             //�SensorManager.SENSOR_DELAY_GAME� que es la velocidad m�nima para que el aceler�metro pueda usarse
             sm.registerListener(SR, sensors.get(0), SensorManager.SENSOR_DELAY_GAME);
         }
+    }
 
     @Override
     protected void onStop() { //anular el registro del listener
