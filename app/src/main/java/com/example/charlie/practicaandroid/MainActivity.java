@@ -17,7 +17,7 @@ import android.widget.ImageView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MessageReceiver{
     ImageView p1,p2;
     float x1,x2,y1,y2;
 
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         p1 = (ImageView) findViewById(R.id.Point);
         p2 = (ImageView) findViewById(R.id.Point2);
 
+        //SensorHandler a = new SensorHandler(this);
 
     }
 
@@ -86,4 +87,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+    @Override
+    public boolean receiveMessage(String sender,String message){
+
+        return true;
+    }
 }
