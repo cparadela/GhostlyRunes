@@ -24,11 +24,6 @@ public class SensorHandler implements SensorEventListener {
     private final float EPSILON=  0.000001f;
 
     public float [] rotationCurrent = new float[9];
-    public SensorHandler(){
-        rotationCurrent[0]=1.0f;
-        rotationCurrent[4]=1.0f;
-        rotationCurrent[8]=1.0f;
-    }
 
     //------------- GYROSCOPE VARIABLES END ---------------------
 
@@ -39,15 +34,26 @@ public class SensorHandler implements SensorEventListener {
     private float cooldown=2.0f;
     private float current_time, previous_time;
     private boolean enter=true;
-
-
-
+    private String ACCELID="Accelerometer";
 
 
 
 
     //------------- ACCELEROMETER VARIABLES END ---------------------
 
+    //------------- OTHER VARIABLES BEGIN ---------------------
+
+    MessageReceiver MR;
+    //------------- OTHER VARIABLES END ---------------------
+
+
+
+    public SensorHandler(MessageReceiver MR){
+        rotationCurrent[0]=1.0f;
+        rotationCurrent[4]=1.0f;
+        rotationCurrent[8]=1.0f;
+        this.MR=MR;
+    }
 
 
     public void onSensorChanged(SensorEvent event) {
@@ -136,7 +142,7 @@ public class SensorHandler implements SensorEventListener {
                 (accX < min && accY < min) || (accX < min && accZ < min) || (accY < min && accZ < min)){
             if (enter){
                 previous_time=current_time;
-
+                MR.transmitMessage(ACCELID, "Se mueve");
             }
             Log.d("MOVE", "Se mueve!");
 

@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     private SensorManager mSensorManager;
     private Sensor mSensor;
 
-    public SensorHandler SR= new SensorHandler();
+    public SensorHandler SR= new SensorHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +37,12 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         p1 = (ImageView) findViewById(R.id.Point);
         p2 = (ImageView) findViewById(R.id.Point2);
 
-        //SensorHandler a = new SensorHandler(this);
+
 
     }
 
 
-    @Override
+    @Override //TODO Cambiar comentarios y cosillas
     protected void onResume() {
         super.onResume(); //registro del listener
         x1=p1.getX();
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         }
 
     @Override
-    public boolean receiveMessage(String sender,String message){
+    public boolean transmitMessage(String sender,String message){
 
         return true;
     }
