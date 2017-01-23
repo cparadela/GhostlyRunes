@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     @Override
     public boolean transmitMessage(String sender,String message){
 
+
         return true;
     }
 }
