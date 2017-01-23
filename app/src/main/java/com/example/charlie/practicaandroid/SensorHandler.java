@@ -127,7 +127,7 @@ public class SensorHandler implements SensorEventListener {
         if((accX> max && accY > max) || (accX > max && accZ > max) || (accY > max && accZ > max) ||
                 (accX < min && accY < min) || (accX < min && accZ < min) || (accY < min && accZ < min)){
             move=true;
-            Log.d("MOVE", "Se mueve!");
+           // Log.d("MOVE", "Se mueve!");
 
         }
 

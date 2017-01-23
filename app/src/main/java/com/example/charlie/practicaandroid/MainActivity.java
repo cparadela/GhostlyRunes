@@ -2,6 +2,7 @@ package com.example.charlie.practicaandroid;
 
 import android.content.Context;
 import android.annotation.TargetApi;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -11,11 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    ImageView p1,p2;
+    float x1,x2,y1,y2;
 
     private SensorManager mSensorManager;
     private Sensor mSensor;
@@ -30,19 +34,30 @@ public class MainActivity extends AppCompatActivity {
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensor=mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
-        ImageView p1 = (ImageView) findViewById(R.id.Point);
-        ImageView p2 = (ImageView) findViewById(R.id.Point2);
+        p1 = (ImageView) findViewById(R.id.Point);
+        p2 = (ImageView) findViewById(R.id.Point2);
+
+
+    }
+
+    @Override
+    protected void onStart(){
+        x1=p1.getX();
+        y1=p1.getY();
+        x2=p2.getX();
+        y2=p2.getY();
 
     }
 
     @Override
     protected void onResume() {
+
         super.onResume(); //registro del listener
         SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-        List<Sensor> sensors = sm.getSensorList(Sensor.TYPE_ACCELEROMETER);  //se utilizar� el aceler�metro como sensor
+        List<Sensor> sensors = sm.getSensorList(Sensor.TYPE_ACCELEROMETER);  //se utilizará el acelerómetro como sensor
         if (sensors.size() > 0) {
             //indicar tasa de lectura de datos:
-            //�SensorManager.SENSOR_DELAY_GAME� que es la velocidad m�nima para que el aceler�metro pueda usarse
+            //"SensorManager.SENSOR_DELAY_GAME" que es la velocidad mínima para que el acelerómetro pueda usarse
             sm.registerListener(SR, sensors.get(0), SensorManager.SENSOR_DELAY_GAME);
         }
     }
@@ -57,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     @TargetApi(19) //TODO borrar
     public boolean onTouchEvent(MotionEvent event){
+
             if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                float presion = event.getPressure();
                 MotionEvent.PointerCoords current_coords = new MotionEvent.PointerCoords();
                 event.getPointerCoords(0, current_coords);
 
