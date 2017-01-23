@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     private SensorManager mSensorManager;
     private Sensor mSensor;
 
+
     public SensorHandler SR= new SensorHandler(this);
 
     @Override
