@@ -136,28 +136,32 @@ public class SensorHandler implements SensorEventListener {
         accZ = event.values[2];
 
 
-
+        //TODO fix double sound issues
         if(!mist_gone &&((accX> max && accY > max) || (accX > max && accZ > max) || (accY > max && accZ > max) ||
                 (accX < min && accY < min) || (accX < min && accZ < min) || (accY < min && accZ < min))){
+            mist_gone=true;
+
             try {
                 MR.transmitMessage(ACCELID, "moveStrong");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            mist_gone=true;
+
 
             Log.d("M", "MIST GONE");
 
         }
         else if(!mist_gone && !mist_half_gone &&((accX> medMax && accY > medMax) || (accX > medMax && accZ > medMax) || (accY > medMax && accZ > medMax) ||
                 (accX < medMin && accY < medMin) || (accX < medMin && accZ < medMin) || (accY < medMin && accZ < medMin))){
-
+            mist_half_gone=true;
+            mist_gone=true;
             try {
                 MR.transmitMessage(ACCELID, "moveSoft");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            mist_half_gone=true;
+            mist_gone=false;
+
             Log.d("M", "MIST HALF GONE");
 
 

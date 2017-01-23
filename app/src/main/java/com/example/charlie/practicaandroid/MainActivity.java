@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         }
 
             return true;
-        }
+    }
 
     @Override
     public boolean transmitMessage(String sender,String message) throws InterruptedException {
