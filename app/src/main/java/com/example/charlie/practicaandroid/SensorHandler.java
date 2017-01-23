@@ -5,6 +5,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
@@ -35,6 +36,12 @@ public class SensorHandler implements SensorEventListener {
     private float accX, accY, accZ;
     private float max = 19, min = -19;
     private boolean move=false;
+    private float cooldown=2.0f;
+    private float current_time, previous_time;
+    private boolean enter=true;
+
+
+
 
 
 
@@ -121,13 +128,19 @@ public class SensorHandler implements SensorEventListener {
         accX = event.values[0];
         accY = event.values[1];
         accZ = event.values[2];
+        current_time = event.timestamp;
 
 
 
         if((accX> max && accY > max) || (accX > max && accZ > max) || (accY > max && accZ > max) ||
                 (accX < min && accY < min) || (accX < min && accZ < min) || (accY < min && accZ < min)){
-            move=true;
-           // Log.d("MOVE", "Se mueve!");
+            if (enter){
+                previous_time=current_time;
+
+            }
+            Log.d("MOVE", "Se mueve!");
+
+
 
         }
 
