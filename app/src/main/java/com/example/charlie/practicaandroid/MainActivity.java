@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         super.onStop();
     }
 
+
+    //TODO
     @Override
     @TargetApi(19) //TODO borrar
     public boolean onTouchEvent(MotionEvent event){
