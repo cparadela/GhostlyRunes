@@ -2,31 +2,38 @@ package com.example.charlie.practicaandroid;
 
 import android.content.Context;
 import android.annotation.TargetApi;
-import android.graphics.Color;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.media.Image;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 
 public class MainActivity extends AppCompatActivity implements MessageReceiver{
-    ImageView p1,p2;
+    ImageView p1,p2,niebla;
     float x1,x2,y1,y2;
+    int tada, blow;
 
     private SensorManager mSensorManager;
     private Sensor mSensor;
 
+    private boolean mist_gone=false;
+
+
+
 
     public SensorHandler SR= new SensorHandler(this);
+    public SoundHandler sound;
 
+    //TODO Quitar supressWarnings y controlar versiones
+    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +44,16 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
         p1 = (ImageView) findViewById(R.id.Point);
         p2 = (ImageView) findViewById(R.id.Point2);
+        niebla = (ImageView) findViewById(R.id.niebla);
+
+        sound = new SoundHandler(getApplicationContext());
+        tada=sound.load(R.raw.tada);
+        blow=sound.load(R.raw.blow);
+
+
+
+        //TODO Para ignorar la niebla y testear. Borrar al final
+        //niebla.setAlpha(0.0f);
 
 
 
@@ -72,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     @TargetApi(19) //TODO borrar
     public boolean onTouchEvent(MotionEvent event){
 
+        //TODO Descomentar al final. Así para testear
+        if(mist_gone) {
             if (event.getAction() == MotionEvent.ACTION_MOVE) {
                 MotionEvent.PointerCoords current_coords = new MotionEvent.PointerCoords();
                 event.getPointerCoords(0, current_coords);
@@ -86,12 +105,32 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 //Log.d("Presion",""+presion);
                 //Log.d("Coordenadas","");
             }
+        }
 
             return true;
         }
 
+
+
     @Override
-    public boolean transmitMessage(String sender,String message){
+    public boolean transmitMessage(String sender,String message) throws InterruptedException {
+        if (message=="moveStrong"){
+            sound.play(blow);
+            Thread.sleep(1200);
+            niebla.setAlpha(0.0f);
+            mist_gone=true;
+            Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+            vib.vibrate(500);
+
+        }
+        else if(message=="moveSoft") {
+            sound.play(blow);
+            Thread.sleep(1200);
+            niebla.setAlpha(0.4f);
+            Toast.makeText(getApplicationContext(),"¡Tienes que agitar más fuerte para que se vaya toda la niebla!", Toast.LENGTH_LONG).show();
+
+
+        }
 
 
         return true;

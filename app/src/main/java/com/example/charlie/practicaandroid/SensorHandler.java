@@ -1,5 +1,6 @@
 package com.example.charlie.practicaandroid;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -30,10 +31,9 @@ public class SensorHandler implements SensorEventListener {
     //------------- ACCELEROMETER VARIABLES BEGIN ---------------------
     private float accX, accY, accZ;
     private float max = 19, min = -19;
+    private float medMax=10, medMin=-10;
     private boolean move=false;
-    private float cooldown=2.0f;
-    private float current_time, previous_time;
-    private boolean enter=true;
+    private boolean enter=true, mist_half_gone=false, mist_gone=false;
     private String ACCELID="Accelerometer";
 
 
@@ -134,18 +134,31 @@ public class SensorHandler implements SensorEventListener {
         accX = event.values[0];
         accY = event.values[1];
         accZ = event.values[2];
-        current_time = event.timestamp;
 
 
 
-        if((accX> max && accY > max) || (accX > max && accZ > max) || (accY > max && accZ > max) ||
-                (accX < min && accY < min) || (accX < min && accZ < min) || (accY < min && accZ < min)){
-            if (enter){
-                previous_time=current_time;
-                MR.transmitMessage(ACCELID, "Se mueve");
+        if(!mist_gone &&((accX> max && accY > max) || (accX > max && accZ > max) || (accY > max && accZ > max) ||
+                (accX < min && accY < min) || (accX < min && accZ < min) || (accY < min && accZ < min))){
+            try {
+                MR.transmitMessage(ACCELID, "moveStrong");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            Log.d("MOVE", "Se mueve!");
+            mist_gone=true;
 
+            Log.d("M", "MIST GONE");
+
+        }
+        else if(!mist_gone && !mist_half_gone &&((accX> medMax && accY > medMax) || (accX > medMax && accZ > medMax) || (accY > medMax && accZ > medMax) ||
+                (accX < medMin && accY < medMin) || (accX < medMin && accZ < medMin) || (accY < medMin && accZ < medMin))){
+
+            try {
+                MR.transmitMessage(ACCELID, "moveSoft");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mist_half_gone=true;
+            Log.d("M", "MIST HALF GONE");
 
 
         }

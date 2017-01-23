@@ -5,6 +5,6 @@ package com.example.charlie.practicaandroid;
  */
 
 public interface MessageReceiver {
-    boolean transmitMessage(String sender,String message);
+    boolean transmitMessage(String sender,String message) throws InterruptedException;
 
 }
