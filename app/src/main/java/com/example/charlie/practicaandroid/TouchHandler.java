@@ -12,10 +12,6 @@ import android.widget.RelativeLayout;
  */
 
 public class TouchHandler implements View.OnTouchListener {
-    //DEBUGGING OPTIONS
-    boolean draw=false; //If true, draws a point in the position of your finger each time an event triggers. Debugging purposes.
-    boolean debug=true; //enable debugging output
-
     //TODO resolver dependencia de nombres, o renombrar
     ImageView p1,p2; //Image of points p1 and p2 of our minimgame. Its names should be Punto and Punto2
 
@@ -27,14 +23,24 @@ public class TouchHandler implements View.OnTouchListener {
     boolean path=false; //If the events are a possible solution to the minigame
     boolean checking=false; //enable minigame
 
-    public TouchHandler(){
+    MessageReceiver MR; //This will get messages from here. Usually an activity to show results to user.
+    String TOUCHID;
+    //DEBUGGING OPTIONS
+    boolean draw=false; //If true, draws a point in the position of your finger each time an event triggers. Debugging purposes.
+    boolean debug=true; //enable debugging output
+
+    public TouchHandler(MessageReceiver MR, String TOUCHID){
         error=100f;
         alpha=0.5f;
+        this.MR=MR;
+        this.TOUCHID=TOUCHID;
     }
 
-    public TouchHandler(float alpha,float error){
+    public TouchHandler(MessageReceiver MR, String TOUCHID, float alpha,float error){
         this.alpha=alpha;
         this.error=error;
+        this.MR=MR;
+        this.TOUCHID=TOUCHID;
     }
 
     @Override
@@ -84,6 +90,11 @@ public class TouchHandler implements View.OnTouchListener {
                 if (distance(x, y, ox, oy) < error) {
                     path = true;
                     if(debug) Log.d("PRESS_EVENT", "P1 pulsado");
+                    try {
+                        MR.transmitMessage(TOUCHID, "pathStart");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     path = false;
                     if (distance(x, y, dx, dy) < error) {
@@ -93,18 +104,37 @@ public class TouchHandler implements View.OnTouchListener {
                 if(debug) Log.d("PRESS_EVENT", "" + event.getX() + " " + event.getY());
             } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
                 if (distance(x, y, ox, oy) < error) {
+                    if(!path){
+                        try {
+                            MR.transmitMessage(TOUCHID, "pathStart");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     path = true;
                     if(debug) Log.d("PATH_EVENT", "P1 pulsado");
+
+
                 }
                 if (path) {
                     if (distance(x, y, dx, dy) < error) {
                         path = false;
                         if(debug) Log.d("PATH_EVENT", "Llegada a P2");
+
+                        try {
+                            MR.transmitMessage(TOUCHID, "destinyReached");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                     if ((distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) < distance(lkx, lky, x, y) * alpha) {
                         path = false;
                         if(debug) Log.d("PATH_EVENT", "Fin de camino: Distance A:" + distance(x, y, dx, dy) + ", LK:" + distance(lkx, lky, dx, dy) + ", DIFF:" + (distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) + ",TOL:" + distance(lkx, lky, x, y) * alpha);
-
+                        try {
+                            MR.transmitMessage(TOUCHID, "pathLost");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                     lkx = x;
                     lky = y;

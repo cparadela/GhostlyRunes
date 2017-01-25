@@ -24,6 +24,11 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     //TODO Borrar comentario
     //ImageView p1,p2;
 
+
+    //Messages
+    final String ACCELID="Accelerometer";
+    final String TOUCHID="Screen Touch";
+
     ImageView niebla;
     int tada, blow;
 
@@ -32,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
     private boolean mist_gone=false;
 
+    //TODO poner string en constructor?
     public SensorHandler SR= new SensorHandler(this);
     public SoundHandler sound;
     public TouchHandler touch;
@@ -54,9 +60,9 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         tada=sound.load(R.raw.tada);
         blow=sound.load(R.raw.blow);
 
-        //TODO correcto?
+        //TODO quitar String de constructor?
         View view = findViewById(R.id.activity_main);
-        touch= new TouchHandler();
+        touch= new TouchHandler(this, TOUCHID);
         view.setOnTouchListener(touch);
 
         //TODO Para ignorar la niebla y testear. Borrar al final
@@ -89,25 +95,37 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
     @Override
     public boolean transmitMessage(String sender,String message) throws InterruptedException {
-        if (message=="moveStrong"){
-            sound.play(blow);
-            Thread.sleep(1200);
-            niebla.setAlpha(0.0f);
-            mist_gone=true;
-            touch.startChecking(); //Starts Minigame
-            Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
-            vib.vibrate(500);
+        switch (sender) {
+            case ACCELID:
+            if (message == "moveStrong") {
+                sound.play(blow);
+                Thread.sleep(1200);
+                niebla.setAlpha(0.0f);
+                mist_gone = true;
+                touch.startChecking(); //Starts Minigame
+                Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+                vib.vibrate(500);
+
+            } else if (message == "moveSoft") {
+                sound.play(blow);
+                Thread.sleep(1200);
+                niebla.setAlpha(0.4f);
+                Toast.makeText(getApplicationContext(), "¡Tienes que agitar más fuerte para que se vaya toda la niebla!", Toast.LENGTH_LONG).show();
+
+            }
+                break;
+            case TOUCHID:
+                if(message == "pathStart") {
+                    Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+                    vib.vibrate(100);
+                }else if(message == "destinyReached"){
+                    Toast.makeText(getApplicationContext(), "¡Bien, has desbloqueado la runa!", Toast.LENGTH_LONG).show();
+                }else if(message == "pathLost"){
+                    Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+                    vib.vibrate(200);
+                }
 
         }
-        else if(message=="moveSoft") {
-            sound.play(blow);
-            Thread.sleep(1200);
-            niebla.setAlpha(0.4f);
-            Toast.makeText(getApplicationContext(),"¡Tienes que agitar más fuerte para que se vaya toda la niebla!", Toast.LENGTH_LONG).show();
-
-
-        }
-
 
         return true;
     }
