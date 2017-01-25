@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         view.setOnTouchListener(touch);
 
         //TODO Para ignorar la niebla y testear. Borrar al final
-        niebla.setAlpha(0.0f);
-        touch.startChecking();
+        //niebla.setAlpha(0.0f);
+        //touch.startChecking();
 
 
 
