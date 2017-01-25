@@ -87,7 +87,7 @@ public class TouchHandler implements View.OnTouchListener {
                 }
                 if (distance(x, y, ox, oy) < error) {
                     path = true;
-                    if(debug) Log.d("PRESS_EVENT", "P1 pulsado");
+                    if(debug) Log.d("PRESS_EVENT", "P1 pressed");
                     try {
                         MR.transmitMessage(TOUCHID, "pathStart");
                     } catch (InterruptedException e) {
@@ -115,10 +115,12 @@ public class TouchHandler implements View.OnTouchListener {
 
                 }
                 if (path) {
+                    if(debug) Log.d("MOVE_EVENT", "Position: " + event.getX() + " " + event.getY() + ". Distance: " + distance(x, y, dx, dy));
                     if (distance(x, y, dx, dy) < error) {
-                        if (debug) Log.d("PATH_EVENT", "Llegada a P2");
+                        if (debug) Log.d("PATH_EVENT", "P2 reached");
                         pattern_done++;
-                        if(pattern==null || pattern_done<pattern.length-1) {
+                        if (pattern == null || pattern_done >= pattern.length - 1) {
+                            if (debug) Log.d("END OF PATTERN", "" + pattern_done);
                             path = false;
 
                             //TODO Quizá cambiar este comportamiento. Ahora reinicia el patrón.
@@ -129,9 +131,9 @@ public class TouchHandler implements View.OnTouchListener {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                        }else{
-                            p1=p2;
-                            p2=v.findViewById(pattern[pattern_done+1]);
+                        } else {
+                            if(debug) Log.d("MID POINT REACHED", "DONE:"+ pattern_done);
+                            continuePattern(v);
 
                             try {
                                 MR.transmitMessage(TOUCHID, "partialPatternDone");
@@ -139,15 +141,15 @@ public class TouchHandler implements View.OnTouchListener {
                                 e.printStackTrace();
                             }
                         }
-
-                    }
-                    if ((distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) < distance(lkx, lky, x, y) * alpha) {
+                    }else if ((distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) < distance(lkx, lky, x, y) * alpha && distance(x, y, ox, ox)>error) {
                         path = false;
                         if(pattern_done!=0){
                             resetPattern(v);
                         }
 
-                        if(debug) Log.d("PATH_EVENT", "Fin de camino: Distance A:" + distance(x, y, dx, dy) + ", LK:" + distance(lkx, lky, dx, dy) + ", DIFF:" + (distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) + ",TOL:" + distance(lkx, lky, x, y) * alpha);
+                        if(debug) Log.d("PATH_EVENT", "End of path: Distance A:" + distance(x, y, dx, dy) + ", LK:" + distance(lkx, lky, dx, dy) + ", DIFF:" + (distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) + ",TOL:" + distance(lkx, lky, x, y) * alpha);
+                        if(debug) Log.d("PATH_EVENT", "Points were: O:"+ox+" "+oy+", D:"+dx+" "+dy);
+                        if(debug) Log.d("PATH EVENT", "Distances: O:"+distance(x, y, ox, ox)+", D:"+distance(x, y, dx, dy));
                         try {
                             MR.transmitMessage(TOUCHID, "pathLost");
                         } catch (InterruptedException e) {
@@ -158,10 +160,6 @@ public class TouchHandler implements View.OnTouchListener {
                     lky = y;
                 }
 
-                if (path) {
-                    if(debug) Log.d("MOVE_EVENT", "Position: " + event.getX() + " " + event.getY() + ". Distance: " + distance(x, y, dx, dy));
-
-                }
 
             }
             return true; //true to be able to capture move events after a down event
@@ -195,10 +193,12 @@ public class TouchHandler implements View.OnTouchListener {
             Log.w("TOUCH HANDLER","Pattern without enough points, will set to default");
         }
         pattern_new=true;
+
+        //TODO strict debug, crash if null
+        if(debug) Log.d("NEW PATTERN","LENGTH: "+points_id.length);
     }
 
     private void resetPattern(View v){
-        pattern_done=0;
         if(pattern==null) {
             p1 = v.findViewById(R.id.Point);
             p2 = v.findViewById(R.id.Point2);
@@ -212,5 +212,34 @@ public class TouchHandler implements View.OnTouchListener {
         dx = p2.getRight();
         dy = p2.getTop();
         pattern_new=false;
+        if(debug) Log.d("PATTERN RESET","DONE: "+pattern_done);
+        pattern_done=0;
+
     }
+
+    //TODO no funciona
+    private void continuePattern(View v){
+        //p1=p2;
+
+        //DEBUG
+        float pox=ox;
+        float poy=oy;
+        float pdx=dx;
+        float pdy=dy;
+        //!DEBUG
+
+        p1=v.findViewById(pattern[pattern_done]);
+        p2=v.findViewById(pattern[pattern_done+2]);
+        ox = p1.getRight();
+        oy = p1.getTop();
+        dx = p2.getRight();
+        dy = p2.getTop();
+
+        if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" NEW O: "+ox + " "+oy +".");
+        if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" OLD O: "+pox + " "+poy +".");
+        if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" NEW D: "+pdx + " "+pdy +".");
+        if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" OLD D: "+pdx + " "+pdy +".");
+
+    }
+
 }

@@ -2,6 +2,7 @@ package com.example.charlie.practicaandroid;
 
 import android.content.Context;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Vibrator;
@@ -120,6 +121,10 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                     vib.vibrate(100);
                 }else if(message == "destinyReached"){
                     Toast.makeText(getApplicationContext(), "¡Bien, has desbloqueado la runa!", Toast.LENGTH_LONG).show();
+
+                    //Creating new activity
+                    Intent intent = new Intent(this, StarPatternActivity.class);
+                    startActivity(intent);
                 }else if(message == "pathLost"){
                     Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
                     vib.vibrate(200);
