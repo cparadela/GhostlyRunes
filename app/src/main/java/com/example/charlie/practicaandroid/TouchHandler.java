@@ -12,35 +12,38 @@ import android.widget.RelativeLayout;
  */
 
 public class TouchHandler implements View.OnTouchListener {
-    //TODO resolver dependencia de nombres, o renombrar
-    ImageView p1,p2; //Image of points p1 and p2 of our minimgame. Its names should be Punto and Punto2
+    //TODO resolver dependencia de nombres
+    View p1,p2; //Image of points p1 and p2 of our minimgame. Its names should be Point and Point2 if default is used.
 
     float lkx,lky; //to check previous movement
     float ox,oy; //origin coordinates (p1)
     float dx,dy; //destiny coordinates (p2)
-    float error; //error on fingertips
-    float alpha; //alpha in [0,1], checks optimality of the descent (1: optimality)
+    public float error=100f; //error on fingertips
+    public float alpha=0.5f; //alpha in [0,1], checks optimality of the descent (1: optimality)
     boolean path=false; //If the events are a possible solution to the minigame
     boolean checking=false; //enable minigame
 
+    int[] pattern; //Vector of tags of elements to be done in order
+    int pattern_done=0; //Number of lines of the pattern done
+    private boolean pattern_new=true; //True if the pattern is new and needs to be processed
+    private View last_view; //Maybe unnecesary
+
     MessageReceiver MR; //This will get messages from here. Usually an activity to show results to user.
     String TOUCHID;
+
     //DEBUGGING OPTIONS
     boolean draw=false; //If true, draws a point in the position of your finger each time an event triggers. Debugging purposes.
     boolean debug=true; //enable debugging output
 
     public TouchHandler(MessageReceiver MR, String TOUCHID){
-        error=100f;
-        alpha=0.5f;
         this.MR=MR;
         this.TOUCHID=TOUCHID;
     }
 
-    public TouchHandler(MessageReceiver MR, String TOUCHID, float alpha,float error){
-        this.alpha=alpha;
-        this.error=error;
+    public TouchHandler(MessageReceiver MR, String TOUCHID, int[] points_id){
         this.MR=MR;
         this.TOUCHID=TOUCHID;
+        setPattern(points_id);
     }
 
     @Override
@@ -71,13 +74,8 @@ public class TouchHandler implements View.OnTouchListener {
             }
 
             //TODO Pasar a constructor?
-            if (p1 == null) { //Gets the points to a correct state the first time it triggers
-                p1 = (ImageView) v.findViewById(R.id.Point);
-                p2 = (ImageView) v.findViewById(R.id.Point2);
-                ox = p1.getRight();
-                oy = p1.getTop();
-                dx = p2.getRight();
-                dy = p2.getTop();
+            if (pattern_new) { //Gets the points to a correct state the first time it triggers
+                resetPattern(v);
                 if(debug) Log.d("Points", "Origin: " + ox + " " + oy);
                 if(debug) Log.d("Points", "Destiny: " + dx + " " + dy);
             }
@@ -118,17 +116,37 @@ public class TouchHandler implements View.OnTouchListener {
                 }
                 if (path) {
                     if (distance(x, y, dx, dy) < error) {
-                        path = false;
-                        if(debug) Log.d("PATH_EVENT", "Llegada a P2");
+                        if (debug) Log.d("PATH_EVENT", "Llegada a P2");
+                        pattern_done++;
+                        if(pattern==null || pattern_done<pattern.length-1) {
+                            path = false;
 
-                        try {
-                            MR.transmitMessage(TOUCHID, "destinyReached");
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            //TODO Quizá cambiar este comportamiento. Ahora reinicia el patrón.
+                            resetPattern(v);
+
+                            try {
+                                MR.transmitMessage(TOUCHID, "destinyReached");
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }else{
+                            p1=p2;
+                            p2=v.findViewById(pattern[pattern_done+1]);
+
+                            try {
+                                MR.transmitMessage(TOUCHID, "partialPatternDone");
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
+
                     }
                     if ((distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) < distance(lkx, lky, x, y) * alpha) {
                         path = false;
+                        if(pattern_done!=0){
+                            resetPattern(v);
+                        }
+
                         if(debug) Log.d("PATH_EVENT", "Fin de camino: Distance A:" + distance(x, y, dx, dy) + ", LK:" + distance(lkx, lky, dx, dy) + ", DIFF:" + (distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) + ",TOL:" + distance(lkx, lky, x, y) * alpha);
                         try {
                             MR.transmitMessage(TOUCHID, "pathLost");
@@ -146,7 +164,6 @@ public class TouchHandler implements View.OnTouchListener {
                 }
 
             }
-            //Log.d("DATA: ",""+MotionEvent.actionToString(event.getAction()));
             return true; //true to be able to capture move events after a down event
         }else{
             if(debug) Log.d("TOUCH LISTENER WARNING","TOUCHED BUT STATUS: DISCONNECTED");
@@ -154,7 +171,7 @@ public class TouchHandler implements View.OnTouchListener {
         }
 
     }
-    //TODO viscoso pero sabroso
+
     private float distance(float x1,float y1, float x2, float y2){
         return (float) Math.sqrt( (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) );
     }
@@ -164,9 +181,36 @@ public class TouchHandler implements View.OnTouchListener {
 
     public void startChecking(){
         checking=true;
+        pattern_new=true;
     }
     public void stopChecking(){
         checking=false;
         path=false;
+    }
+
+    public void setPattern( int[] points_id){
+        if(points_id.length>=2) this.pattern=points_id;
+        else {
+            pattern=null;
+            Log.w("TOUCH HANDLER","Pattern without enough points, will set to default");
+        }
+        pattern_new=true;
+    }
+
+    private void resetPattern(View v){
+        pattern_done=0;
+        if(pattern==null) {
+            p1 = v.findViewById(R.id.Point);
+            p2 = v.findViewById(R.id.Point2);
+
+        }else {
+            p1 = v.findViewById(pattern[0]);
+            p2 = v.findViewById(pattern[1]);
+        }
+        ox = p1.getRight();
+        oy = p1.getTop();
+        dx = p2.getRight();
+        dy = p2.getTop();
+        pattern_new=false;
     }
 }
