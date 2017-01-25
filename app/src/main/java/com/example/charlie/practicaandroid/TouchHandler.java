@@ -114,6 +114,7 @@ public class TouchHandler implements View.OnTouchListener {
 
 
                 }
+                //TODO no sé por qué entra en ciertos sitios
                 if (path) {
                     if(debug) Log.d("MOVE_EVENT", "Position: " + event.getX() + " " + event.getY() + ". Distance: " + distance(x, y, dx, dy));
                     if (distance(x, y, dx, dy) < error) {
@@ -133,7 +134,27 @@ public class TouchHandler implements View.OnTouchListener {
                             }
                         } else {
                             if(debug) Log.d("MID POINT REACHED", "DONE:"+ pattern_done);
-                            continuePattern(v);
+                            //continuePattern(v);
+                            //p1=p2;
+
+                            //DEBUG
+                            float pox=ox;
+                            float poy=oy;
+                            float pdx=dx;
+                            float pdy=dy;
+                            //!DEBUG
+
+                            p1=v.findViewById(pattern[pattern_done]);
+                            p2=v.findViewById(pattern[pattern_done+1]);
+                            ox = p1.getRight();
+                            oy = p1.getTop();
+                            dx = p2.getRight();
+                            dy = p2.getTop();
+
+                            if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" NEW O: "+ox + " "+oy +".");
+                            if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" OLD O: "+pox + " "+poy +".");
+                            if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" NEW D: "+dx + " "+dy +".");
+                            if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" OLD D: "+pdx + " "+pdy +".");
 
                             try {
                                 MR.transmitMessage(TOUCHID, "partialPatternDone");
@@ -141,14 +162,14 @@ public class TouchHandler implements View.OnTouchListener {
                                 e.printStackTrace();
                             }
                         }
-                    }else if ((distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) < distance(lkx, lky, x, y) * alpha && distance(x, y, ox, ox)>error) {
+                    }else if ((distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) < distance(lkx, lky, x, y) * alpha && distance(x, y, ox, ox)>error && distance(x,y,dx,dy)>error) {
                         path = false;
                         if(pattern_done!=0){
                             resetPattern(v);
                         }
 
                         if(debug) Log.d("PATH_EVENT", "End of path: Distance A:" + distance(x, y, dx, dy) + ", LK:" + distance(lkx, lky, dx, dy) + ", DIFF:" + (distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) + ",TOL:" + distance(lkx, lky, x, y) * alpha);
-                        if(debug) Log.d("PATH_EVENT", "Points were: O:"+ox+" "+oy+", D:"+dx+" "+dy);
+                        if(debug) Log.d("PATH_EVENT", "Points were: O:"+ox+" "+oy+", D:"+dx+" "+dy+", P:"+x+" "+y);
                         if(debug) Log.d("PATH EVENT", "Distances: O:"+distance(x, y, ox, ox)+", D:"+distance(x, y, dx, dy));
                         try {
                             MR.transmitMessage(TOUCHID, "pathLost");
@@ -229,7 +250,7 @@ public class TouchHandler implements View.OnTouchListener {
         //!DEBUG
 
         p1=v.findViewById(pattern[pattern_done]);
-        p2=v.findViewById(pattern[pattern_done+2]);
+        p2=v.findViewById(pattern[pattern_done+1]);
         ox = p1.getRight();
         oy = p1.getTop();
         dx = p2.getRight();
@@ -237,7 +258,7 @@ public class TouchHandler implements View.OnTouchListener {
 
         if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" NEW O: "+ox + " "+oy +".");
         if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" OLD O: "+pox + " "+poy +".");
-        if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" NEW D: "+pdx + " "+pdy +".");
+        if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" NEW D: "+dx + " "+dy +".");
         if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" OLD D: "+pdx + " "+pdy +".");
 
     }
