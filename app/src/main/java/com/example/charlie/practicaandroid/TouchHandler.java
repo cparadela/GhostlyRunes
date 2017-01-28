@@ -165,7 +165,7 @@ public class TouchHandler implements View.OnTouchListener {
                     }else if ((distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) < distance(lkx, lky, x, y) * alpha && distance(x, y, ox, ox)>error && distance(x,y,dx,dy)>error) {
                         path = false;
                         if(pattern_done!=0){
-                            resetPattern(v);
+                            //resetPattern(v);
                         }
 
                         if(debug) Log.d("PATH_EVENT", "End of path: Distance A:" + distance(x, y, dx, dy) + ", LK:" + distance(lkx, lky, dx, dy) + ", DIFF:" + (distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) + ",TOL:" + distance(lkx, lky, x, y) * alpha);
