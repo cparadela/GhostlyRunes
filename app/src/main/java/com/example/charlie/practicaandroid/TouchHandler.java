@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 
 public class TouchHandler implements View.OnTouchListener {
     //TODO resolver dependencia de nombres
-    View p1,p2; //Image of points p1 and p2 of our minimgame. Its names should be Point and Point2 if default is used.
+    View p1,p2; //Image of points p1 and p2 of our minimgame. Its names should be Point1 and Point2 if default is used.
 
 
 
@@ -223,7 +223,7 @@ public class TouchHandler implements View.OnTouchListener {
 
     private void resetPattern(View v){
         if(pattern==null) {
-            p1 = v.findViewById(R.id.Point);
+            p1 = v.findViewById(R.id.Point1);
             p2 = v.findViewById(R.id.Point2);
 
         }else {

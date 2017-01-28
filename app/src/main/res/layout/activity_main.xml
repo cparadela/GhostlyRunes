@@ -26,13 +26,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/abc_btn_radio_to_on_mtrl_000"
-        android:id="@+id/Point"
+        android:id="@+id/Point1"
         android:layout_above="@+id/Point2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="54dp"
         android:layout_marginStart="54dp"
-        android:layout_marginBottom="88dp" />
+        android:layout_marginBottom="88dp"
+        android:contentDescription="Niebla para ser borrada" />
 
     <ImageView
         android:layout_width="fill_parent"

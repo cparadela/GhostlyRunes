@@ -1,6 +1,5 @@
 package com.example.charlie.practicaandroid;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
@@ -13,7 +12,7 @@ public class StarPatternActivity extends MainActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_star_pattern);
         int[] pattern = new int[5];
-        pattern[0]=R.id.Point;
+        pattern[0]=R.id.Point1;
         pattern[1]=R.id.Point2;
         pattern[2]=R.id.Point3;
         pattern[3]=R.id.Point4;

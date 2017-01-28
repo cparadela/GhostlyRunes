@@ -17,34 +17,15 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ghost_estrella"
         android:id="@+id/imageView"
+        android:alpha="1"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/punto2"
-        android:layout_marginLeft="62dp"
-        android:layout_marginStart="62dp"
-        android:id="@+id/Point2"
-        android:layout_alignTop="@+id/Point"
-        android:layout_toRightOf="@+id/Point4"
-        android:elevation="0dp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/punto4"
-        android:id="@+id/Point4"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/punto5"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/n5"
         android:id="@+id/Point5"
         android:adjustViewBounds="false"
         android:layout_marginLeft="42dp"
@@ -54,24 +35,52 @@
         android:layout_toEndOf="@+id/Point3" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/punto3"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/n3"
         android:id="@+id/Point3"
         android:layout_marginTop="71dp"
-        android:layout_below="@+id/Point"
-        android:layout_toLeftOf="@+id/Point4" />
+        android:layout_below="@+id/Point1"
+        android:layout_toLeftOf="@+id/Point4"
+        tools:ignore="RtlHardcoded" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/punto1"
-        android:layout_marginTop="40dp"
-        android:id="@+id/Point"
-        android:layout_marginRight="12dp"
-        android:layout_marginEnd="12dp"
+        android:src="@drawable/n4"
+        android:scaleType="fitCenter"
+        android:id="@+id/Point4"
+        android:alpha="1"
+        android:cropToPadding="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="145dp"
+        android:layout_marginEnd="145dp"
+        android:layout_marginTop="32dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp" />
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/n1"
+        android:layout_marginTop="93dp"
+        android:id="@+id/Point1"
         android:layout_below="@+id/Point4"
         android:layout_toLeftOf="@+id/Point3"
         android:layout_toStartOf="@+id/Point3" />
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/n2"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+
+        android:id="@+id/Point2"
+        android:alpha="1"
+        android:layout_alignTop="@+id/Point1"
+        android:layout_toRightOf="@+id/Point5"
+        android:layout_toEndOf="@+id/Point5"
+        android:adjustViewBounds="false" />
 
 </RelativeLayout>

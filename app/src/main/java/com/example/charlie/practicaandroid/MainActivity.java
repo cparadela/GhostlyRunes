@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         mSensor=mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
         //TODO borrar puntos en comentario, no se utilizan
-        //p1 = (ImageView) findViewById(R.id.Point);
+        //p1 = (ImageView) findViewById(R.id.Point1);
         //p2 = (ImageView) findViewById(R.id.Point2);
         niebla = (ImageView) findViewById(R.id.niebla);
 
