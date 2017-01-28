@@ -34,7 +34,7 @@ public class SensorHandler implements SensorEventListener {
     private float medMax=10, medMin=-10;
     private boolean move=false;
     private boolean enter=true, mist_half_gone=false, mist_gone=false;
-    private String ACCELID="Accelerometer";
+    private String ACCELID;
 
 
 
@@ -48,11 +48,12 @@ public class SensorHandler implements SensorEventListener {
 
 
 
-    public SensorHandler(MessageReceiver MR){
+    public SensorHandler(MessageReceiver MR, String id){
         rotationCurrent[0]=1.0f;
         rotationCurrent[4]=1.0f;
         rotationCurrent[8]=1.0f;
         this.MR=MR;
+        this.ACCELID=id;
     }
 
 

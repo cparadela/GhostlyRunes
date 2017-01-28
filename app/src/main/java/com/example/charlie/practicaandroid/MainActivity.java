@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     private boolean mist_gone=false;
 
     //TODO poner string en constructor?
-    public SensorHandler SR= new SensorHandler(this);
+    public SensorHandler SR= new SensorHandler(this, ACCELID);
     public SoundHandler sound;
     public TouchHandler touch;
     //TODO Quitar supressWarnings y controlar versiones
