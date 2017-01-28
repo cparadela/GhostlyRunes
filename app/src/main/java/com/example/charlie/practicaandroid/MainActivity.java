@@ -108,9 +108,6 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 vib.vibrate(500);
 
             } else if (message == "moveSoft") {
-                sound.play(blow);
-                Thread.sleep(1200);
-                niebla.setAlpha(0.4f);
                 Toast.makeText(getApplicationContext(), "¡Tienes que agitar más fuerte para que se vaya toda la niebla!", Toast.LENGTH_LONG).show();
 
             }
