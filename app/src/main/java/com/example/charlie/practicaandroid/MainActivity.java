@@ -1,7 +1,6 @@
 package com.example.charlie.practicaandroid;
 
 import android.content.Context;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -9,14 +8,11 @@ import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 
 import static java.lang.Math.abs;
@@ -29,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     //Messages
     final String ACCELID="Accelerometer";
     final String TOUCHID="Screen Touch";
+    final String COMPASSID="Compass";
 
     ImageView niebla;
     int tada, blow;
@@ -39,7 +36,8 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     private boolean mist_gone=false;
 
     //TODO poner string en constructor?
-    public SensorHandler SR= new SensorHandler(this, ACCELID);
+    public AcceleratorHandler AH= new AcceleratorHandler(this, ACCELID);
+    public CompassHandler CH = new CompassHandler(this,COMPASSID);
     public SoundHandler sound;
     public TouchHandler touch;
     //TODO Quitar supressWarnings y controlar versiones
@@ -74,23 +72,56 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
     }
 
-
     @Override //TODO Cambiar comentarios y cosillas
     protected void onResume() {
         super.onResume(); //registro del listener
         SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-        List<Sensor> sensors = sm.getSensorList(Sensor.TYPE_ACCELEROMETER);  //se utilizará el acelerómetro como sensor
-        if (sensors.size() > 0) {
+
+        if(sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)==null){
+          Log.w("ACCELEROMETER", "NOT FOUND");
+            Toast.makeText(getApplicationContext(), "Esta apliación no soporta dispositivos sin acelerómetro.", Toast.LENGTH_LONG).show();
+        }else{
+            sm.registerListener(AH,sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_GAME);
+        }
+
+        if(sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)==null){
+            Log.w("COMPASS", "NOT FOUND");
+            Toast.makeText(getApplicationContext(), "Este dispositivo no tiene brújula. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
+
+        }else{
+            sm.registerListener(CH,sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),SensorManager.SENSOR_DELAY_GAME);
+        }
+
+        if(sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE)==null){
+            Log.w("GYROSCOPE", "NOT FOUND");
+            Toast.makeText(getApplicationContext(), "Este dispositivo no tiene giroscopio. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
+
+        }else{
+            sm.registerListener(CH,sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),SensorManager.SENSOR_DELAY_GAME);
+        }
+
+
+
+        /*
+        List<Sensor> acc_sensors = sm.getSensorList(Sensor.TYPE_ACCELEROMETER);  //se utilizará el acelerómetro como sensor
+        List<Sensor> mf_sensors = sm.getSensorList(Sensor.TYPE_MAGNETIC_FIELD);
+        if (acc_sensors.size() > 0) {
             //indicar tasa de lectura de datos:
             //"SensorManager.SENSOR_DELAY_GAME" que es la velocidad mínima para que el acelerómetro pueda usarse
-            sm.registerListener(SR, sensors.get(0), SensorManager.SENSOR_DELAY_GAME);
+            sm.registerListener(AH, acc_sensors.get(0), SensorManager.SENSOR_DELAY_GAME);
         }
+        if (mf_sensors.size() > 0) {
+            //indicar tasa de lectura de datos:
+            //"SensorManager.SENSOR_DELAY_GAME" que es la velocidad mínima para que el acelerómetro pueda usarse
+            sm.registerListener(CH, mf_sensors.get(0), SensorManager.SENSOR_DELAY_GAME);
+        }*/
     }
 
     @Override
     protected void onStop() { //anular el registro del listener
         SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-        sm.unregisterListener(SR);
+        sm.unregisterListener(AH);
+        sm.unregisterListener(CH);
         super.onStop();
     }
 
