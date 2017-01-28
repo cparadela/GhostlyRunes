@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+//TODO borrar esto
+//  pq me mientes git??
 
 import static java.lang.Math.abs;
 //TODO: multilenguaje
