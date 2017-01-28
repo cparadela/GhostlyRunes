@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     final String ACCELID="Accelerometer";
     final String TOUCHID="Screen Touch";
     final String COMPASSID="Compass";
+    final String GYROID="Gyroscope";
+
+    boolean hasCompass=true,hasAccel=true,hasGyro=true;
 
     ImageView niebla;
     int tada, blow;
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     //TODO poner string en constructor?
     public AcceleratorHandler AH= new AcceleratorHandler(this, ACCELID);
     public CompassHandler CH = new CompassHandler(this,COMPASSID);
+    public GyroHandler GH = new GyroHandler(this,GYROID);
     public SoundHandler sound;
     public TouchHandler touch;
     //TODO Quitar supressWarnings y controlar versiones
@@ -79,27 +83,28 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         super.onResume(); //registro del listener
         SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        if(sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)==null){
+        if(!hasAccel || sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)==null){
           Log.w("ACCELEROMETER", "NOT FOUND");
-            Toast.makeText(getApplicationContext(), "Esta apliación no soporta dispositivos sin acelerómetro.", Toast.LENGTH_LONG).show();
+            if(hasAccel) Toast.makeText(getApplicationContext(), "Esta apliación no soporta dispositivos sin acelerómetro.", Toast.LENGTH_LONG).show();
+            hasAccel=false;
         }else{
             sm.registerListener(AH,sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_GAME);
         }
 
-        if(sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)==null){
+        if(!hasCompass || sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)==null){
             Log.w("COMPASS", "NOT FOUND");
-            Toast.makeText(getApplicationContext(), "Este dispositivo no tiene brújula. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
-
+            if(hasCompass) Toast.makeText(getApplicationContext(), "Este dispositivo no tiene brújula. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
+            hasCompass=false;
         }else{
             sm.registerListener(CH,sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),SensorManager.SENSOR_DELAY_GAME);
         }
 
-        if(sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE)==null){
+        if(!hasGyro || sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE)==null){
             Log.w("GYROSCOPE", "NOT FOUND");
-            Toast.makeText(getApplicationContext(), "Este dispositivo no tiene giroscopio. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
-
+            if(hasGyro) Toast.makeText(getApplicationContext(), "Este dispositivo no tiene giroscopio. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
+            hasGyro=false;
         }else{
-            sm.registerListener(CH,sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),SensorManager.SENSOR_DELAY_GAME);
+            sm.registerListener(GH,sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE),SensorManager.SENSOR_DELAY_GAME);
         }
 
 
@@ -122,8 +127,9 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     @Override
     protected void onStop() { //anular el registro del listener
         SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-        sm.unregisterListener(AH);
-        sm.unregisterListener(CH);
+        if(hasAccel) sm.unregisterListener(AH);
+        if(hasCompass) sm.unregisterListener(CH);
+        if(hasGyro) sm.unregisterListener(GH);
         super.onStop();
     }
 
