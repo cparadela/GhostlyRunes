@@ -15,6 +15,8 @@ public class TouchHandler implements View.OnTouchListener {
     //TODO resolver dependencia de nombres
     View p1,p2; //Image of points p1 and p2 of our minimgame. Its names should be Point and Point2 if default is used.
 
+
+
     float lkx,lky; //to check previous movement
     float ox,oy; //origin coordinates (p1)
     float dx,dy; //destiny coordinates (p2)
