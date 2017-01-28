@@ -14,7 +14,7 @@ import java.text.DecimalFormat;
  * Created by migue on 21/01/2017.
  */
 
-public class SensorHandler implements SensorEventListener {
+public class AcceleratorHandler implements SensorEventListener {
 
     //------------- GYROSCOPE VARIABLES BEGIN ---------------------
 
@@ -39,6 +39,7 @@ public class SensorHandler implements SensorEventListener {
 
 
 
+
     //------------- ACCELEROMETER VARIABLES END ---------------------
 
     //------------- OTHER VARIABLES BEGIN ---------------------
@@ -48,12 +49,12 @@ public class SensorHandler implements SensorEventListener {
 
 
 
-    public SensorHandler(MessageReceiver MR, String id){
+    public AcceleratorHandler(MessageReceiver MR, String accelid){
         rotationCurrent[0]=1.0f;
         rotationCurrent[4]=1.0f;
         rotationCurrent[8]=1.0f;
         this.MR=MR;
-        this.ACCELID=id;
+        this.ACCELID=accelid;
     }
 
 
@@ -131,7 +132,6 @@ public class SensorHandler implements SensorEventListener {
         //------------- ACCELEROMETER BEGIN---------------------
 
         //We get the values of the axis X,Y,Z of the accelerometer
-
         accX = event.values[0];
         accY = event.values[1];
         accZ = event.values[2];
@@ -168,11 +168,7 @@ public class SensorHandler implements SensorEventListener {
 
         }
 
-
-
-
-
-
+        //------------- ACCELEROMETER END ---------------------
     }
 
     @Override
