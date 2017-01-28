@@ -9,7 +9,17 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.charlie.practicaandroid.StarPatternActivity">
+    tools:context="com.example.charlie.practicaandroid.StarPatternActivity"
+    android:background="@drawable/blue">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ghost_estrella"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -20,7 +30,7 @@
         android:id="@+id/Point2"
         android:layout_alignTop="@+id/Point"
         android:layout_toRightOf="@+id/Point4"
-        android:layout_toEndOf="@+id/Point4" />
+        android:elevation="0dp" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -30,18 +40,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/punto1"
-        android:layout_marginTop="40dp"
-        android:id="@+id/Point"
-        android:layout_marginRight="45dp"
-        android:layout_marginEnd="45dp"
-        android:layout_below="@+id/Point4"
-        android:layout_toLeftOf="@+id/Point4"
-        android:layout_toStartOf="@+id/Point4" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -62,7 +60,18 @@
         android:id="@+id/Point3"
         android:layout_marginTop="71dp"
         android:layout_below="@+id/Point"
-        android:layout_toLeftOf="@+id/Point4"
-        android:layout_toStartOf="@+id/Point4" />
+        android:layout_toLeftOf="@+id/Point4" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/punto1"
+        android:layout_marginTop="40dp"
+        android:id="@+id/Point"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_below="@+id/Point4"
+        android:layout_toLeftOf="@+id/Point3"
+        android:layout_toStartOf="@+id/Point3" />
 
 </RelativeLayout>
