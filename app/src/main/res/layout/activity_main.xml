@@ -40,9 +40,6 @@
         android:scaleType="centerCrop"
         android:src="@drawable/niebla"
         android:id="@+id/niebla"
-        android:adjustViewBounds="false"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:adjustViewBounds="false" />
 
 </RelativeLayout>
