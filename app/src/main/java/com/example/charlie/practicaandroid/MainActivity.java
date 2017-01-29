@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
     //TODO poner string en constructor?
     public AcceleratorHandler AH= new AcceleratorHandler(this, ACCELID);
-    public CompassHandler CH = new CompassHandler(this,COMPASSID);
+    //public CompassHandler CH = new CompassHandler(this,COMPASSID);
     public GyroHandler GH = new GyroHandler(this,GYROID);
     public SoundHandler sound;
     public TouchHandler touch;
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
             if(hasCompass) Toast.makeText(getApplicationContext(), "Este dispositivo no tiene brújula. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
             hasCompass=false;
         }else{
-            sm.registerListener(CH,sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),SensorManager.SENSOR_DELAY_GAME);
+           // sm.registerListener(CH,sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),SensorManager.SENSOR_DELAY_GAME);
         }
 
         if(!hasGyro || sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE)==null){
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     protected void onStop() { //anular el registro del listener
         SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
         if(hasAccel) sm.unregisterListener(AH);
-        if(hasCompass) sm.unregisterListener(CH);
+        //if(hasCompass) sm.unregisterListener(CH);
         if(hasGyro) sm.unregisterListener(GH);
         super.onStop();
     }
