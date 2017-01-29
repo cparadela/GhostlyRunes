@@ -132,7 +132,8 @@ public class GyroHandler implements SensorEventListener {
             }
             if(!found && f==true && t0>0 && (event.timestamp-t0)*NS2S>2.5f){
                 Log.d("FANTASMA", "ENCONTRADO");
-                found=true;
+                //found=true;
+                newGhost();
                 try {
                     MR.transmitMessage(GYROID, "ghostFound");
                 } catch (InterruptedException e) {
@@ -149,12 +150,6 @@ public class GyroHandler implements SensorEventListener {
             }
 
         }
-        if (!coords_set && normalized_gravity != null && normalized_gravity[2] > 0.9f) {
-            coords_set = true;
-            basevector = gyroscopeOrientation;
-        }
-        //Log.d("COORD", "S:"+coords_set + " V:" + basevector[0] + " " + basevector[1] + " " + basevector[2]);
-        //Log.d("COORD", "" + basevector2[0] + " " + basevector2[1] + " " + basevector2[2]);
     }
 
     void newGhost(){
