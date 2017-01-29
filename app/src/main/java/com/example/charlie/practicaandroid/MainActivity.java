@@ -108,6 +108,17 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         }
 
 
+        if(!hasGyro || sm.getDefaultSensor(Sensor.TYPE_GRAVITY)==null){
+            Log.w("ROTATION VECTOR", "NOT FOUND");
+            if(hasGyro) Toast.makeText(getApplicationContext(), "Este dispositivo no tiene giroscopio. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
+            hasGyro=false;
+        }else{
+            sm.registerListener(GH,sm.getDefaultSensor(Sensor.TYPE_GRAVITY),SensorManager.SENSOR_DELAY_GAME);
+        }
+
+
+
+
 
         /*
         List<Sensor> acc_sensors = sm.getSensorList(Sensor.TYPE_ACCELEROMETER);  //se utilizará el acelerómetro como sensor
@@ -165,7 +176,14 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                     Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
                     vib.vibrate(200);
                 }
+                break;
+            case GYROID:
+                if(message == "vibratePlease"){
+                    Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+                    vib.vibrate(50);
 
+                }
+                break;
         }
 
         return true;
