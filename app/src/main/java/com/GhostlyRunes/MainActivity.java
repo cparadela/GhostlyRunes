@@ -1,4 +1,4 @@
-package com.example.charlie.GhostlyRunes;
+package com.GhostlyRunes;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,6 @@ import android.widget.Toast;
 //TODO borrar esto
 //  pq me mientes git??
 
-import static java.lang.Math.abs;
 //TODO: multilenguaje
 public class MainActivity extends AppCompatActivity implements MessageReceiver{
     //TODO Borrar comentario

@@ -1,4 +1,4 @@
-package com.example.charlie.GhostlyRunes;
+package com.GhostlyRunes;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
+
 
 /**
  * Created by Charlie on 28/01/2017.

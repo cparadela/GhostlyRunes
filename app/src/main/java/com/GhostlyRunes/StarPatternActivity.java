@@ -1,4 +1,4 @@
-package com.example.charlie.GhostlyRunes;
+package com.GhostlyRunes;
 
 import android.os.Bundle;
 import android.view.View;

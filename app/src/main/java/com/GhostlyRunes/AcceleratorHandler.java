@@ -1,4 +1,4 @@
-package com.example.charlie.GhostlyRunes;
+package com.GhostlyRunes;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
