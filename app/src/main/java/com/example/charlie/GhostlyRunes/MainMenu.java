@@ -1,4 +1,4 @@
-package com.example.charlie.practicaandroid;
+package com.example.charlie.GhostlyRunes;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

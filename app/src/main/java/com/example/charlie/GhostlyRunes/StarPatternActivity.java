@@ -1,4 +1,4 @@
-package com.example.charlie.practicaandroid;
+package com.example.charlie.GhostlyRunes;
 
 import android.os.Bundle;
 import android.view.View;

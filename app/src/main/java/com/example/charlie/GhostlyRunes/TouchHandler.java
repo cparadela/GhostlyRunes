@@ -1,4 +1,4 @@
-package com.example.charlie.practicaandroid;
+package com.example.charlie.GhostlyRunes;
 
 import android.util.Log;
 import android.view.MotionEvent;

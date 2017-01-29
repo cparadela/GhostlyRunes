@@ -1,14 +1,10 @@
-package com.example.charlie.practicaandroid;
+package com.example.charlie.GhostlyRunes;
 
-import android.content.res.Resources;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
-import android.view.Gravity;
-
-import java.text.DecimalFormat;
 
 /**
  * Created by Charlie 28/01/2017.

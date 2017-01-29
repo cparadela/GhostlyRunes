@@ -1,4 +1,4 @@
-package com.example.charlie.practicaandroid;
+package com.example.charlie.GhostlyRunes;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import java.util.List;
 
 //TODO borrar esto
 //  pq me mientes git??
