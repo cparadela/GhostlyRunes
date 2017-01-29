@@ -12,8 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-//TODO borrar esto
-//  pq me mientes git??
 
 //TODO: multilenguaje
 public class MainActivity extends AppCompatActivity implements MessageReceiver{
