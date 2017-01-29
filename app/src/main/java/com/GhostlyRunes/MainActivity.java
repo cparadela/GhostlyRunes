@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     final String TOUCHID="Screen Touch";
     final String GYROID="Gyroscope";
 
-    boolean hasCompass=true,hasAccel=true,hasGyro=true;
+    boolean hasCompass=true, hasAccel=true,hasGyro=true;
 
     ImageView niebla;
     int tada, blow;
