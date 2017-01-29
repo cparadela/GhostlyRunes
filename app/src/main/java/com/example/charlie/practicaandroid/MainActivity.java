@@ -178,11 +178,17 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 }
                 break;
             case GYROID:
-                if(message == "vibratePlease"){
+                if(message == "doPulsation") {
                     Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
                     vib.vibrate(50);
+                }else if(message == "ghostFound"){
+                    Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+                    vib.vibrate(500);
 
                 }
+
+
+
                 break;
         }
 

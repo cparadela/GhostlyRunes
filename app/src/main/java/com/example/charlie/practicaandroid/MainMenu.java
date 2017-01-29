@@ -24,7 +24,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
     public void onClick(View v){
         if (v==Start){
-            Intent intent = new Intent(this, CompassHandler.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
 

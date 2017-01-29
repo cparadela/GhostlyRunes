@@ -33,6 +33,7 @@ public class GyroHandler implements SensorEventListener {
     float[] basevector2 = new float[3];
 
     float fantasma=1.1f;
+    boolean found=false;
     float error =0.2f;
     long t0;
 
@@ -53,6 +54,8 @@ public class GyroHandler implements SensorEventListener {
         rotationCurrent[8]=1.0f;
         this.MR=MR;
         this.GYROID=accelid;
+        newGhost();
+
     }
 
 
@@ -116,11 +119,10 @@ public class GyroHandler implements SensorEventListener {
         SensorManager.getOrientation(rotationCurrent,
                 gyroscopeOrientation);
 
-        Log.d("", "" + Math.abs(gyroscopeOrientation[0] - fantasma));
 
-        if(Math.abs(gyroscopeOrientation[0] - fantasma) < time_not_vib){
+        if(!found && Math.abs(gyroscopeOrientation[0] - fantasma) < time_not_vib){
             try {
-                MR.transmitMessage(GYROID, "vibratePlease");
+                MR.transmitMessage(GYROID, "doPulsation");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -132,8 +134,14 @@ public class GyroHandler implements SensorEventListener {
                 f = true;
                 t0=event.timestamp;
             }
-            if(f==true && t0>0 && (event.timestamp-t0)*NS2S>2.5f){
+            if(!found && f==true && t0>0 && (event.timestamp-t0)*NS2S>2.5f){
                 Log.d("FANTASMA", "ENCONTRADO");
+                found=true;
+                try {
+                    MR.transmitMessage(GYROID, "ghostFound");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
 
@@ -153,6 +161,10 @@ public class GyroHandler implements SensorEventListener {
         //Log.d("COORD", "" + basevector2[0] + " " + basevector2[1] + " " + basevector2[2]);
     }
 
+    void newGhost(){
+        fantasma=(float) (Math.random()*6-3);
+        Log.d("CREADO GYRO","FANTASMA"+fantasma);
+    }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
