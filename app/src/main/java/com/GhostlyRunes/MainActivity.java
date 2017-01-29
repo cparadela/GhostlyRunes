@@ -15,14 +15,9 @@ import android.widget.Toast;
 
 //TODO: multilenguaje
 public class MainActivity extends AppCompatActivity implements MessageReceiver{
-    //TODO Borrar comentario
-    //ImageView p1,p2;
-
-
     //Messages
     final String ACCELID="Accelerometer";
     final String TOUCHID="Screen Touch";
-    final String COMPASSID="Compass";
     final String GYROID="Gyroscope";
 
     boolean hasCompass=true,hasAccel=true,hasGyro=true;
@@ -37,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
     //TODO poner string en constructor?
     public AcceleratorHandler AH= new AcceleratorHandler(this, ACCELID);
-    //public CompassHandler CH = new CompassHandler(this,COMPASSID);
     public GyroHandler GH = new GyroHandler(this,GYROID);
     public SoundHandler sound;
     public TouchHandler touch;
@@ -86,14 +80,6 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
             sm.registerListener(AH,sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_GAME);
         }
 
-        if(!hasCompass || sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)==null){
-            Log.w("COMPASS", "NOT FOUND");
-            if(hasCompass) Toast.makeText(getApplicationContext(), "Este dispositivo no tiene brújula. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
-            hasCompass=false;
-        }else{
-           // sm.registerListener(CH,sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),SensorManager.SENSOR_DELAY_GAME);
-        }
-
         if(!hasGyro || sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE)==null){
             Log.w("GYROSCOPE", "NOT FOUND");
             if(hasGyro) Toast.makeText(getApplicationContext(), "Este dispositivo no tiene giroscopio. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
@@ -101,40 +87,12 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         }else{
             sm.registerListener(GH,sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE),SensorManager.SENSOR_DELAY_GAME);
         }
-
-
-        if(!hasGyro || sm.getDefaultSensor(Sensor.TYPE_GRAVITY)==null){
-            Log.w("ROTATION VECTOR", "NOT FOUND");
-            if(hasGyro) Toast.makeText(getApplicationContext(), "Este dispositivo no tiene giroscopio. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
-            hasGyro=false;
-        }else{
-            sm.registerListener(GH,sm.getDefaultSensor(Sensor.TYPE_GRAVITY),SensorManager.SENSOR_DELAY_GAME);
-        }
-
-
-
-
-
-        /*
-        List<Sensor> acc_sensors = sm.getSensorList(Sensor.TYPE_ACCELEROMETER);  //se utilizará el acelerómetro como sensor
-        List<Sensor> mf_sensors = sm.getSensorList(Sensor.TYPE_MAGNETIC_FIELD);
-        if (acc_sensors.size() > 0) {
-            //indicar tasa de lectura de datos:
-            //"SensorManager.SENSOR_DELAY_GAME" que es la velocidad mínima para que el acelerómetro pueda usarse
-            sm.registerListener(AH, acc_sensors.get(0), SensorManager.SENSOR_DELAY_GAME);
-        }
-        if (mf_sensors.size() > 0) {
-            //indicar tasa de lectura de datos:
-            //"SensorManager.SENSOR_DELAY_GAME" que es la velocidad mínima para que el acelerómetro pueda usarse
-            sm.registerListener(CH, mf_sensors.get(0), SensorManager.SENSOR_DELAY_GAME);
-        }*/
     }
 
     @Override
     protected void onStop() { //anular el registro del listener
         SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
         if(hasAccel) sm.unregisterListener(AH);
-        //if(hasCompass) sm.unregisterListener(CH);
         if(hasGyro) sm.unregisterListener(GH);
         super.onStop();
     }
@@ -179,11 +137,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 }else if(message == "ghostFound"){
                     Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
                     vib.vibrate(500);
-
                 }
-
-
-
                 break;
         }
 
