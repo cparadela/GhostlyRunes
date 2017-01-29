@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.charlie.practicaandroid.StarPatternActivity"
-    android:background="@drawable/blue">
+    android:background="@drawable/blue"   >
 
     <ImageView
         android:layout_width="wrap_content"
@@ -41,8 +41,7 @@
         android:id="@+id/Point3"
         android:layout_marginTop="71dp"
         android:layout_below="@+id/Point1"
-        android:layout_toLeftOf="@+id/Point4"
-        tools:ignore="RtlHardcoded" />
+        android:layout_toLeftOf="@+id/Point4" />
 
     <ImageView
         android:src="@drawable/n4"
