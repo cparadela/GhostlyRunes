@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     final String COMPASSID="Compass";
     final String GYROID="Gyroscope";
 
-    boolean hasCompass=true,hasAccel=true,hasGyro=true;
+    boolean hasCompass=true, hasAccel=true,hasGyro=true;
 
     ImageView niebla;
     int tada, blow;

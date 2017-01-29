@@ -1,5 +1,6 @@
 package com.GhostlyRunes;
 
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 /**
@@ -22,6 +24,7 @@ public class CompassHandler extends AppCompatActivity implements SensorEventList
     private SensorManager mSensorManager;
     private float currentDegree =0f;
 
+    private boolean hasCompass=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,15 @@ public class CompassHandler extends AppCompatActivity implements SensorEventList
 
         aguja = (ImageView) findViewById(R.id.aguja);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        if(!hasCompass || mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)==null) {
+            Log.w("COMPASS", "NOT FOUND");
+            if (hasCompass)
+                Toast.makeText(getApplicationContext(), "Este dispositivo no tiene brújula. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
+            hasCompass = false;
+            Intent intent = new Intent(this, MainMenu.class);
+            startActivity(intent);
+        }
 
 
     }
