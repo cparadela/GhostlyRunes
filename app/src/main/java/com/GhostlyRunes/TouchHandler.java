@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import static java.lang.System.in;
+
 /**
  * Created by Charlie on 25/01/2017.
  */
@@ -21,7 +23,7 @@ public class TouchHandler implements View.OnTouchListener {
     float ox,oy; //origin coordinates (p1)
     float dx,dy; //destiny coordinates (p2)
     public float error=100f; //error on fingertips
-    public float alpha=0.5f; //alpha in [0,1], checks optimality of the descent (1: optimality)
+    public float alpha=0;//0.5f; //alpha in [0,1], checks optimality of the descent (1: optimality)
     boolean path=false; //If the events are a possible solution to the minigame
     boolean checking=false; //enable minigame
 
@@ -115,10 +117,11 @@ public class TouchHandler implements View.OnTouchListener {
                     if(debug) Log.d("PATH_EVENT", "P1 pulsado");
 
 
-                }
+                }else{
                 //TODO no sé por qué entra en ciertos sitios
                 if (path) {
-                    if(debug) Log.d("MOVE_EVENT", "Position: " + event.getX() + " " + event.getY() + ". Distance: " + distance(x, y, dx, dy));
+                    if (debug)
+                        Log.d("MOVE_EVENT", "Position: " + event.getX() + " " + event.getY() + ". Distance: " + distance(x, y, dx, dy));
                     if (distance(x, y, dx, dy) < error) {
                         if (debug) Log.d("PATH_EVENT", "P2 reached");
                         pattern_done++;
@@ -128,35 +131,39 @@ public class TouchHandler implements View.OnTouchListener {
 
                             //TODO Quizá cambiar este comportamiento. Ahora reinicia el patrón.
                             resetPattern(v);
-
+                            //pattern_new=true;
                             try {
                                 MR.transmitMessage(TOUCHID, "destinyReached");
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                         } else {
-                            if(debug) Log.d("MID POINT REACHED", "DONE:"+ pattern_done);
+                            if (debug) Log.d("MID POINT REACHED", "DONE:" + pattern_done);
                             //continuePattern(v);
                             //p1=p2;
 
                             //DEBUG
-                            float pox=ox;
-                            float poy=oy;
-                            float pdx=dx;
-                            float pdy=dy;
+                            float pox = ox;
+                            float poy = oy;
+                            float pdx = dx;
+                            float pdy = dy;
                             //!DEBUG
 
-                            p1=v.findViewById(pattern[pattern_done]);
-                            p2=v.findViewById(pattern[pattern_done+1]);
+                            p1 = v.findViewById(pattern[pattern_done]);
+                            p2 = v.findViewById(pattern[pattern_done + 1]);
                             ox = p1.getRight();
                             oy = p1.getTop();
                             dx = p2.getRight();
                             dy = p2.getTop();
 
-                            if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" NEW O: "+ox + " "+oy +".");
-                            if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" OLD O: "+pox + " "+poy +".");
-                            if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" NEW D: "+dx + " "+dy +".");
-                            if(debug) Log.d("CONTINUE PATTERN","DONE: "+pattern_done +" OLD D: "+pdx + " "+pdy +".");
+                            if (debug)
+                                Log.d("CONTINUE PATTERN", "DONE: " + pattern_done + " NEW O: " + ox + " " + oy + ".");
+                            if (debug)
+                                Log.d("CONTINUE PATTERN", "DONE: " + pattern_done + " OLD O: " + pox + " " + poy + ".");
+                            if (debug)
+                                Log.d("CONTINUE PATTERN", "DONE: " + pattern_done + " NEW D: " + dx + " " + dy + ".");
+                            if (debug)
+                                Log.d("CONTINUE PATTERN", "DONE: " + pattern_done + " OLD D: " + pdx + " " + pdy + ".");
 
                             try {
                                 MR.transmitMessage(TOUCHID, "partialPatternDone");
@@ -164,23 +171,48 @@ public class TouchHandler implements View.OnTouchListener {
                                 e.printStackTrace();
                             }
                         }
-                    }else if ((distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) < distance(lkx, lky, x, y) * alpha && distance(x, y, ox, ox)>error && distance(x,y,dx,dy)>error) {
-                        path = false;
-                        if(pattern_done!=0){
-                            //resetPattern(v);
-                        }
+                    }   /*else{
+                        float pvx=(error*(-dy+oy)/distance(ox,oy,dx,dy));
+                        float pvy=(error*(-dx+ox)/distance(ox,oy,dx,dy));
+                        float ax=ox+pvx;
+                        float ay=oy+pvy;
+                        float bx=dx+pvx;
+                        float by=dx+pvy;
+                        float cx=ox-pvx;
+                        float cy=ox-pvy;
+                        float APAB=(x-ax)*(bx-ax)+(y-ay)*(by-ay);
+                        float ABAB=(bx-ax)*(bx-ax)+(by-ay)*(by-ay);
+                        float APAC=(x-ax)*(cx-ax)+(y-ay)*(cy-ay);
+                        float ACAC=(cx-ax)*(cx-ax)+(cy-ay)*(cy-ay);
+                        if(!(0<APAB && APAB<ABAB && 0<APAC && APAC<ACAC) && distance(x,y,ox,oy)>error && distance(x,y,dx,dy)>error) {*/
+                            else if((distance(x,y,ox,oy)+distance(x,y,dx,dy))>error+distance(ox,oy,dx,dy)){ //If not within the ellipse with origin and destiny as focus and constant error+distance
+                            //else if ((distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) < distance(lkx, lky, x, y) * alpha && distance(x, y, ox, ox) > error && distance(x, y, dx, dy) > error) { //Original check
+                            path = false;
 
-                        if(debug) Log.d("PATH_EVENT", "End of path: Distance A:" + distance(x, y, dx, dy) + ", LK:" + distance(lkx, lky, dx, dy) + ", DIFF:" + (distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) + ",TOL:" + distance(lkx, lky, x, y) * alpha);
-                        if(debug) Log.d("PATH_EVENT", "Points were: O:"+ox+" "+oy+", D:"+dx+" "+dy+", P:"+x+" "+y);
-                        if(debug) Log.d("PATH EVENT", "Distances: O:"+distance(x, y, ox, ox)+", D:"+distance(x, y, dx, dy));
-                        try {
-                            MR.transmitMessage(TOUCHID, "pathLost");
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+
+                            if (debug)
+                                Log.d("PATH_EVENT", "End of path: Distance A:" + distance(x, y, dx, dy) + ", LK:" + distance(lkx, lky, dx, dy) + ", DIFF:" + (distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) + ",TOL:" + distance(lkx, lky, x, y) * alpha);
+                            if (debug)
+                                Log.d("PATH_EVENT", "Points were: O:" + ox + " " + oy + ", D:" + dx + " " + dy + ", P:" + x + " " + y);
+                            if (debug)
+                                Log.d("PATH EVENT", "Distances: O:" + distance(x, y, ox, ox) + ", D:" + distance(x, y, dx, dy));
+                            try {
+                                MR.transmitMessage(TOUCHID, "pathLost");
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            if (pattern_done != 0) {
+                                resetPattern(v);
+                                // pattern_new =true;
+                            }
+
+
                     }
+                }
+
                     lkx = x;
                     lky = y;
+
                 }
 
 
@@ -196,6 +228,7 @@ public class TouchHandler implements View.OnTouchListener {
     private float distance(float x1,float y1, float x2, float y2){
         return (float) Math.sqrt( (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) );
     }
+
     public void setError(float e){
         this.error=e;
     }
@@ -237,7 +270,14 @@ public class TouchHandler implements View.OnTouchListener {
         pattern_new=false;
         if(debug) Log.d("PATTERN RESET","DONE: "+pattern_done);
         pattern_done=0;
+    if(pattern!=null){
+        if(debug) Log.d("PATTERN RESET", "PATTERN: ");
 
+        for(int i : pattern){
+            if(debug) Log.d("PATTERN RESET", " "+ v.findViewById(i).getRight()+" "+ v.findViewById(i).getTop());
+
+        }
+    }
     }
 
     //TODO no funciona
