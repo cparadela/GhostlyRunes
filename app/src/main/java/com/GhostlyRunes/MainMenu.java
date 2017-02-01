@@ -1,5 +1,6 @@
 package com.GhostlyRunes;
 
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -27,6 +28,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
         start_compass = (Button) findViewById(R.id.start_compass);
         start_compass.setOnClickListener(this);
+
+        sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
 
     }

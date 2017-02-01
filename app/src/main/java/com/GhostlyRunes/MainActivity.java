@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
           Log.w("ACCELEROMETER", "NOT FOUND");
             if(hasAccel) Toast.makeText(getApplicationContext(), "Esta apliación no soporta dispositivos sin acelerómetro.", Toast.LENGTH_LONG).show();
             hasAccel=false;
-        }else if(!ectoplasma_gone){
+        }else if(!ectoplasm_gone){
             sm.registerListener(AH,sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_GAME);
         }
         //TODO Solucionar que no entre en giroscopio sino lo tiene
