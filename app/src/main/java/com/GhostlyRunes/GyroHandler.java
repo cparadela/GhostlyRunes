@@ -16,7 +16,7 @@ public class GyroHandler implements SensorEventListener {
     int maxcount=20;
 
 
-    float[] normalized_gravity;
+
 
     // Create a constant to convert nanoseconds to seconds.
     private static final float NS2S = 1.0f / 1000000000.0f;
@@ -24,20 +24,15 @@ public class GyroHandler implements SensorEventListener {
     private float timestamp;
     private final float EPSILON=  0.000001f;
 
-    boolean coords_set = false;
-    float[] basevector = new float[3];
-    float[] basevector2 = new float[3];
 
-    float fantasma=1.1f;
-    boolean found=false;
-    float error =0.2f;
-    long t0;
-
-
-    float time_not_vib=0;
-
-
-    boolean f = false;
+    //Game variables
+    float ghost=1.1f; //Where the ghost is
+    boolean found=false; //Did it found the ghost?
+    float error =0.2f;  //Error in pointing at
+    long t0;            //Time pointing at ghost already
+    boolean checking=true; //If we are playing with the ghost
+    float time_not_vib=0;   //Time to check vibration pulses
+    boolean f = false;      //If we are currently pointing at the ghost.
 
     public float [] rotationCurrent = new float[9];
 
@@ -51,11 +46,12 @@ public class GyroHandler implements SensorEventListener {
         this.MR=MR;
         this.GYROID=accelid;
         newGhost();
-
     }
 
 
     public void onSensorChanged(SensorEvent event) {
+
+        //SECTION: PREPROCESSING OF GYROSCOPE
         // This timestep's delta rotation to be multiplied by the current rotation
         // after computing it from the gyro sample data.
 
@@ -117,8 +113,10 @@ public class GyroHandler implements SensorEventListener {
         SensorManager.getOrientation(rotationCurrent,
                 gyroscopeOrientation);
 
-        //TODO como funciona el time_not_vib???
-        if(!found && Math.abs(gyroscopeOrientation[0] - fantasma) < time_not_vib){
+
+        //SECTION: PHANTOM GAME
+    if(checking){
+        if(!found && Math.abs(gyroscopeOrientation[0] - ghost) < time_not_vib){
             try {
                 MR.transmitMessage(GYROID, "doPulsation");
             } catch (InterruptedException e) {
@@ -126,7 +124,7 @@ public class GyroHandler implements SensorEventListener {
             }
             time_not_vib=0;
         }
-        if (Math.abs(gyroscopeOrientation[0] - fantasma) < error) {
+        if (Math.abs(gyroscopeOrientation[0] - ghost) < error) {
 
             if (f == false) {
                 f = true;
@@ -134,8 +132,9 @@ public class GyroHandler implements SensorEventListener {
             }
             if(!found && f==true && t0>0 && (event.timestamp-t0)*NS2S>2.5f){
                 Log.d("FANTASMA", "ENCONTRADO");
-                //found=true;
-                newGhost();
+                found=true;
+                checking=false;
+                //newGhost();
                 try {
                     MR.transmitMessage(GYROID, "ghostFound");
                 } catch (InterruptedException e) {
@@ -152,13 +151,20 @@ public class GyroHandler implements SensorEventListener {
             }
 
         }
+        }
     }
-
     void newGhost(){
-        fantasma=(float) (Math.random()*6-3);
-        Log.d("CREADO GYRO","FANTASMA"+fantasma);
+        ghost=(float) (Math.random()*6-3);
+        found=false;
+        Log.d("CREADO GYRO","FANTASMA"+ghost);
     }
 
+    void startChecking(){
+        checking=true;
+    }
+    void stopChecking(){
+        checking=false;
+    }
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
