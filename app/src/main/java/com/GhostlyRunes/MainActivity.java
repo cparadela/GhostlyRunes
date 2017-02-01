@@ -51,10 +51,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
         vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
 
-        //TODO quitar String de constructor?
-        View view = findViewById(R.id.activity_main);
         touch= new TouchHandler(this, TOUCHID);
-        view.setOnTouchListener(touch);
 
         //TODO Para ignorar la ectoplasm y testear. Borrar al final
         //ectoplasm.setAlpha(0.0f);
@@ -63,7 +60,8 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
     @Override //TODO Cambiar comentarios y cosillas
     protected void onResume() {
-        super.onResume(); //registro del listener
+        super.onResume();
+        //registro del listener
         SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         if(!hasAccel || sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)==null){
@@ -74,22 +72,13 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
             sm.registerListener(AH,sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_GAME);
         }
         //TODO Solucionar que no entre en giroscopio sino lo tiene
-
-/*
-        if(!hasGyro || sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE)==null){
-            Log.w("GYROSCOPE", "NOT FOUND");
-            if(hasGyro) Toast.makeText(getApplicationContext(), "Este dispositivo no tiene giroscopio. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
-            hasGyro=false;
-        }else{
-            sm.registerListener(GH,sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE),SensorManager.SENSOR_DELAY_GAME);
-        }*/
     }
 
     @Override
     protected void onStop() { //anular el registro del listener
-        SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-        if(hasAccel) sm.unregisterListener(AH);
         super.onStop();
+        SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
+        if(hasAccel && !ectoplasm_gone) sm.unregisterListener(AH);
     }
 
     @Override
@@ -105,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 }
                 ectoplasm.setAlpha(0.0f);
                 ectoplasm_gone = true;
+                mSensorManager.unregisterListener(AH);
                 touch.startChecking(); //Starts Minigame
                 vib.vibrate(500);
 
@@ -126,30 +116,6 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                     vib.vibrate(200);
                 }
                 break;
-            /*
-            case GYROID:
-                if(message == "doPulsation") {
-                    Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
-                    vib.vibrate(50);
-                }else if(message == "ghostFound"){
-                    Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
-                    vib.vibrate(500);
-                }
-                break;
-
-            case COMPID:
-                if(message == "doPulsation") {
-                    Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
-                    vib.vibrate(50);
-                }else if(message == "ghostFound"){
-                    Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
-                    vib.vibrate(500);
-                    Intent intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
-
-                }
-                break;
-                */
         }
 
         return true;

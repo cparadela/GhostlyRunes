@@ -9,6 +9,7 @@ import android.os.PersistableBundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by Charlie 28/01/2017.
@@ -18,9 +19,6 @@ public class GyroHandler extends AppCompatActivity implements SensorEventListene
     //DEBUG VARIABLES
     int count=0;
     int maxcount=20;
-
-
-
 
     // Create a constant to convert nanoseconds to seconds.
     private static final float NS2S = 1.0f / 1000000000.0f;
@@ -40,8 +38,9 @@ public class GyroHandler extends AppCompatActivity implements SensorEventListene
 
     public float [] rotationCurrent = new float[9];
 
+    //Services
     Vibrator vib;
-
+    SensorManager sm;
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
@@ -50,7 +49,19 @@ public class GyroHandler extends AppCompatActivity implements SensorEventListene
         rotationCurrent[8]=1.0f;
         newGhost();
         vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+        setContentView(R.layout.activity_compass);
+    }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        sm.registerListener(this,sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE),SensorManager.SENSOR_DELAY_GAME);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        sm.registerListener(this,sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE),SensorManager.SENSOR_DELAY_GAME);
     }
 
     public void onSensorChanged(SensorEvent event) {
