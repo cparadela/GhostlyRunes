@@ -189,7 +189,7 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
         Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
         vib.vibrate(500);
         Toast.makeText(getApplicationContext(), "¡Fantasma encontrado!", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, ZigZagPatternActivity.class);
+        Intent intent = new Intent(this, StarPatternActivity.class);
         startActivity(intent);
 
     }
