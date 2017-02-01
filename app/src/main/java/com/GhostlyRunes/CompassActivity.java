@@ -34,7 +34,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     boolean found=false;
     boolean f = false, last_vib=false;
     long t0;
-    int error=5;
+    int error=7;
 
 
     long time_not_vib=0;
@@ -168,7 +168,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
         vib.vibrate(500);
         Toast.makeText(getApplicationContext(), "¡Fantasma encontrado!", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, ZigZagPatternActivity.class);
+        Intent intent = new Intent(this, SlimerPatternActivity.class);
         startActivity(intent);
 
     }

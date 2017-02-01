@@ -1,24 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_star_pattern"
+    android:id="@+id/activity_slimer_pattern"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.GhostlyRunes.StarPatternActivity"
+    tools:context="com.GhostlyRunes.SlimerPatternActivity"
     android:background="@drawable/blue2"   >
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ghost_estrella"
-        android:id="@+id/ghostStar"
+        android:src="@drawable/slimer_pattern"
+        android:id="@+id/ghostSlimer"
         android:alpha="1"
         android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/n6"
+        android:id="@+id/Point6"
+        android:adjustViewBounds="false"
+        android:layout_alignTop="@+id/Point3"
+        android:layout_alignLeft="@+id/Point4"
+        android:layout_alignStart="@+id/Point4" />
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/n2"
+
+        android:id="@+id/Point2"
+        android:alpha="1"
+        android:adjustViewBounds="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/Point1"
+        android:layout_alignStart="@+id/Point1"
+        android:layout_marginTop="84dp" />
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/n3"
+        android:id="@+id/Point3"
+        android:layout_alignTop="@+id/Point2"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:src="@drawable/n4"
+        android:scaleType="fitCenter"
+        android:id="@+id/Point4"
+        android:alpha="1"
+        android:cropToPadding="true"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignTop="@+id/Point5"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="19dp"
+        android:layout_marginEnd="19dp" />
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/n1"
+        android:id="@+id/Point1"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginBottom="123dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -28,58 +84,11 @@
         android:src="@drawable/n5"
         android:id="@+id/Point5"
         android:adjustViewBounds="false"
-        android:layout_marginLeft="42dp"
-        android:layout_marginStart="42dp"
-        android:layout_alignTop="@+id/Point3"
-        android:layout_toRightOf="@+id/Point3"
-        android:layout_toEndOf="@+id/Point3" />
-
-    <ImageView
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:src="@drawable/n3"
-        android:id="@+id/Point3"
-        android:layout_marginTop="71dp"
-        android:layout_below="@+id/Point1"
-        android:layout_toLeftOf="@+id/Point4" />
-
-    <ImageView
-        android:src="@drawable/n4"
-        android:scaleType="fitCenter"
-        android:id="@+id/Point4"
-        android:alpha="1"
-        android:cropToPadding="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="145dp"
-        android:layout_marginEnd="145dp"
-        android:layout_marginTop="32dp"
-        android:layout_width="55dp"
-        android:layout_height="55dp" />
-
-    <ImageView
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:src="@drawable/n1"
-        android:layout_marginTop="93dp"
-        android:id="@+id/Point1"
-        android:layout_below="@+id/Point4"
-        android:layout_toLeftOf="@+id/Point3"
-        android:layout_toStartOf="@+id/Point3" />
-
-    <ImageView
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:src="@drawable/n2"
-        android:layout_marginLeft="17dp"
-        android:layout_marginStart="17dp"
-
-        android:id="@+id/Point2"
-        android:alpha="1"
         android:layout_alignTop="@+id/Point1"
-        android:layout_toRightOf="@+id/Point5"
-        android:layout_toEndOf="@+id/Point5"
-        android:adjustViewBounds="false" />
+        android:layout_alignLeft="@+id/Point3"
+        android:layout_alignStart="@+id/Point3"
+        android:layout_marginTop="12dp" />
 
 </RelativeLayout>
+
+

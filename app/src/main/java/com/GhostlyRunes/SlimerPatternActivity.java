@@ -4,12 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class SemiCirclePatternActivity extends MainActivity {
+public class SlimerPatternActivity extends MainActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_semi_circle_pattern);
+        setContentView(R.layout.activity_slimer_pattern);
+
 
         int[] pattern = new int[6];
         pattern[0]=R.id.Point1;
@@ -19,7 +20,7 @@ public class SemiCirclePatternActivity extends MainActivity {
         pattern[4]=R.id.Point5;
         pattern[5]=R.id.Point6;
 
-        View view = findViewById(R.id.activity_star_pattern);
+        View view = findViewById(R.id.activity_slimer_pattern);
 
         touch= new TouchHandler(this, TOUCHID);
 
@@ -27,6 +28,5 @@ public class SemiCirclePatternActivity extends MainActivity {
 
         touch.setPattern(pattern);
         touch.startChecking();
-
     }
 }
