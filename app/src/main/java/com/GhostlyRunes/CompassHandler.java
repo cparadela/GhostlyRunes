@@ -17,7 +17,7 @@ import java.util.Random;
 
 
 /**
- * Created by Charlie on 28/01/2017.
+ * Created by Miguel on 28/01/2017.
  */
 
 public class CompassHandler extends MainActivity implements SensorEventListener {
@@ -145,8 +145,7 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
                 //newGhost();
                 try {
                     this.transmitMessage(COMPID, "ghostFound");
-                    Intent intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

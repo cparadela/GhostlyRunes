@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     public TouchHandler touch;
 
     //TODO Quitar supressWarnings y controlar versiones
-    @SuppressWarnings("deprecation")
+    //@SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
           Log.w("ACCELEROMETER", "NOT FOUND");
             if(hasAccel) Toast.makeText(getApplicationContext(), "Esta apliación no soporta dispositivos sin acelerómetro.", Toast.LENGTH_LONG).show();
             hasAccel=false;
-        }else{
+        }else if(!ectoplasma_gone){
             sm.registerListener(AH,sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_GAME);
         }
         //TODO Solucionar que no entre en giroscopio sino lo tiene
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                     vib.vibrate(100);
                 }else if(message == "destinyReached"){
                     Toast.makeText(getApplicationContext(), "¡Bien, has desbloqueado la runa!", Toast.LENGTH_LONG).show();
-
+                    sound.play(tada);
                     //Creating new activity
                     Intent intent = new Intent(this, StarPatternActivity.class);
                     startActivity(intent);
@@ -144,6 +144,8 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 }else if(message == "ghostFound"){
                     Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
                     vib.vibrate(500);
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
 
                 }
                 break;
