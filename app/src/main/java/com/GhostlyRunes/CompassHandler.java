@@ -21,7 +21,7 @@ import java.util.Random;
  * Created by Miguel on 28/01/2017.
  */
 
-public class CompassHandler extends MainActivity implements SensorEventListener {
+public class CompassHandler extends AppCompatActivity implements SensorEventListener {
 
     private ImageView aguja;
     private float currentDegree =0f;
@@ -39,8 +39,9 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
 
 
     long time_not_vib=0;
+    SensorManager mSensorManager;
 
-    private boolean hasCompass=true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +116,7 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
                 }
             }
             Log.d("ghost", "---->CLOSE:"+ ((event.timestamp-time_not_vib)*NS2S));
-            fantasmaCerca(dist_ghost);
+            ghostNearby(dist_ghost);
 
         }
         if (dist_ghost < error) {
@@ -128,7 +129,7 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
                 Log.d("ghost", "FOUND");
                 found=true;
                 //newGhost();
-                fantasmaEncontrado();
+                ghostFound();
 
             }
 
@@ -152,14 +153,14 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
         Log.d("CREATE COMPASS","ghost: "+ghost+"\n\n");
     }
 
-    void fantasmaCerca(float dist){
+    void ghostNearby(float dist){
         Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
         vib.vibrate(50);
 
 
     }
 
-    void fantasmaEncontrado(){
+    void ghostFound(){
 
         Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
         vib.vibrate(500);
