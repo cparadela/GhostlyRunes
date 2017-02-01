@@ -15,7 +15,7 @@ import android.widget.Toast;
  * Created by Charlie 28/01/2017.
  */
 
-public class GyroHandler extends AppCompatActivity implements SensorEventListener {
+public class GyroActivity extends AppCompatActivity implements SensorEventListener {
     //DEBUG VARIABLES
     int count=0;
     int maxcount=20;

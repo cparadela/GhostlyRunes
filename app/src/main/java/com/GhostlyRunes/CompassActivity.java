@@ -21,7 +21,7 @@ import java.util.Random;
  * Created by Miguel on 28/01/2017.
  */
 
-public class CompassHandler extends MainActivity implements SensorEventListener {
+public class CompassActivity extends MainActivity implements SensorEventListener {
 
     private ImageView aguja;
     private float currentDegree =0f;

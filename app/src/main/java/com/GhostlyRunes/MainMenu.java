@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 
 public class MainMenu extends AppCompatActivity implements View.OnClickListener{
@@ -40,7 +39,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
              if(sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE)==null){
                     Log.w("GYROSCOPE", "NOT FOUND");
              }else{
-                  Intent intent = new Intent(this, GyroHandler.class);
+                  Intent intent = new Intent(this, GyroActivity.class);
                   startActivity(intent);
              }
 
@@ -50,7 +49,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
              if(sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)==null) {
                     Log.w("COMPASS", "NOT FOUND");
              }else {
-                 Intent intent = new Intent(this, CompassHandler.class);
+                 Intent intent = new Intent(this, CompassActivity.class);
                  startActivity(intent);
              }
         }
