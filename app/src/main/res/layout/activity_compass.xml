@@ -11,7 +11,7 @@
         android:layout_width="240dp"
         android:layout_height="118dp"
         android:src="@drawable/flechaverde"
-        android:id="@+id/flecha"
+        android:id="@+id/arrow"
         android:layout_gravity="center_horizontal" />
 
     <LinearLayout
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="325dp"
             android:src="@drawable/agujacompas"
-            android:id="@+id/aguja" />
+            android:id="@+id/needle" />
     </LinearLayout>
 
 </LinearLayout>

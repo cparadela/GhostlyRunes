@@ -50,8 +50,8 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
 
-        needle = (ImageView) findViewById(R.id.aguja);
-        arrow = (ImageView) findViewById(R.id.flecha);
+        needle = (ImageView) findViewById(R.id.needle);
+        arrow = (ImageView) findViewById(R.id.arrow);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
