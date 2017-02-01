@@ -40,7 +40,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
              if(sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE)==null){
                     Log.w("GYROSCOPE", "NOT FOUND");
              }else{
-                  Intent intent = new Intent(this, MainActivity.class);
+                  Intent intent = new Intent(this, GyroHandler.class);
                   startActivity(intent);
              }
 
