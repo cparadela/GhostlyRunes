@@ -23,23 +23,25 @@ import java.util.Random;
 
 public class CompassActivity extends AppCompatActivity implements SensorEventListener {
 
-    private ImageView aguja;
-    private float currentDegree =0f;
-    private ImageView flecha;
 
+    private ImageView needle;
+    private float currentDegree =0f;
+    private ImageView arrow;
 
     private static final float NS2S = 1.0f / 1000000000.0f;
 
     int ghost=0;
     boolean found=false;
-    boolean f = false, vib=false;
-
+    boolean f = false, last_vib=false;
     long t0;
     int error=5;
 
 
     long time_not_vib=0;
+
+    //Services
     SensorManager mSensorManager;
+    Vibrator vib;
 
 
 
@@ -48,9 +50,11 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
 
-        aguja = (ImageView) findViewById(R.id.aguja);
-        flecha = (ImageView) findViewById(R.id.flecha);
+        needle = (ImageView) findViewById(R.id.aguja);
+        arrow = (ImageView) findViewById(R.id.flecha);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
 
         newGhost(); //Asignamos pos al ghost
 
@@ -89,7 +93,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
 
         // Start the animation
-        aguja.startAnimation(anim);
+        needle.startAnimation(anim);
 
         //We check if we are getting close to finding the ghost
 
@@ -99,19 +103,19 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
             dist_ghost =360-dist_ghost;
         }
         if(dist_ghost<30) {
-            flecha.setAlpha(1 - dist_ghost / 30);
+            arrow.setAlpha(1 - dist_ghost / 30);
         }
         else {
-            flecha.setAlpha(0.0f);
+            arrow.setAlpha(0.0f);
         }
         if (!found && (event.timestamp-time_not_vib)*NS2S > (0.03f*dist_ghost)) { //Para evitar vibracion constante
-            if (vib == false) {
-                vib = true;
+            if (last_vib == false) {
+                last_vib = true;
                 time_not_vib=event.timestamp;
             }else{
-                if (vib == true) {
+                if (last_vib == true) {
                     Log.d("ghost", "FAR");
-                    vib = false;
+                    last_vib = false;
                     time_not_vib = 0;
                 }
             }
@@ -162,7 +166,6 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
     void ghostFound(){
 
-        Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
         vib.vibrate(500);
         Toast.makeText(getApplicationContext(), "¡Fantasma encontrado!", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, ZigZagPatternActivity.class);

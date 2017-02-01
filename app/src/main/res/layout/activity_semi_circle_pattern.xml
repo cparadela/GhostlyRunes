@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_semi_circle_pattern"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.GhostlyRunes.SemiCirclePatternActivity"
+    android:background="@drawable/blue"   >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ghost_circle"
+        android:id="@+id/ghostSemiCircle"
+        android:alpha="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/n1"
+        android:id="@+id/Point1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginBottom="153dp" />
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/n3"
+        android:id="@+id/Point3"
+        android:layout_marginRight="29dp"
+        android:layout_marginEnd="29dp"
+        android:layout_above="@+id/Point2"
+        android:layout_toLeftOf="@+id/Point5"
+        android:layout_toStartOf="@+id/Point5" />
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/n2"
+        android:layout_marginLeft="37dp"
+        android:layout_marginStart="37dp"
+
+        android:id="@+id/Point2"
+        android:alpha="1"
+        android:adjustViewBounds="false"
+        android:layout_marginBottom="50dp"
+        android:layout_alignBottom="@+id/Point4"
+        android:layout_alignLeft="@+id/Point1"
+        android:layout_alignStart="@+id/Point1" />
+
+    <ImageView
+        android:src="@drawable/n4"
+        android:scaleType="fitCenter"
+        android:id="@+id/Point4"
+        android:alpha="1"
+        android:cropToPadding="true"
+        android:layout_marginRight="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="72dp"
+        android:layout_above="@+id/Point5"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/n5"
+        android:id="@+id/Point5"
+        android:adjustViewBounds="false"
+        android:layout_marginRight="19dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginTop="23dp"
+        android:layout_alignTop="@+id/Point1"
+        android:layout_alignRight="@+id/Point4"
+        android:layout_alignEnd="@+id/Point4" />
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/n6"
+        android:id="@+id/Point6"
+        android:adjustViewBounds="false"
+        android:layout_alignTop="@+id/Point5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp" />
+
+</RelativeLayout>
