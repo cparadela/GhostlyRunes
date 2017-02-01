@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="145dp"
         android:layout_height="117dp"
-        app:srcCompat="@drawable/flechaverde"
+        android:src="@drawable/flechaverde"
         android:id="@+id/flecha"
         android:layout_gravity="center_horizontal" />
 
@@ -22,7 +22,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="339dp"
-            app:srcCompat="@drawable/estrellagiroscopio"
+            android:src="@drawable/estrellagiroscopio"
             android:id="@+id/estrella"
             android:layout_gravity="center_vertical" />
     </LinearLayout>
