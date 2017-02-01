@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     public AcceleratorHandler AH= new AcceleratorHandler(this, ACCELID);
     public SoundHandler sound;
     public TouchHandler touch;
+    Vibrator vib;
 
     //TODO Quitar supressWarnings y controlar versiones
     //@SuppressWarnings("deprecation")
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         sound = new SoundHandler(getApplicationContext());
         tada=sound.load(R.raw.tada);
         blow=sound.load(R.raw.blow);
+
+        vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
 
         //TODO quitar String de constructor?
         View view = findViewById(R.id.activity_main);
@@ -103,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 ectoplasm.setAlpha(0.0f);
                 ectoplasm_gone = true;
                 touch.startChecking(); //Starts Minigame
-                Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
                 vib.vibrate(500);
 
             } else if (message == "moveSoft") {
@@ -113,7 +115,6 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 break;
             case TOUCHID:
                 if(message == "pathStart") {
-                    Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
                     vib.vibrate(100);
                 }else if(message == "destinyReached"){
                     Toast.makeText(getApplicationContext(), "¡Bien, has desbloqueado la runa!", Toast.LENGTH_LONG).show();
@@ -122,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                     Intent intent = new Intent(this, StarPatternActivity.class);
                     startActivity(intent);
                 }else if(message == "pathLost"){
-                    Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
                     vib.vibrate(200);
                 }
                 break;

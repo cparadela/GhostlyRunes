@@ -6,6 +6,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -39,21 +40,16 @@ public class GyroHandler extends AppCompatActivity implements SensorEventListene
 
     public float [] rotationCurrent = new float[9];
 
-    String GYROID;
-    MessageReceiver MR;
-
-    public GyroHandler(MessageReceiver MR, String accelid){
-        rotationCurrent[0]=1.0f;
-        rotationCurrent[4]=1.0f;
-        rotationCurrent[8]=1.0f;
-        this.MR=MR;
-        this.GYROID=accelid;
-        newGhost();
-    }
+    Vibrator vib;
 
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
+        rotationCurrent[0]=1.0f;
+        rotationCurrent[4]=1.0f;
+        rotationCurrent[8]=1.0f;
+        newGhost();
+        vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
 
     }
 
@@ -125,11 +121,7 @@ public class GyroHandler extends AppCompatActivity implements SensorEventListene
         //SECTION: PHANTOM GAME
     if(checking){
         if(!found && Math.abs(gyroscopeOrientation[0] - ghost) < time_not_vib){
-            try {
-                MR.transmitMessage(GYROID, "doPulsation");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            vib.vibrate(50);
             time_not_vib=0;
         }
         if (Math.abs(gyroscopeOrientation[0] - ghost) < error) {
@@ -143,11 +135,7 @@ public class GyroHandler extends AppCompatActivity implements SensorEventListene
                 found=true;
                 checking=false;
                 //newGhost();
-                try {
-                    MR.transmitMessage(GYROID, "ghostFound");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                vib.vibrate(500);
             }
 
 
