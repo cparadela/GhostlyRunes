@@ -12,6 +12,9 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.GhostlyRunes.MainActivity"/>
         <activity android:name="com.GhostlyRunes.StarPatternActivity" />
+        <activity android:name="com.GhostlyRunes.CompassHandler" />
+        <activity android:name="com.GhostlyRunes.ZigZagPatternActivity" />
+        <activity android:name="com.GhostlyRunes.GyroHandler" />
         <activity android:name="com.GhostlyRunes.MainMenu" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.GhostlyRunes.CompassHandler" />
+
 
 
     </application>

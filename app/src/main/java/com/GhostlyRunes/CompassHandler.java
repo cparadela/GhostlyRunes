@@ -35,7 +35,6 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
     boolean f = false, vib=false;
 
     long t0;
-    float timestamp;
     int error=5;
 
 
@@ -51,17 +50,6 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
         aguja = (ImageView) findViewById(R.id.aguja);
         flecha = (ImageView) findViewById(R.id.flecha);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-    /*
-        if(!hasCompass || mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)==null) {
-            Log.w("COMPASS", "NOT FOUND");
-            if (hasCompass)
-                Toast.makeText(getApplicationContext(), "Este dispositivo no tiene brújula. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
-            hasCompass = false;
-            Intent intent = new Intent(this, MainMenu.class);
-            startActivity(intent);
-
-        }
-         */
 
         newGhost(); //Asignamos pos al ghost
 
@@ -71,15 +59,12 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
     @SuppressWarnings("deprecation")
     protected void onResume() {
         super.onResume();
-
         // for the system's orientation sensor registered listeners
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION ),
-                SensorManager.SENSOR_DELAY_GAME);
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION ), SensorManager.SENSOR_DELAY_GAME);
     }
     @Override
-    protected void onStop() { //anular el registro del listener
-        SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-        if(hasCompass) sm.unregisterListener(this);
+    protected void onStop() { //parar el registro del listener
+        mSensorManager.unregisterListener(this);
         super.onStop();
     }
 
@@ -87,13 +72,6 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-
-
-        //timestamp = event.timestamp;
-        //Log.d("Tiempo", "------->: "+timestamp*NS2S);
-
-
-
 
         int degree = Math.round(event.values[0]);  //We get the direction the phone is pointing
 
@@ -114,35 +92,32 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
 
         //We check if we are getting close to finding the ghost
 
-        //if(!found && Math.abs(degree - ghost) < 20 ){
-            float dist_ghost=Math.abs(degree - ghost);
-            if (dist_ghost > 180) {  //We adjust the value so that it detects distance properly. You can only be 180 degrees away from target
-                dist_ghost =360-dist_ghost;
-            }
+
+        float dist_ghost=Math.abs(degree - ghost);
+        if (dist_ghost > 180) {  //We adjust the value so that it detects distance properly. You can only be 180 degrees away from target
+            dist_ghost =360-dist_ghost;
+        }
         if(dist_ghost<30) {
             flecha.setAlpha(1 - dist_ghost / 30);
         }
         else {
             flecha.setAlpha(0.0f);
         }
-
-            if (!found && (event.timestamp-time_not_vib)*NS2S > (0.03f*dist_ghost)) { //Para evitar vibracion constante
-                if (vib == false) {
-                    vib = true;
-                    time_not_vib=event.timestamp;
-                }else{
-                    if (vib == true) {
-                        Log.d("ghost", "FAR");
-                        vib = false;
-                        time_not_vib = 0;
-                    }
-
+        if (!found && (event.timestamp-time_not_vib)*NS2S > (0.03f*dist_ghost)) { //Para evitar vibracion constante
+            if (vib == false) {
+                vib = true;
+                time_not_vib=event.timestamp;
+            }else{
+                if (vib == true) {
+                    Log.d("ghost", "FAR");
+                    vib = false;
+                    time_not_vib = 0;
                 }
-                    Log.d("ghost", "---->CLOSE:"+ ((event.timestamp-time_not_vib)*NS2S));
-                    fantasmaCerca(dist_ghost);
-
             }
-      //  }
+            Log.d("ghost", "---->CLOSE:"+ ((event.timestamp-time_not_vib)*NS2S));
+            fantasmaCerca(dist_ghost);
+
+        }
         if (dist_ghost < error) {
 
             if (f == false) {
@@ -189,7 +164,7 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
         Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
         vib.vibrate(500);
         Toast.makeText(getApplicationContext(), "¡Fantasma encontrado!", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, StarPatternActivity.class);
+        Intent intent = new Intent(this, ZigZagPatternActivity.class);
         startActivity(intent);
 
     }
