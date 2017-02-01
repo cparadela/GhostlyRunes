@@ -19,13 +19,14 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     final String ACCELID="Accelerometer";
     final String TOUCHID="Screen Touch";
     final String GYROID="Gyroscope";
+    final String COMPID="Compass";
 
     boolean hasCompass=true, hasAccel=true,hasGyro=true;
 
     ImageView niebla;
     int tada, blow;
 
-    private SensorManager mSensorManager;
+    public SensorManager mSensorManager; //TODO Convierto la variable en publica para poder llamarla
     private Sensor mSensor;
 
     private boolean mist_gone=false;
@@ -79,7 +80,9 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         }else{
             sm.registerListener(AH,sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_GAME);
         }
+        //TODO Solucionar que no entre en giroscopio sino lo tiene
 
+/*
         if(!hasGyro || sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE)==null){
             Log.w("GYROSCOPE", "NOT FOUND");
             if(hasGyro) Toast.makeText(getApplicationContext(), "Este dispositivo no tiene giroscopio. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
@@ -87,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         }else{
             sm.registerListener(GH,sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE),SensorManager.SENSOR_DELAY_GAME);
         }
+        */
+
     }
 
     @Override
@@ -111,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 vib.vibrate(500);
 
             } else if (message == "moveSoft") {
-                Toast.makeText(getApplicationContext(), "¡Tienes que agitar más fuerte para que se vaya toda la niebla!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "¡Tienes que agitar más fuerte para que se vaya el ectoplasma!", Toast.LENGTH_LONG).show();
 
             }
                 break;
@@ -137,6 +142,17 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 }else if(message == "ghostFound"){
                     Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
                     vib.vibrate(500);
+                }
+                break;
+
+            case COMPID:
+                if(message == "doPulsation") {
+                    Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+                    vib.vibrate(50);
+                }else if(message == "ghostFound"){
+                    Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+                    vib.vibrate(500);
+
                 }
                 break;
         }

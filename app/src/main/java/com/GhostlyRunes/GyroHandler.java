@@ -92,6 +92,8 @@ public class GyroHandler implements SensorEventListener {
             deltaRotationVector[2] = sinThetaOverTwo * axisZ;
             deltaRotationVector[3] = cosThetaOverTwo;
         }
+
+        //TODO esto no deberia ir al principio antes del if??
         timestamp = event.timestamp;
         float[] deltaRotationMatrix = new float[9];
         SensorManager.getRotationMatrixFromVector(deltaRotationMatrix, deltaRotationVector);
@@ -115,7 +117,7 @@ public class GyroHandler implements SensorEventListener {
         SensorManager.getOrientation(rotationCurrent,
                 gyroscopeOrientation);
 
-
+        //TODO como funciona el time_not_vib???
         if(!found && Math.abs(gyroscopeOrientation[0] - fantasma) < time_not_vib){
             try {
                 MR.transmitMessage(GYROID, "doPulsation");

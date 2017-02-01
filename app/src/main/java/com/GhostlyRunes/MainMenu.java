@@ -1,14 +1,17 @@
 package com.GhostlyRunes;
 
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
-
-public class MainMenu extends AppCompatActivity implements View.OnClickListener{
+public class MainMenu extends MainActivity implements View.OnClickListener{
 
     private Button start_gyro;
     private Button start_compass;
@@ -29,12 +32,31 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
     public void onClick(View v){
         if (v==start_gyro){
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+
+                if(!hasGyro || mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)==null){
+                    Log.w("GYROSCOPE", "NOT FOUND");
+                    if(hasGyro) Toast.makeText(getApplicationContext(), "Este dispositivo no tiene giroscopio. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
+                    hasGyro=false;
+                }else{
+                    mSensorManager.registerListener(GH,mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE), SensorManager.SENSOR_DELAY_GAME);
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                }
+
         }
         if (v==start_compass){
-            Intent intent = new Intent(this, CompassHandler.class);
-            startActivity(intent);
+         if(!hasCompass || mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)==null) {
+                Log.w("COMPASS", "NOT FOUND");
+                if (hasCompass)
+                    Toast.makeText(getApplicationContext(), "Este dispositivo no tiene brújula. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
+                hasCompass = false;
+                Intent intent = new Intent(this, MainMenu.class);
+                startActivity(intent);
+            }
+            else {
+             Intent intent = new Intent(this, CompassHandler.class);
+             startActivity(intent);
+         }
         }
 
 
