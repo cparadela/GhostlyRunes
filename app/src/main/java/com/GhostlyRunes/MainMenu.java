@@ -11,12 +11,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
-public class MainMenu extends MainActivity implements View.OnClickListener{
+public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
     private Button start_gyro;
     private Button start_compass;
-
-
+    SensorManager sm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,42 +27,30 @@ public class MainMenu extends MainActivity implements View.OnClickListener{
 
         start_compass = (Button) findViewById(R.id.start_compass);
         start_compass.setOnClickListener(this);
+
+
     }
 
     public void onClick(View v){
         if (v==start_gyro){
-
-                if(!hasGyro || mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)==null){
+            //Checks if gyroscope is available
+             if(sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE)==null){
                     Log.w("GYROSCOPE", "NOT FOUND");
-                    if(hasGyro) Toast.makeText(getApplicationContext(), "Este dispositivo no tiene giroscopio. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
-                    hasGyro=false;
-                }else{
-                    mSensorManager.registerListener(GH,mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE), SensorManager.SENSOR_DELAY_GAME);
-                    Intent intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
-                }
+             }else{
+                  Intent intent = new Intent(this, MainActivity.class);
+                  startActivity(intent);
+             }
 
         }
         if (v==start_compass){
-         if(!hasCompass || mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)==null) {
-                Log.w("COMPASS", "NOT FOUND");
-                if (hasCompass)
-                    Toast.makeText(getApplicationContext(), "Este dispositivo no tiene brújula. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
-                hasCompass = false;
-                Intent intent = new Intent(this, MainMenu.class);
-                startActivity(intent);
-            }
-            else {
-             Intent intent = new Intent(this, CompassHandler.class);
-             startActivity(intent);
-         }
+            //Checks if gyroscope is available
+             if(sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)==null) {
+                    Log.w("COMPASS", "NOT FOUND");
+             }else {
+                 Intent intent = new Intent(this, CompassHandler.class);
+                 startActivity(intent);
+             }
         }
-
-
     }
-
-
-
-
 }
 

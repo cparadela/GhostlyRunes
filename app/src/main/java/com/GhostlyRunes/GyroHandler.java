@@ -4,13 +4,16 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 /**
  * Created by Charlie 28/01/2017.
  */
 
-public class GyroHandler implements SensorEventListener {
+public class GyroHandler extends AppCompatActivity implements SensorEventListener {
     //DEBUG VARIABLES
     int count=0;
     int maxcount=20;
@@ -48,6 +51,11 @@ public class GyroHandler implements SensorEventListener {
         newGhost();
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+
+    }
 
     public void onSensorChanged(SensorEvent event) {
 

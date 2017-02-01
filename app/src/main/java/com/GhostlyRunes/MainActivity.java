@@ -18,24 +18,20 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     //Messages
     final String ACCELID="Accelerometer";
     final String TOUCHID="Screen Touch";
-    final String GYROID="Gyroscope";
-    final String COMPID="Compass";
 
-    boolean hasCompass=true, hasAccel=true,hasGyro=true;
+    boolean hasAccel=true;
 
-    ImageView niebla;
+    ImageView ectoplasm;
     int tada, blow;
 
-    public SensorManager mSensorManager; //TODO Convierto la variable en publica para poder llamarla
-    private Sensor mSensor;
+    SensorManager mSensorManager;
 
-    private boolean mist_gone=false;
+    boolean ectoplasm_gone=false;
 
-    //TODO poner string en constructor?
     public AcceleratorHandler AH= new AcceleratorHandler(this, ACCELID);
-    public GyroHandler GH = new GyroHandler(this,GYROID);
     public SoundHandler sound;
     public TouchHandler touch;
+
     //TODO Quitar supressWarnings y controlar versiones
     @SuppressWarnings("deprecation")
     @Override
@@ -44,13 +40,10 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         setContentView(R.layout.activity_main);
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mSensor=mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
-        //TODO borrar puntos en comentario, no se utilizan
-        //p1 = (ImageView) findViewById(R.id.Point1);
-        //p2 = (ImageView) findViewById(R.id.Point2);
-        niebla = (ImageView) findViewById(R.id.niebla);
+        ectoplasm = (ImageView) findViewById(R.id.ectoplasm);
 
+        //TODO cargar antes
         sound = new SoundHandler(getApplicationContext());
         tada=sound.load(R.raw.tada);
         blow=sound.load(R.raw.blow);
@@ -60,12 +53,9 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         touch= new TouchHandler(this, TOUCHID);
         view.setOnTouchListener(touch);
 
-        //TODO Para ignorar la niebla y testear. Borrar al final
-        //niebla.setAlpha(0.0f);
+        //TODO Para ignorar la ectoplasm y testear. Borrar al final
+        //ectoplasm.setAlpha(0.0f);
         //touch.startChecking();
-
-
-
     }
 
     @Override //TODO Cambiar comentarios y cosillas
@@ -89,28 +79,29 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
             hasGyro=false;
         }else{
             sm.registerListener(GH,sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE),SensorManager.SENSOR_DELAY_GAME);
-        }
-        */
-
+        }*/
     }
 
     @Override
     protected void onStop() { //anular el registro del listener
         SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
         if(hasAccel) sm.unregisterListener(AH);
-        if(hasGyro) sm.unregisterListener(GH);
         super.onStop();
     }
 
     @Override
-    public boolean transmitMessage(String sender,String message) throws InterruptedException {
+    public boolean transmitMessage(String sender,String message) {
         switch (sender) {
             case ACCELID:
             if (message == "moveStrong") {
                 sound.play(blow);
-                Thread.sleep(1200);
-                niebla.setAlpha(0.0f);
-                mist_gone = true;
+                try {
+                    Thread.sleep(1200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ectoplasm.setAlpha(0.0f);
+                ectoplasm_gone = true;
                 touch.startChecking(); //Starts Minigame
                 Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
                 vib.vibrate(500);
@@ -135,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                     vib.vibrate(200);
                 }
                 break;
+            /*
             case GYROID:
                 if(message == "doPulsation") {
                     Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
@@ -155,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
                 }
                 break;
+                */
         }
 
         return true;

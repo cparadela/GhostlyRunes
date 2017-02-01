@@ -36,19 +36,20 @@
         android:layout_marginBottom="88dp"
         android:contentDescription="Niebla para ser borrada" />
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/greensplash"
+        android:id="@+id/ectoplasm"
+        android:adjustViewBounds="false"
+        android:layout_weight="1" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/greensplash"
-            android:id="@+id/niebla"
-            android:adjustViewBounds="false"
-            android:layout_weight="1" />
     </LinearLayout>
 
 </RelativeLayout>
