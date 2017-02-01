@@ -6,7 +6,7 @@ import android.hardware.SensorEventListener;
 import android.util.Log;
 
 /**
- * Created by migue on 21/01/2017.
+ * Created by Miguel on 21/01/2017.
  */
 
 public class AcceleratorHandler implements SensorEventListener {

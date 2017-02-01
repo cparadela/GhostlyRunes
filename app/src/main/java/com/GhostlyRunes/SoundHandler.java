@@ -5,7 +5,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 
 /**
- * Created by migue on 23/01/2017.
+ * Created by Miguel on 23/01/2017.
  */
 
 public class SoundHandler {

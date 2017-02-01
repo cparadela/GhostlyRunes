@@ -50,8 +50,6 @@ public class MainMenu extends MainActivity implements View.OnClickListener{
                 if (hasCompass)
                     Toast.makeText(getApplicationContext(), "Este dispositivo no tiene brújula. Algunas funciones de esta aplicación no estarán disponibles.", Toast.LENGTH_LONG).show();
                 hasCompass = false;
-                Intent intent = new Intent(this, MainMenu.class);
-                startActivity(intent);
             }
             else {
              Intent intent = new Intent(this, CompassHandler.class);
