@@ -1,6 +1,7 @@
 package com.GhostlyRunes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -32,7 +33,7 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
     //Game variables
     float ghost=1.1f; //Where the ghost is
     boolean found=false; //Did it found the ghost?
-    float error =0.2f;  //Error in pointing at
+    float error =0.3f;  //Error in pointing at
     long t0;            //Time pointing at ghost already
     boolean checking=true; //If we are playing with the ghost
     float time_not_vib=0;   //Time to check vibration pulses
@@ -140,11 +141,13 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
         //SECTION: PHANTOM GAME
     if(checking){
         float ghost_dist =Math.abs(gyroscopeOrientation[0] - ghost);
+
         if(ghost_dist>Math.PI){
             ghost_dist= 2*((float)Math.PI)-ghost_dist;
         }
-        if(ghost_dist<30) {
-            arrow.setAlpha(1 - ghost_dist / 30);
+        Log.d("DIST:",""+ghost_dist);
+        if(ghost_dist<0.5) {
+            arrow.setAlpha(1 - ghost_dist / 0.5f);
         }
         else {
             arrow.setAlpha(0.0f);
@@ -163,9 +166,13 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
             if(!found && f==true && t0>0 && (event.timestamp-t0)*NS2S>2.5f){
                 Log.d("FANTASMA", "ENCONTRADO");
                 found=true;
-                checking=false;
-                //newGhost();
+                //checking=false;
+                newGhost();
                 vib.vibrate(500);
+
+                //TODO añadir que utiliza giroscopio para proximos intent (SET EXTRA)
+                Intent intent = new Intent(this, ZigZagPatternActivity.class);
+                startActivity(intent);
             }
 
 

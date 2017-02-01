@@ -11,7 +11,7 @@
         android:layout_width="145dp"
         android:layout_height="117dp"
         android:src="@drawable/flechaverde"
-        android:id="@+id/flecha"
+        android:id="@+id/arrow"
         android:layout_gravity="center_horizontal" />
 
     <LinearLayout
