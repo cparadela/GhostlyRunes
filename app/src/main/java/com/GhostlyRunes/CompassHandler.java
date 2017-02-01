@@ -6,6 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.animation.Animation;
@@ -24,6 +25,7 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
 
     private ImageView aguja;
     private float currentDegree =0f;
+    private ImageView flecha;
 
 
     private static final float NS2S = 1.0f / 1000000000.0f;
@@ -47,6 +49,7 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
         setContentView(R.layout.activity_compass);
 
         aguja = (ImageView) findViewById(R.id.aguja);
+        flecha = (ImageView) findViewById(R.id.flecha);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
     /*
         if(!hasCompass || mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)==null) {
@@ -112,8 +115,18 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
         //We check if we are getting close to finding the ghost
 
         //if(!found && Math.abs(degree - ghost) < 20 ){
+            float dist_ghost=Math.abs(degree - ghost);
+            if (dist_ghost > 180) {  //We adjust the value so that it detects distance properly. You can only be 180 degrees away from target
+                dist_ghost =360-dist_ghost;
+            }
+        if(dist_ghost<30) {
+            flecha.setAlpha(1 - dist_ghost / 30);
+        }
+        else {
+            flecha.setAlpha(0.0f);
+        }
 
-            if ((event.timestamp-time_not_vib)*NS2S > (0.03f*Math.abs(degree - ghost))) { //Para evitar vibracion constante
+            if (!found && (event.timestamp-time_not_vib)*NS2S > (0.03f*dist_ghost)) { //Para evitar vibracion constante
                 if (vib == false) {
                     vib = true;
                     time_not_vib=event.timestamp;
@@ -125,15 +138,12 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
                     }
 
                 }
-                try {
                     Log.d("ghost", "---->CLOSE:"+ ((event.timestamp-time_not_vib)*NS2S));
-                    this.transmitMessage(COMPID, "doPulsation");  //this porque extiende MainActivity que implementa Message Receiver
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                    fantasmaCerca(dist_ghost);
+
             }
       //  }
-        if (Math.abs(degree - ghost) < error) {
+        if (dist_ghost < error) {
 
             if (f == false) {
                 f = true;
@@ -143,12 +153,8 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
                 Log.d("ghost", "FOUND");
                 found=true;
                 //newGhost();
-                try {
-                    this.transmitMessage(COMPID, "ghostFound");
+                fantasmaEncontrado();
 
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
 
 
@@ -169,6 +175,23 @@ public class CompassHandler extends MainActivity implements SensorEventListener 
         Random rand= new Random();
         ghost=rand.nextInt(360);
         Log.d("CREATE COMPASS","ghost: "+ghost+"\n\n");
+    }
+
+    void fantasmaCerca(float dist){
+        Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+        vib.vibrate(50);
+
+
+    }
+
+    void fantasmaEncontrado(){
+
+        Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+        vib.vibrate(500);
+        Toast.makeText(getApplicationContext(), "¡Fantasma encontrado!", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
     }
 
 

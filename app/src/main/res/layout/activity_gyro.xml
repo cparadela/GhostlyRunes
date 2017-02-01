@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/blue"
     android:weightSum="1"
     android:gravity="center_vertical">
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="60dp" />
+    <ImageView
+        android:layout_width="145dp"
+        android:layout_height="117dp"
+        app:srcCompat="@drawable/flechaverde"
+        android:id="@+id/flecha"
+        android:layout_gravity="center_horizontal" />
 
-    <TextView
-        android:text="@string/lookGhost"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/lookGhost"
-        android:layout_weight="0.23" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="339dp"
+            app:srcCompat="@drawable/estrellagiroscopio"
+            android:id="@+id/estrella"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
 </LinearLayout>

@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blue">
+    android:background="@drawable/blue"
+    android:baselineAligned="false"
+    android:orientation="vertical">
 
     <ImageView
+        android:layout_width="240dp"
+        android:layout_height="118dp"
+        android:src="@drawable/flechaverde"
+        android:id="@+id/flecha"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/agujacompas"
-        android:id="@+id/aguja" />
+        android:layout_height="282dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="325dp"
+            android:src="@drawable/agujacompas"
+            android:id="@+id/aguja" />
+    </LinearLayout>
+
 </LinearLayout>
