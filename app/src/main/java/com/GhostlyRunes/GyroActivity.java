@@ -1,5 +1,6 @@
 package com.GhostlyRunes;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -9,6 +10,7 @@ import android.os.PersistableBundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 /**
@@ -38,34 +40,40 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
 
     public float [] rotationCurrent = new float[9];
 
+    //Imageviews
+    private ImageView arrow;
+
     //Services
     Vibrator vib;
-    SensorManager sm;
+    SensorManager mSensorManager;
+
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_gyro);
+        vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         rotationCurrent[0]=1.0f;
         rotationCurrent[4]=1.0f;
         rotationCurrent[8]=1.0f;
         newGhost();
-        vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
-        setContentView(R.layout.activity_compass);
+
+        arrow = (ImageView) findViewById(R.id.arrow);
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        sm.registerListener(this,sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE),SensorManager.SENSOR_DELAY_GAME);
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE ), SensorManager.SENSOR_DELAY_GAME);
     }
 
     @Override
     public void onStop(){
         super.onStop();
-        sm.registerListener(this,sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE),SensorManager.SENSOR_DELAY_GAME);
+        mSensorManager.unregisterListener(this);
     }
 
     public void onSensorChanged(SensorEvent event) {
-
         //SECTION: PREPROCESSING OF GYROSCOPE
         // This timestep's delta rotation to be multiplied by the current rotation
         // after computing it from the gyro sample data.
@@ -131,11 +139,22 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
 
         //SECTION: PHANTOM GAME
     if(checking){
-        if(!found && Math.abs(gyroscopeOrientation[0] - ghost) < time_not_vib){
+        float ghost_dist =Math.abs(gyroscopeOrientation[0] - ghost);
+        if(ghost_dist>Math.PI){
+            ghost_dist= 2*((float)Math.PI)-ghost_dist;
+        }
+        if(ghost_dist<30) {
+            arrow.setAlpha(1 - ghost_dist / 30);
+        }
+        else {
+            arrow.setAlpha(0.0f);
+        }
+
+        if(!found && ghost_dist < time_not_vib){
             vib.vibrate(50);
             time_not_vib=0;
         }
-        if (Math.abs(gyroscopeOrientation[0] - ghost) < error) {
+        if (ghost_dist < error) {
 
             if (f == false) {
                 f = true;
