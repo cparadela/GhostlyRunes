@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Ghostly Runes (ES)</string>
+    <string name="app_name">Ghostly Runes</string>
     <string name="start">START \n (GIROSCOPIO)  </string>
     <string name="start2">START \n (BRÚJULA)  </string>
     <string name="credit">CRÉDITOS</string>
