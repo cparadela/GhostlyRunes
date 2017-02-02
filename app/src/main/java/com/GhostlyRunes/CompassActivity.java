@@ -172,9 +172,9 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     }
 
     void ghostFound(){
-
+        //TODO CAMBIAR TOAS
         vib.vibrate(500);
-        Toast.makeText(getApplicationContext(), "¡Fantasma encontrado! \n ¡Desbloquea el patrón para derrotarlo!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.ghostFound), Toast.LENGTH_LONG).show();
 
         next_ghost=ran.nextInt(4);
 
