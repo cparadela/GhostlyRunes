@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ghostly Runes</string>
+    <string name="ghostDefeated">Super! Du hast der Geist zestört!</string>
+    <string name="credit">KREDITE</string>
+    <string name="ghostFound">\"Geist wird gefunden!  Entsperrt das Bild um der Geist zu schlagen!\"</string>
+    <string name="instructions">ANLEITUGEN</string>
+    <string name="lookGhost">Bewegt das Handie um deine Umgebung! Der Geist is in der Nahe!</string>
+    <string name="noAccelerometer">Dieses App funktioniert nicht mit Gerät ohne Beschleunigungsmesser.</string>
+    <string name="noGyroscope">Sein Gerät hast keine Kreisel.</string>
+    <string name="noCompass">Sein Gerät hast kein Kompass.</string>
+    <string name="shakeStronger">Sie müssen das Gerät schütteln um das Ektoplasma abzumachen</string>
+    <string name="splatAppears">Verdammt! Der Geist hast dir angegreift!</string>
+    <string name="start">START (Kreisel)</string>
+    <string name="start2">START (Kompass)</string>
+</resources>
