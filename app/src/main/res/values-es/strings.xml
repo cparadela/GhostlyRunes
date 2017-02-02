@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ghostly Runes (ES)</string>
+    <string name="start">START \n (GIROSCOPIO)  </string>
+    <string name="start2">START \n (BRÚJULA)  </string>
+    <string name="credit">CRÉDITOS</string>
+    <string name="instructions">INSTRUCCIONES</string>
+    <string name="lookGhost">Mueve el teléfono por tus alrededores. \n ¡El fantasma está cerca!</string>
+    <string name="noCompass">Su dispositivo no tiene brújula.</string>
+    <string name="noGyroscope">Su dispositivo no tiene giroscopio.</string>
+    <string name="noAccelerometer">Esta apliación no soporta dispositivos sin acelerómetro.</string>
+    <string name="splatAppears">¡Oh no! ¡El fantasma te ha atacado\n ¡Agita el móvil para quitarte el ectoplasma de encima!</string>
+    <string name="ghostFound">¡Fantasma encontrado! \n ¡Desbloquea el patrón para derrotarlo!</string>
+    <string name="shakeStronger"> "¡Tienes que agitar más fuerte para que se vaya el ectoplasma!"</string>
+    <string name="ghostDefeated">¡Bien, has derrotado al fantasma!</string>
+</resources>
