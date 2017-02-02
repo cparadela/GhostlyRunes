@@ -70,10 +70,10 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
         newGhost();
 
         ran= new Random();
-
         arrow = (ImageView) findViewById(R.id.arrow);
-
         needle = (ImageView) findViewById(R.id.needle);
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.lookGhost), Toast.LENGTH_LONG).show();
+
     }
 
     @Override
@@ -234,7 +234,7 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
     void ghostFound(){
         vib.vibrate(500);
 
-        Toast.makeText(getApplicationContext(), "¡Fantasma encontrado! \n ¡Desbloquea el patrón para derrotarlo!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.ghostFound), Toast.LENGTH_LONG).show();
         prev_ghost=getIntent().getIntExtra("ID",-1);
         next_ghost=ran.nextInt(4);
         if(prev_ghost==next_ghost){
@@ -253,7 +253,7 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
             default: intent = new Intent(this, MainMenu.class);
         }
 
-        intent.putExtra("Mode","COMPASS");
+        intent.putExtra("Mode","GYROSCOPE");
         startActivity(intent);
     }
 

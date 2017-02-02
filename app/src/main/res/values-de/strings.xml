@@ -13,4 +13,8 @@
     <string name="splatAppears">Verdammt! Der Geist hast dir angegreift!</string>
     <string name="start">START (Kreisel)</string>
     <string name="start2">START (Kompass)</string>
+    <string name="creditMessage"></string>
+    <string name="creditTitle">Kredite</string>
+    <string name="instructionMessage"></string>
+    <string name="instructionTitle">Anleitugen (Englisch)</string>
 </resources>
