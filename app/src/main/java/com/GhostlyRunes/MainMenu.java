@@ -1,6 +1,7 @@
 package com.GhostlyRunes;
 
 import android.app.AlertDialog;
+import android.content.ComponentCallbacks;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,7 +19,7 @@ import android.widget.Toast;
 import java.util.Locale;
 
 
-public class MainMenu extends AppCompatActivity implements View.OnClickListener{
+public class MainMenu extends AppCompatActivity implements View.OnClickListener, ComponentCallbacks {
 
     private Button start_gyro;
     private Button start_compass;
@@ -66,42 +67,51 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         german = (Button) findViewById(R.id.german);
         german.setOnClickListener(this);
 
-        sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
-
 
 
 
     }
 
-    public void onClick(View v){
-        if (v==start_gyro){
-            //Checks if gyroscope is available
-             if(sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE)==null){
-                    Log.w("GYROSCOPE", "NOT FOUND");
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.noGyroscope), Toast.LENGTH_LONG).show();
-             }else{
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sm= (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+    }
 
-                  Intent intent = new Intent(this, GyroActivity.class);
-                  startActivity(intent);
-             }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sm=null;
+        sound.repeat(piano, false);
+    }
 
-        }
-        else if (v==start_compass){
+    public void onClick(View v) {
+        if (v == start_gyro) {
             //Checks if gyroscope is available
-             if(sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)==null) {
-                    Log.w("COMPASS", "NOT FOUND");
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.noCompass), Toast.LENGTH_LONG).show();
-             }else {
-                 Intent intent = new Intent(this, CompassActivity.class);
-                 startActivity(intent);
-             }
-        }
-        else if (v==credits){
+            if (sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE) == null) {
+                Log.w("GYROSCOPE", "NOT FOUND");
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.noGyroscope), Toast.LENGTH_LONG).show();
+            } else {
+
+                Intent intent = new Intent(this, GyroActivity.class);
+                startActivity(intent);
+                sm = null;
+            }
+
+        } else if (v == start_compass) {
+            //Checks if gyroscope is available
+            if (sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) == null) {
+                Log.w("COMPASS", "NOT FOUND");
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.noCompass), Toast.LENGTH_LONG).show();
+            } else {
+                Intent intent = new Intent(this, CompassActivity.class);
+                startActivity(intent);
+            }
+        } else if (v == credits) {
             new AlertDialog.Builder(this)
                     .setTitle(getResources().getString(R.string.creditTitle))
-                    .setMessage(Html.fromHtml("<b>"+getResources().getString(R.string.creditCarlos)+"</b>"+getResources().getString(R.string.emailCarlos)
-                            +"<br><br><b>"+getResources().getString(R.string.creditMiguel)+"</b>"+ getResources().getString(R.string.emailMiguel) ))
+                    .setMessage(Html.fromHtml("<b>" + getResources().getString(R.string.creditCarlos) + "</b>" + getResources().getString(R.string.emailCarlos)
+                            + "<br><br><b>" + getResources().getString(R.string.creditMiguel) + "</b>" + getResources().getString(R.string.emailMiguel)))
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
 
@@ -111,8 +121,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
                     .setIcon(android.R.drawable.ic_dialog_email)
                     .show();
 
-        }
-        else if (v==instructions){
+        } else if (v == instructions) {
 
 
             new AlertDialog.Builder(this)
@@ -127,7 +136,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
                     .setIcon(android.R.drawable.ic_dialog_info)
                     .show();
 
-        }else if (v==spanish){
+        } else if (v == spanish) {
             Locale localees = new Locale("es");
             Locale.setDefault(localees);
             Configuration configes = new Configuration();
@@ -135,8 +144,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
             getBaseContext().getResources().updateConfiguration(configes, getBaseContext().getResources().getDisplayMetrics());
             Intent intent = new Intent(this, MainMenu.class);
             startActivity(intent);
-
-        }else if (v==english){
+            finish();
+        } else if (v == english) {
             Locale localeen = new Locale("en");
             Locale.setDefault(localeen);
             Configuration configen = new Configuration();
@@ -144,7 +153,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
             getBaseContext().getResources().updateConfiguration(configen, getBaseContext().getResources().getDisplayMetrics());
             Intent intent = new Intent(this, MainMenu.class);
             startActivity(intent);
-        }else if (v==german){
+            finish();
+        } else if (v == german) {
             Locale localede = new Locale("de");
             Locale.setDefault(localede);
             Configuration configde = new Configuration();
@@ -152,28 +162,24 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
             getBaseContext().getResources().updateConfiguration(configde, getBaseContext().getResources().getDisplayMetrics());
             Intent intent = new Intent(this, MainMenu.class);
             startActivity(intent);
-        }
-        else if (v==volume){
-            if (!vol){
+            finish();
+        } else if (v == volume) {
+            if (!vol) {
                 volume.setBackgroundResource(R.drawable.vol_on);
                 sound.repeat(piano, true);
-                vol=true;
-            }else {
+                vol = true;
+            } else {
                 volume.setBackgroundResource(R.drawable.vol_off);
-                sound.repeat(piano,false);
-                vol=false;
-
+                sound.repeat(piano, false);
+                vol = false;
             }
         }
-
-
-
-        }
+    }
     @Override
-    protected void onPause(){
-        super.onPause();
-        sound.repeat(piano, false);
-
+    public void onLowMemory() {
+        super.onLowMemory();
+        Log.d("LOW MEMORY","DONE");
+        finish();
     }
 }
 

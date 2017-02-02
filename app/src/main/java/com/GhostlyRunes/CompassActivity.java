@@ -199,7 +199,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
         intent.putExtra("Mode",2);
         startActivity(intent);
-
+        finish();
     }
 
 
