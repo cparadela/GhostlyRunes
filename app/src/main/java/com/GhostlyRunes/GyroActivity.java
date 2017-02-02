@@ -139,7 +139,6 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
             deltaRotationVector[3] = cosThetaOverTwo;
         }
 
-        //TODO esto no deberia ir al principio antes del if??
         timestamp = event.timestamp;
         float[] deltaRotationMatrix = new float[9];
         SensorManager.getRotationMatrixFromVector(deltaRotationMatrix, deltaRotationVector);

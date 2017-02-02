@@ -134,7 +134,6 @@ public class AcceleratorHandler implements SensorEventListener {
         accZ = event.values[2];
 
 
-        //TODO fix double sound issues
         if(!mist_gone &&((accX> max && accY > max) || (accX > max && accZ > max) || (accY > max && accZ > max) ||
                 (accX < min && accY < min) || (accX < min && accZ < min) || (accY < min && accZ < min))){
             mist_gone=true;
