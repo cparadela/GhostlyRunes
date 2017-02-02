@@ -1,6 +1,7 @@
 package com.GhostlyRunes;
 
 import android.app.AlertDialog;
+import android.content.ComponentCallbacks;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,7 +19,7 @@ import android.widget.Toast;
 import java.util.Locale;
 
 
-public class MainMenu extends AppCompatActivity implements View.OnClickListener{
+public class MainMenu extends AppCompatActivity implements View.OnClickListener, ComponentCallbacks {
 
     private Button start_gyro;
     private Button start_compass;
@@ -54,9 +55,21 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         german = (Button) findViewById(R.id.german);
         german.setOnClickListener(this);
 
-        sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sm= (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sm=null;
     }
 
     public void onClick(View v){
@@ -69,6 +82,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
                   Intent intent = new Intent(this, GyroActivity.class);
                   startActivity(intent);
+                  sm=null;
              }
 
         }
@@ -118,7 +132,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
             getBaseContext().getResources().updateConfiguration(configes, getBaseContext().getResources().getDisplayMetrics());
             Intent intent = new Intent(this, MainMenu.class);
             startActivity(intent);
-
+            finish();
         }else if (v==english){
             Locale localeen = new Locale("en");
             Locale.setDefault(localeen);
@@ -127,6 +141,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
             getBaseContext().getResources().updateConfiguration(configen, getBaseContext().getResources().getDisplayMetrics());
             Intent intent = new Intent(this, MainMenu.class);
             startActivity(intent);
+            finish();
         }else if (v==german){
             Locale localede = new Locale("de");
             Locale.setDefault(localede);
@@ -135,7 +150,15 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
             getBaseContext().getResources().updateConfiguration(configde, getBaseContext().getResources().getDisplayMetrics());
             Intent intent = new Intent(this, MainMenu.class);
             startActivity(intent);
+            finish();
         }
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Log.d("LOW MEMORY","DONE");
+        finish();
     }
 }
 

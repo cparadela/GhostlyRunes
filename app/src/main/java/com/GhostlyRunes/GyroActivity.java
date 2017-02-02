@@ -91,20 +91,21 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onStop(){
         super.onStop();
-        finish();
     }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
         finish();
+        Log.d("DESTROY","FIRE AND DEATH TO THE GYROSCOPE");
+        System.gc();
+
     }
 
     public void onSensorChanged(SensorEvent event) {
         //SECTION: PREPROCESSING OF GYROSCOPE
         // This timestep's delta rotation to be multiplied by the current rotation
         // after computing it from the gyro sample data.
-
         if (timestamp != 0) {
             final float dT = (event.timestamp - timestamp) * NS2S;
             time_not_vib+=dT;
@@ -256,6 +257,7 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
 
         intent.putExtra("Mode",1);
         startActivity(intent);
+        finish();
     }
 
     void startChecking(){

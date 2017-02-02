@@ -148,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                         intent.putExtra("ID", PATTERNID);
                         startActivity(intent);
                     }
+                    finish();
 
                 }else if(message == "pathLost"){
                     vib.vibrate(200);
