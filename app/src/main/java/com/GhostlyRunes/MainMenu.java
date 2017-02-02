@@ -45,6 +45,15 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         instructions = (Button) findViewById(R.id.instr_button);
         instructions.setOnClickListener(this);
 
+        spanish = (Button) findViewById(R.id.spanish);
+        spanish.setOnClickListener(this);
+
+        english = (Button) findViewById(R.id.english);
+        english.setOnClickListener(this);
+
+        german = (Button) findViewById(R.id.german);
+        german.setOnClickListener(this);
+
         sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
 
@@ -107,18 +116,25 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
             Configuration configes = new Configuration();
             configes.locale = localees;
             getBaseContext().getResources().updateConfiguration(configes, getBaseContext().getResources().getDisplayMetrics());
+            Intent intent = new Intent(this, MainMenu.class);
+            startActivity(intent);
+
         }else if (v==english){
             Locale localeen = new Locale("en");
             Locale.setDefault(localeen);
             Configuration configen = new Configuration();
             configen.locale = localeen;
             getBaseContext().getResources().updateConfiguration(configen, getBaseContext().getResources().getDisplayMetrics());
+            Intent intent = new Intent(this, MainMenu.class);
+            startActivity(intent);
         }else if (v==german){
             Locale localede = new Locale("de");
             Locale.setDefault(localede);
             Configuration configde = new Configuration();
             configde.locale = localede;
             getBaseContext().getResources().updateConfiguration(configde, getBaseContext().getResources().getDisplayMetrics());
+            Intent intent = new Intent(this, MainMenu.class);
+            startActivity(intent);
         }
     }
 }
