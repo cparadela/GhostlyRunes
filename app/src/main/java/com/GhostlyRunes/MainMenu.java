@@ -24,8 +24,11 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
     private Button start_compass;
     private Button credits;
     private Button instructions;
+    private Button volume;
     private int piano;
     private Button spanish, english, german;
+    //TODO chapucilla
+    private boolean vol=false;
     SensorManager sm;
 
     SoundHandler sound;
@@ -50,6 +53,9 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
         instructions = (Button) findViewById(R.id.instr_button);
         instructions.setOnClickListener(this);
+
+        volume = (Button) findViewById(R.id.vol);
+        volume.setOnClickListener(this);
 
         spanish = (Button) findViewById(R.id.spanish);
         spanish.setOnClickListener(this);
@@ -147,12 +153,27 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
             Intent intent = new Intent(this, MainMenu.class);
             startActivity(intent);
         }
+        else if (v==volume){
+            if (!vol){
+                volume.setBackgroundResource(R.drawable.vol_on);
+                sound.repeat(piano, true);
+                vol=true;
+            }else {
+                volume.setBackgroundResource(R.drawable.vol_off);
+                sound.repeat(piano,false);
+                vol=false;
 
-        @Override
-        protected void onPause() { //anular el registro del listener
-            super.onPause();
+            }
+        }
+
+
 
         }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        sound.repeat(piano, false);
+
     }
 }
 
