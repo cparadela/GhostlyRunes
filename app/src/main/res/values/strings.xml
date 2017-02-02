@@ -19,8 +19,7 @@
     <string name="creditMiguel" translatable="false">Miguel Keane Cañizares:\n</string>
     <string name="instructionTitle">Instrucciones</string>
     <string name="instructionMessage">Encontrar y matar fantasmas</string>
-
-
+    <string name="creditMessage"><b>Carlos Paradela Pérez:</b>  cparadela@correo.ugr.es     <b>Miguel Keane Cañizares:</b>  miguekeca@correo.ugr.es</string>
 
 
 </resources>

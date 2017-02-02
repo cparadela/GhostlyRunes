@@ -91,6 +91,7 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onStop(){
         super.onStop();
+        finish();
     }
 
     @Override
