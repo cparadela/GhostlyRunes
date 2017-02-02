@@ -5,6 +5,6 @@ package com.GhostlyRunes;
  */
 
 public interface MessageReceiver {
-    boolean transmitMessage(String sender,String message) throws InterruptedException;
+    boolean transmitMessage(String sender,String message);
 
 }

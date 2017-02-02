@@ -8,6 +8,7 @@ import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -20,13 +21,14 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     final String TOUCHID="Screen Touch";
 
     boolean hasAccel=true;
+    boolean first_touch=false;
 
-    ImageView ectoplasm;
+    ImageView splat;
     int tada, blow;
 
     SensorManager mSensorManager;
 
-    boolean ectoplasm_gone=false;
+    boolean splat_gone=false;
 
     public AcceleratorHandler AH= new AcceleratorHandler(this, ACCELID);
     public SoundHandler sound;
@@ -38,11 +40,11 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+       // setContentView(R.layout.activity_main);
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        ectoplasm = (ImageView) findViewById(R.id.ectoplasm);
+        //splat = (ImageView) findViewById(R.id.splat);
 
         //TODO cargar antes
         sound = new SoundHandler(getApplicationContext());
@@ -53,8 +55,8 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
         touch= new TouchHandler(this, TOUCHID);
 
-        //TODO Para ignorar la ectoplasm y testear. Borrar al final
-        //ectoplasm.setAlpha(0.0f);
+        //TODO Para ignorar la splat y testear. Borrar al final
+        //splat.setAlpha(0.0f);
         //touch.startChecking();
     }
 
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
           Log.w("ACCELEROMETER", "NOT FOUND");
             if(hasAccel) Toast.makeText(getApplicationContext(), "Esta apliación no soporta dispositivos sin acelerómetro.", Toast.LENGTH_LONG).show();
             hasAccel=false;
-        }else if(!ectoplasm_gone){
+        }else if(!splat_gone){
             sm.registerListener(AH,sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_GAME);
         }
         //TODO Solucionar que no entre en giroscopio sino lo tiene
@@ -78,7 +80,18 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     protected void onStop() { //anular el registro del listener
         super.onStop();
         SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-        if(hasAccel && !ectoplasm_gone) sm.unregisterListener(AH);
+        if(hasAccel && !splat_gone) sm.unregisterListener(AH);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+               first_touch=true;
+            Log.d("E", "TOCADO Y HUNDIDO");
+               splat.setAlpha(0.0f);
+        }
+        return super.onTouchEvent(event);
     }
 
     @Override
@@ -92,14 +105,14 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                ectoplasm.setAlpha(0.0f);
-                ectoplasm_gone = true;
+                splat.setAlpha(0.0f);
+                splat_gone = true;
                 mSensorManager.unregisterListener(AH);
                 touch.startChecking(); //Starts Minigame
                 vib.vibrate(500);
 
             } else if (message == "moveSoft") {
-                Toast.makeText(getApplicationContext(), "¡Tienes que agitar más fuerte para que se vaya el ectoplasma!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "¡Tienes que agitar más fuerte para que se vaya el splata!", Toast.LENGTH_LONG).show();
 
             }
                 break;

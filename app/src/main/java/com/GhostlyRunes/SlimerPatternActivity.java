@@ -2,7 +2,10 @@ package com.GhostlyRunes;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 public class SlimerPatternActivity extends MainActivity {
 
@@ -10,6 +13,9 @@ public class SlimerPatternActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slimer_pattern);
+
+        splat = (ImageView) findViewById(R.id.splat);
+        splat.setAlpha(0.0f);
 
 
         int[] pattern = new int[6];
@@ -29,4 +35,16 @@ public class SlimerPatternActivity extends MainActivity {
         touch.setPattern(pattern);
         touch.startChecking();
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            first_touch=true;
+            Log.d("E", "TOCADO Y HUNDIDO");
+            splat.setAlpha(1.0f);
+        }
+        return super.onTouchEvent(event);
+    }
+
 }

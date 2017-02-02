@@ -137,11 +137,9 @@ public class AcceleratorHandler implements SensorEventListener {
                 (accX < min && accY < min) || (accX < min && accZ < min) || (accY < min && accZ < min))){
             mist_gone=true;
 
-            try {
+
                 MR.transmitMessage(ACCELID, "moveStrong");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
 
 
             Log.d("M", "MIST GONE");
@@ -151,11 +149,9 @@ public class AcceleratorHandler implements SensorEventListener {
                 (accX < medMin && accY < medMin) || (accX < medMin && accZ < medMin) || (accY < medMin && accZ < medMin))){
             mist_half_gone=true;
             mist_gone=true;
-            try {
-                MR.transmitMessage(ACCELID, "moveSoft");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
+            MR.transmitMessage(ACCELID, "moveSoft");
+
             mist_gone=false;
 
             Log.d("M", "MIST HALF GONE");

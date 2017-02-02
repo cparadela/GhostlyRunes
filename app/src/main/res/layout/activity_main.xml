@@ -41,7 +41,7 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/greensplash"
-        android:id="@+id/ectoplasm"
+        android:id="@+id/splat"
         android:adjustViewBounds="false"
         android:layout_weight="1" />
 
