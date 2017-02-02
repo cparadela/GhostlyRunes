@@ -50,6 +50,8 @@ public class AcceleratorHandler implements SensorEventListener {
         rotationCurrent[8]=1.0f;
         this.MR=MR;
         this.ACCELID=accelid;
+        mist_gone=false;
+        mist_half_gone=false;
     }
 
 
@@ -148,11 +150,9 @@ public class AcceleratorHandler implements SensorEventListener {
         else if(!mist_gone && !mist_half_gone &&((accX> medMax && accY > medMax) || (accX > medMax && accZ > medMax) || (accY > medMax && accZ > medMax) ||
                 (accX < medMin && accY < medMin) || (accX < medMin && accZ < medMin) || (accY < medMin && accZ < medMin))){
             mist_half_gone=true;
-            mist_gone=true;
 
             MR.transmitMessage(ACCELID, "moveSoft");
 
-            mist_gone=false;
 
             Log.d("M", "MIST HALF GONE");
 

@@ -31,7 +31,7 @@ public class StarPatternActivity extends MainActivity{
         view.setOnTouchListener(touch);
 
         touch.setPattern(pattern);
-        touch.startChecking();
+
     }
 
 
