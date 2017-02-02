@@ -13,4 +13,8 @@
     <string name="ghostFound">¡Fantasma encontrado! \n ¡Desbloquea el patrón para derrotarlo!</string>
     <string name="shakeStronger"> "¡Tienes que agitar más fuerte para que se vaya el ectoplasma!"</string>
     <string name="ghostDefeated">¡Bien, has derrotado al fantasma!</string>
+    <string name="creditTitle">Créditos</string>
+    <string name="creditMessage"><b>Carlos Paradela Pérez:</b>\n cparadela@correo.ugr.es \n\n\n <b>Miguel Keane Cañizares:</b>\n miguekeca@correo.ugr.es</string>
+    <string name="instructionTitle">Instrucciones</string>
+    <string name="instructionMessage">Encontrar y matar fantasmas</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.GhostlyRunes;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -16,6 +18,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
     private Button start_gyro;
     private Button start_compass;
+    private Button credits;
+    private Button instructions;
     SensorManager sm;
     MessageReceiver MR;
     @Override
@@ -29,6 +33,12 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
         start_compass = (Button) findViewById(R.id.start_compass);
         start_compass.setOnClickListener(this);
+
+        credits = (Button) findViewById(R.id.credit_button);
+        credits.setOnClickListener(this);
+
+        instructions = (Button) findViewById(R.id.instr_button);
+        instructions.setOnClickListener(this);
 
         sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
@@ -48,7 +58,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
              }
 
         }
-        if (v==start_compass){
+        else if (v==start_compass){
             //Checks if gyroscope is available
              if(sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)==null) {
                     Log.w("COMPASS", "NOT FOUND");
@@ -57,6 +67,34 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
                  Intent intent = new Intent(this, CompassActivity.class);
                  startActivity(intent);
              }
+        }
+        else if (v==credits){
+            new AlertDialog.Builder(this)
+                    .setTitle(getResources().getString(R.string.creditTitle))
+                    .setMessage(getResources().getString(R.string.creditMessage))
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+
+                    .setIcon(android.R.drawable.ic_dialog_email)
+                    .show();
+
+        }
+        else if (v==instructions){
+            new AlertDialog.Builder(this)
+                    .setTitle(getResources().getString(R.string.instructionTitle))
+                    .setMessage(getResources().getString(R.string.instructionMessage))
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+
+                    .setIcon(android.R.drawable.ic_dialog_info)
+                    .show();
+
         }
     }
 }
