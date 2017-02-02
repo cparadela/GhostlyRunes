@@ -105,27 +105,25 @@
             android:layout_weight="0.2"
             android:weightSum="1">
 
-            <ImageView
-                android:layout_width="59dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/spain"
-                android:id="@+id/imageView"
-                android:layout_weight="0.45"
+            <Button
+                android:layout_width="55dp"
+                android:layout_height="57dp"
+                android:id="@+id/spanish"
+                android:background="@drawable/spain"
                 android:layout_gravity="center_horizontal" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="176dp"
-                android:src="@drawable/british"
-                android:id="@+id/imageView2"
-                android:layout_weight="0.25" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
+                android:id="@+id/english"
+                android:background="@drawable/british" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/germany"
-                android:id="@+id/imageView3"
-                android:layout_weight="0.98" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:id="@+id/german"
+                android:background="@drawable/germany"
+                android:layout_weight="0.03" />
 
         </LinearLayout>
 
