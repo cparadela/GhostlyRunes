@@ -197,7 +197,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
             default: intent = new Intent(this, MainMenu.class);
         }
 
-        intent.putExtra("Mode","COMPASS");
+        intent.putExtra("Mode",2);
         startActivity(intent);
 
     }

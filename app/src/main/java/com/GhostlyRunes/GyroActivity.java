@@ -253,7 +253,7 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
             default: intent = new Intent(this, MainMenu.class);
         }
 
-        intent.putExtra("Mode","GYROSCOPE");
+        intent.putExtra("Mode",1);
         startActivity(intent);
     }
 

@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.ghostDefeated), Toast.LENGTH_LONG).show();
                    sound.play(tada);
                     //Creating new activity
-                    if (getIntent().getStringExtra("Mode")=="GYROSCOPE"){
+                    if (getIntent().getIntExtra("Mode",0)==1){
                         Intent intent = new Intent(this, GyroActivity.class);
                         intent.putExtra("ID", PATTERNID);
                         startActivity(intent);
