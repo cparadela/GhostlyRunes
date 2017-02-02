@@ -12,6 +12,8 @@ public class ZigZagPatternActivity extends MainActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zigzag_pattern);
 
+        PATTERNID=2;
+
         splat = (ImageView) findViewById(R.id.splat);
         splat.setAlpha(0.0f);
 

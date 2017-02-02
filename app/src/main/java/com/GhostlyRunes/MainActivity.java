@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     final String ACCELID="Accelerometer";
     final String TOUCHID="Screen Touch";
 
+    protected int PATTERNID;
+
     boolean hasAccel=true;
     boolean first_touch=false;
 
@@ -41,9 +43,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-
 
         //TODO cargar antes
         sound = new SoundHandler(getApplicationContext());
@@ -129,11 +129,18 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 if(message == "pathStart") {
                     vib.vibrate(100);
                 }else if(message == "destinyReached"){
-                    Toast.makeText(getApplicationContext(), "¡Bien, has desbloqueado la runa!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "¡Bien, has derrotado al fantasma!", Toast.LENGTH_LONG).show();
                    sound.play(tada);
                     //Creating new activity
-                    Intent intent = new Intent(this, StarPatternActivity.class);
-                    startActivity(intent);
+                    if (getIntent().getStringExtra("Mode")=="GYROSCOPE"){
+                        Intent intent = new Intent(this, GyroActivity.class);
+                        startActivity(intent);
+                    }
+                    else{
+                        Intent intent = new Intent(this, CompassActivity.class);
+                        startActivity(intent);
+                    }
+
                 }else if(message == "pathLost"){
                     vib.vibrate(200);
                 }

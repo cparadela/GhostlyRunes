@@ -11,8 +11,10 @@ public class SemiCirclePatternActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_semi_circle_pattern);
+
         splat = (ImageView) findViewById(R.id.splat);
         splat.setAlpha(0.0f);
+        PATTERNID=1;
 
         int[] pattern = new int[6];
         pattern[0]=R.id.Point1;

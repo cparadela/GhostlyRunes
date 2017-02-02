@@ -95,7 +95,6 @@
         android:layout_height="wrap_content"
         android:src="@drawable/splatblood"
         android:id="@+id/splat"
-
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

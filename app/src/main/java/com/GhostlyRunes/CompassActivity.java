@@ -29,12 +29,15 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     private ImageView arrow;
 
     private static final float NS2S = 1.0f / 1000000000.0f;
+    private String mode;
 
     int ghost=0;
     boolean found=false;
     boolean f = false, last_vib=false;
     long t0;
     int error=7;
+    int next_ghost=0;
+    Random ran;
 
 
     long time_not_vib=0;
@@ -54,6 +57,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         arrow = (ImageView) findViewById(R.id.arrow);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
+        ran= new Random();
         vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
 
         newGhost(); //Asignamos pos al ghost
@@ -94,6 +98,8 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
         // Start the animation
         needle.startAnimation(anim);
+        //We change the value of the currentDegree (place the animation is pointing)
+        currentDegree = -degree;
 
         //We check if we are getting close to finding the ghost
 
@@ -120,7 +126,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
                 }
             }
             Log.d("ghost", "---->CLOSE:"+ ((event.timestamp-time_not_vib)*NS2S));
-            ghostNearby(dist_ghost);
+            ghostNearby();
 
         }
         if (dist_ghost < error) {
@@ -147,7 +153,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
         }
 
-        currentDegree = -degree;
+
 
     }
 
@@ -157,7 +163,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         Log.d("CREATE COMPASS","ghost: "+ghost+"\n\n");
     }
 
-    void ghostNearby(float dist){
+    void ghostNearby(){
         Vibrator vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
         vib.vibrate(50);
 
@@ -167,8 +173,24 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     void ghostFound(){
 
         vib.vibrate(500);
-        Toast.makeText(getApplicationContext(), "¡Fantasma encontrado!", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, SlimerPatternActivity.class);
+        Toast.makeText(getApplicationContext(), "¡Fantasma encontrado! \n ¡Desbloquea el patrón para derrotarlo!", Toast.LENGTH_LONG).show();
+
+        next_ghost=ran.nextInt(4);
+
+        Intent intent;
+        switch(next_ghost){
+            case 0: intent = new Intent(this, StarPatternActivity.class);
+                break;
+            case 1: intent = new Intent(this, SemiCirclePatternActivity.class);
+                break;
+            case 2: intent = new Intent(this, ZigZagPatternActivity.class);
+                break;
+            case 3: intent = new Intent(this, SlimerPatternActivity.class);
+                break;
+            default: intent = new Intent(this, MainMenu.class);
+        }
+
+        intent.putExtra("Mode","COMPASS");
         startActivity(intent);
 
     }

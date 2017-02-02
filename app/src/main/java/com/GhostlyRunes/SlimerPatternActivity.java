@@ -14,6 +14,8 @@ public class SlimerPatternActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slimer_pattern);
 
+        PATTERNID=3;
+
         splat = (ImageView) findViewById(R.id.splat);
         splat.setAlpha(0.0f);
 

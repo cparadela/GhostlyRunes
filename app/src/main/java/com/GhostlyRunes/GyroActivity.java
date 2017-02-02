@@ -218,8 +218,10 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
 
         //TODO añadir que utiliza giroscopio para proximos intent (SET EXTRA)
 
-        Intent intent = new Intent(this, StarPatternActivity.class);
+        Intent intent = new Intent(this, SlimerPatternActivity.class);
+        intent.putExtra("Mode","GYROSCOPE");
         startActivity(intent);
+
     }
 
     void startChecking(){

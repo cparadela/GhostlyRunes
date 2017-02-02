@@ -17,6 +17,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
     private Button start_gyro;
     private Button start_compass;
     SensorManager sm;
+    MessageReceiver MR;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +42,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
                     Log.w("GYROSCOPE", "NOT FOUND");
                     Toast.makeText(getApplicationContext(), "Su dispositivo no tiene giroscopio.", Toast.LENGTH_LONG).show();
              }else{
+
                   Intent intent = new Intent(this, GyroActivity.class);
                   startActivity(intent);
              }
