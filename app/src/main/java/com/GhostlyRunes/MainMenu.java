@@ -51,8 +51,6 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
              if(sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)==null) {
                     Log.w("COMPASS", "NOT FOUND");
                     Toast.makeText(getApplicationContext(), "Su dispositivo no tiene brújula.", Toast.LENGTH_LONG).show();
-                 Intent intent = new Intent(this, ZigZagPatternActivity.class);
-                 startActivity(intent);
              }else {
                  Intent intent = new Intent(this, CompassActivity.class);
                  startActivity(intent);

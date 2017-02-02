@@ -28,7 +28,7 @@ public class ZigZagPatternActivity extends MainActivity{
         view.setOnTouchListener(touch);
 
         touch.setPattern(pattern);
-        touch.startChecking();
+
     }
 
 

@@ -25,7 +25,7 @@ public class TouchHandler implements View.OnTouchListener {
     public float error=100f; //error on fingertips
     public float alpha=0;//0.5f; //alpha in [0,1], checks optimality of the descent (1: optimality)
     boolean path=false; //If the events are a possible solution to the minigame
-    boolean check=false; //enable minigame
+    boolean checking=false; //enable minigame
 
 
     int[] pattern; //Vector of tags of elements to be done in order
@@ -54,10 +54,11 @@ public class TouchHandler implements View.OnTouchListener {
     @Override
     public boolean onTouch (View v, MotionEvent event){
 
-        if(check) {
+        if(checking) {
             float x = event.getX(), y = event.getY();
 
             //TODO borrar seguramente
+            /*
             if (draw) {
                 // RelativeLayout. though you can use xml RelativeLayout here too by `findViewById()`
 
@@ -80,6 +81,7 @@ public class TouchHandler implements View.OnTouchListener {
                 //relativeLayout.addView(imageView, layoutParams);
                 ((ViewGroup) v).addView(imageView);
             }
+            */
 
             //TODO Pasar a constructor?
             if (pattern_new) { //Gets the points to a correct state the first time it triggers
@@ -226,11 +228,12 @@ public class TouchHandler implements View.OnTouchListener {
     }
 
     public void startChecking(){
-        check=true;
+        checking=true;
         pattern_new=true;
     }
+
     public void stopChecking(){
-        check=false;
+        checking=false;
         path=false;
     }
 

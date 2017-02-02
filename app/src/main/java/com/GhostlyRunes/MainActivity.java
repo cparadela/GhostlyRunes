@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     ImageView splat;
     int tada, blow;
 
-    SensorManager mSensorManager;
+    SensorManager sm;
 
     boolean splat_gone=true;
 
@@ -40,21 +40,20 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_main);
 
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        //splat = (ImageView) findViewById(R.id.splat);
+        sm = (SensorManager) getSystemService(SENSOR_SERVICE);
+
 
         //TODO cargar antes
         sound = new SoundHandler(getApplicationContext());
-        //tada=sound.load(R.raw.tada);
-        //blow=sound.load(R.raw.blow);
+        tada=sound.load(R.raw.tada);
+        blow=sound.load(R.raw.blow);
 
         vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
 
         touch= new TouchHandler(this, TOUCHID);
-        //touch.stopChecking();
+        touch.stopChecking();
 
         //TODO Para ignorar la splat y testear. Borrar al final
         //splat.setAlpha(0.0f);
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     protected void onResume() {
         super.onResume();
         //registro del listener
-        SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
+
 
         if(!hasAccel || sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)==null){
           Log.w("ACCELEROMETER", "NOT FOUND");
@@ -90,8 +89,11 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
                 splat.setAlpha(1.0f);
-
+                splat_gone=false;
                 first_touch = true;
+                sm.registerListener(AH,sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_GAME);
+                Toast.makeText(getApplicationContext(), "¡Oh no! ¡El fantasma te ha atacado\n ¡Agita el móvil para quitarte el ectoplasma de encima!", Toast.LENGTH_LONG).show();
+
                 Log.d("E", "TOCADO Y HUNDIDO");
 
             }
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         switch (sender) {
             case ACCELID:
             if (message == "moveStrong") {
-//                sound.play(blow);
+               sound.play(blow);
                 try {
                     Thread.sleep(1200);
                 } catch (InterruptedException e) {
@@ -114,12 +116,12 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 }
                 splat.setAlpha(0.0f);
                 splat_gone = true;
-                mSensorManager.unregisterListener(AH);
+                sm.unregisterListener(AH);
                 touch.startChecking(); //Starts Minigame
                 vib.vibrate(500);
 
             } else if (message == "moveSoft") {
-                Toast.makeText(getApplicationContext(), "¡Tienes que agitar más fuerte para que se vaya el splata!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "¡Tienes que agitar más fuerte para que se vaya el ectoplasma!", Toast.LENGTH_LONG).show();
 
             }
                 break;
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                     vib.vibrate(100);
                 }else if(message == "destinyReached"){
                     Toast.makeText(getApplicationContext(), "¡Bien, has desbloqueado la runa!", Toast.LENGTH_LONG).show();
-  //                  sound.play(tada);
+                   sound.play(tada);
                     //Creating new activity
                     Intent intent = new Intent(this, StarPatternActivity.class);
                     startActivity(intent);

@@ -29,7 +29,6 @@ public class SemiCirclePatternActivity extends MainActivity {
         view.setOnTouchListener(touch);
 
         touch.setPattern(pattern);
-        touch.startChecking();
 
     }
 }
