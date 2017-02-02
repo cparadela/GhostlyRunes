@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="339dp"
             android:src="@drawable/estrellagiroscopio"
-            android:id="@+id/estrella"
+            android:id="@+id/needle"
             android:layout_gravity="center_vertical" />
     </LinearLayout>
 

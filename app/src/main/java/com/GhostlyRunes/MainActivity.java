@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
         //TODO cargar antes
         sound = new SoundHandler(getApplicationContext());
-        tada=sound.load(R.raw.tada);
-        blow=sound.load(R.raw.blow);
+        //tada=sound.load(R.raw.tada);
+        //blow=sound.load(R.raw.blow);
 
         vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
 
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         switch (sender) {
             case ACCELID:
             if (message == "moveStrong") {
-                sound.play(blow);
+//                sound.play(blow);
                 try {
                     Thread.sleep(1200);
                 } catch (InterruptedException e) {
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                     vib.vibrate(100);
                 }else if(message == "destinyReached"){
                     Toast.makeText(getApplicationContext(), "¡Bien, has desbloqueado la runa!", Toast.LENGTH_LONG).show();
-                    sound.play(tada);
+  //                  sound.play(tada);
                     //Creating new activity
                     Intent intent = new Intent(this, StarPatternActivity.class);
                     startActivity(intent);
@@ -140,4 +140,5 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
         return true;
     }
+
 }

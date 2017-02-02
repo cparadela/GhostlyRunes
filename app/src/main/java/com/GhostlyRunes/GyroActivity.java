@@ -11,6 +11,8 @@ import android.os.PersistableBundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -42,12 +44,13 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
     public float [] rotationCurrent = new float[9];
 
     //Imageviews
-    private ImageView arrow;
-
+    private ImageView arrow, needle;
     //Services
     Vibrator vib;
     SensorManager mSensorManager;
 
+    //Animation
+    float currentDegree=0f;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,8 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
         newGhost();
 
         arrow = (ImageView) findViewById(R.id.arrow);
+
+        needle = (ImageView) findViewById(R.id.needle);
     }
 
     @Override
@@ -72,13 +77,13 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
     public void onStop(){
         super.onStop();
         mSensorManager.unregisterListener(this);
+        finish();
     }
 
     public void onSensorChanged(SensorEvent event) {
         //SECTION: PREPROCESSING OF GYROSCOPE
         // This timestep's delta rotation to be multiplied by the current rotation
         // after computing it from the gyro sample data.
-
 
         if (timestamp != 0) {
             final float dT = (event.timestamp - timestamp) * NS2S;
@@ -136,8 +141,29 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
         float[] gyroscopeOrientation = new float[3];
         SensorManager.getOrientation(rotationCurrent,
                 gyroscopeOrientation);
+/*
+        //SECTION: ANIMATION
+
+        float degree=180*gyroscopeOrientation[0]/((float) Math.PI) + 180;
+
+        Log.d("DEGREE", ""+degree);
+
+        // We create an animation where we will move our compass, making sure it's always pointing north
+        RotateAnimation anim = new RotateAnimation(currentDegree,degree, Animation.RELATIVE_TO_SELF, 0.5f,Animation.RELATIVE_TO_SELF, 0.5f);
+
+        // Time it will take the animation to finish
+        anim.setDuration(210);
+
+        // set the animation after the end of the reservation status
+        anim.setFillAfter(true);
 
 
+        // Start the animation
+        needle.startAnimation(anim);
+
+        //We check if we are getting close to finding the ghost
+        currentDegree=degree;
+*/
         //SECTION: PHANTOM GAME
     if(checking){
         float ghost_dist =Math.abs(gyroscopeOrientation[0] - ghost);
@@ -166,13 +192,9 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
             if(!found && f==true && t0>0 && (event.timestamp-t0)*NS2S>2.5f){
                 Log.d("FANTASMA", "ENCONTRADO");
                 found=true;
-                //checking=false;
-                newGhost();
-                vib.vibrate(500);
-
-                //TODO añadir que utiliza giroscopio para proximos intent (SET EXTRA)
-                Intent intent = new Intent(this, ZigZagPatternActivity.class);
-                startActivity(intent);
+                checking=false;
+                //newGhost();
+                ghostFound();
             }
 
 
@@ -190,6 +212,15 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
         ghost=(float) (Math.random()*6-3);
         found=false;
         Log.d("CREADO GYRO","FANTASMA"+ghost);
+    }
+    void ghostFound(){
+        vib.vibrate(500);
+
+        //TODO añadir que utiliza giroscopio para proximos intent (SET EXTRA)
+
+        Intent intent = new Intent(this, StarPatternActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     void startChecking(){
