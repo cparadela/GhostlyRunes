@@ -24,14 +24,20 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
     private Button start_compass;
     private Button credits;
     private Button instructions;
+    private int piano;
     private Button spanish, english, german;
     SensorManager sm;
-    MessageReceiver MR;
+
+    SoundHandler sound;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+        sound= new SoundHandler(getApplicationContext());
+        piano= sound.load(R.raw.piano);
 
         start_gyro = (Button) findViewById(R.id.start_gyro);
         start_gyro.setOnClickListener(this);
@@ -55,6 +61,9 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         german.setOnClickListener(this);
 
         sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+
+
 
 
     }
@@ -98,6 +107,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
         }
         else if (v==instructions){
+
+
             new AlertDialog.Builder(this)
                     .setTitle(getResources().getString(R.string.instructionTitle))
                     .setMessage(getResources().getString(R.string.instructionMessage))
@@ -135,6 +146,12 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
             getBaseContext().getResources().updateConfiguration(configde, getBaseContext().getResources().getDisplayMetrics());
             Intent intent = new Intent(this, MainMenu.class);
             startActivity(intent);
+        }
+
+        @Override
+        protected void onPause() { //anular el registro del listener
+            super.onPause();
+
         }
     }
 }
