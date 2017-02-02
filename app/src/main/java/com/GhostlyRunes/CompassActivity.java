@@ -172,7 +172,6 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     }
 
     void ghostFound(){
-        //TODO CAMBIAR TOAS
         vib.vibrate(500);
         Toast.makeText(getApplicationContext(), getResources().getString(R.string.ghostFound), Toast.LENGTH_LONG).show();
 

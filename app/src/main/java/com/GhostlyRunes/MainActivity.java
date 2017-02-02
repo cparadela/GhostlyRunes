@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 vib.vibrate(500);
 
             } else if (message == "moveSoft") {
-                Toast.makeText(getApplicationContext(),getResources().getString(R.string.runeUnlocked), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.shakeStronger), Toast.LENGTH_LONG).show();
 
             }
                 break;
@@ -134,8 +134,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                     vib.vibrate(100);
                 }else if(message == "destinyReached"){
                     //TODO CAMBIAR TEXTO
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.runeUnlocked), Toast.LENGTH_LONG).show();
-                    //Toast.makeText(getApplicationContext(), "¡Bien, has derrotado al fantasma!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.ghostDefeated), Toast.LENGTH_LONG).show();
                    sound.play(tada);
                     //Creating new activity
                     if (getIntent().getStringExtra("Mode")=="GYROSCOPE"){
