@@ -16,6 +16,8 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 /**
  * Created by Charlie 28/01/2017.
  */
@@ -41,6 +43,11 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
     float time_not_vib=0;   //Time to check vibration pulses
     boolean f = false;      //If we are currently pointing at the ghost.
 
+    //intent variables
+    int next_ghost=0;
+    int prev_ghost=0;
+    Random ran;
+
     public float [] rotationCurrent = new float[9];
 
     //Imageviews
@@ -61,6 +68,8 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
         rotationCurrent[4]=1.0f;
         rotationCurrent[8]=1.0f;
         newGhost();
+
+        ran= new Random();
 
         arrow = (ImageView) findViewById(R.id.arrow);
 
@@ -225,10 +234,26 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
     void ghostFound(){
         vib.vibrate(500);
 
-        //TODO añadir que utiliza giroscopio para proximos intent (SET EXTRA)
+        Toast.makeText(getApplicationContext(), "¡Fantasma encontrado! \n ¡Desbloquea el patrón para derrotarlo!", Toast.LENGTH_LONG).show();
+        prev_ghost=getIntent().getIntExtra("ID",-1);
+        next_ghost=ran.nextInt(4);
+        if(prev_ghost==next_ghost){
+            next_ghost=(prev_ghost+1)%4;
+        }
+        Intent intent;
+        switch(next_ghost){
+            case 0: intent = new Intent(this, StarPatternActivity.class);
+                break;
+            case 1: intent = new Intent(this, SemiCirclePatternActivity.class);
+                break;
+            case 2: intent = new Intent(this, ZigZagPatternActivity.class);
+                break;
+            case 3: intent = new Intent(this, SlimerPatternActivity.class);
+                break;
+            default: intent = new Intent(this, MainMenu.class);
+        }
 
-        Intent intent = new Intent(this, SlimerPatternActivity.class);
-        intent.putExtra("Mode","GYROSCOPE");
+        intent.putExtra("Mode","COMPASS");
         startActivity(intent);
     }
 

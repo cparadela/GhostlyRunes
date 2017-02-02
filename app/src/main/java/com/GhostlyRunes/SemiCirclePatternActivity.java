@@ -24,7 +24,7 @@ public class SemiCirclePatternActivity extends MainActivity {
         pattern[4]=R.id.Point5;
         pattern[5]=R.id.Point6;
 
-        View view = findViewById(R.id.activity_star_pattern);
+        View view = findViewById(R.id.activity_semi_circle_pattern);
 
         touch= new TouchHandler(this, TOUCHID);
 

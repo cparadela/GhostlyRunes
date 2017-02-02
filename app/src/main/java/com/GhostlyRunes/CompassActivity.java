@@ -37,6 +37,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     long t0;
     int error=7;
     int next_ghost=0;
+    int prev_ghost=0;
     Random ran;
 
 
@@ -175,8 +176,11 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         vib.vibrate(500);
         Toast.makeText(getApplicationContext(), getResources().getString(R.string.ghostFound), Toast.LENGTH_LONG).show();
 
+        prev_ghost=getIntent().getIntExtra("ID",-1);
         next_ghost=ran.nextInt(4);
-
+        if(prev_ghost==next_ghost){
+            next_ghost=(prev_ghost+1)%4;
+        }
         Intent intent;
         switch(next_ghost){
             case 0: intent = new Intent(this, StarPatternActivity.class);

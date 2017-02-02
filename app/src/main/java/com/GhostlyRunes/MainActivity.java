@@ -139,10 +139,13 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                     //Creating new activity
                     if (getIntent().getStringExtra("Mode")=="GYROSCOPE"){
                         Intent intent = new Intent(this, GyroActivity.class);
+                        intent.putExtra("ID", PATTERNID);
                         startActivity(intent);
                     }
                     else{
+
                         Intent intent = new Intent(this, CompassActivity.class);
+                        intent.putExtra("ID", PATTERNID);
                         startActivity(intent);
                     }
 
