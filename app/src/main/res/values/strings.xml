@@ -13,14 +13,13 @@
     <string name="shakeStronger"> ¡Tienes que agitar más fuerte para que se vaya el ectoplasma!</string>
     <string name="ghostDefeated">¡Bien, has derrotado al fantasma!</string>
     <string name="creditTitle">Créditos</string>
-    <string name="emailCarlos">cparadela@correo.ugr.es</string>
-    <string name="emailMiguel">miguekeca@correo.ugr.es</string>
-    <string name="creditCarlos">Carlos Paradela Pérez:\n</string>
-    <string name="creditMiguel">Miguel Keane Cañizares:\n</string>
+    <string name="emailCarlos" translatable="false">cparadela@correo.ugr.es</string>
+    <string name="emailMiguel" translatable="false">miguekeca@correo.ugr.es</string>
+    <string name="creditCarlos" translatable="false">Carlos Paradela Pérez:\n</string>
+    <string name="creditMiguel" translatable="false">Miguel Keane Cañizares:\n</string>
     <string name="instructionTitle">Instrucciones</string>
     <string name="instructionMessage">Encontrar y matar fantasmas</string>
-
-
+    <string name="creditMessage"><b>Carlos Paradela Pérez:</b>  cparadela@correo.ugr.es     <b>Miguel Keane Cañizares:</b>  miguekeca@correo.ugr.es</string>
 
 
 </resources>
