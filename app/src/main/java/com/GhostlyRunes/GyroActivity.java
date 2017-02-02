@@ -186,7 +186,6 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
         //SECTION: PHANTOM GAME
     if(checking){
         float ghost_dist =Math.abs(gyroscopeOrientation[0] - ghost);
-
         if(ghost_dist>Math.PI){
             ghost_dist= 2*((float)Math.PI)-ghost_dist;
         }

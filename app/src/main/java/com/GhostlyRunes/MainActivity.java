@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
         if(!hasAccel || sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)==null){
           Log.w("ACCELEROMETER", "NOT FOUND");
-            if(hasAccel) Toast.makeText(getApplicationContext(), "Esta apliación no soporta dispositivos sin acelerómetro.", Toast.LENGTH_LONG).show();
+            if(hasAccel) Toast.makeText(getApplicationContext(),getResources().getString(R.string.noAccelerometer) , Toast.LENGTH_LONG).show();
             hasAccel=false;
         }else if(!splat_gone){
             sm.registerListener(AH,sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_GAME);
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 splat_gone=false;
                 first_touch = true;
                 sm.registerListener(AH,sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_GAME);
-                Toast.makeText(getApplicationContext(), "¡Oh no! ¡El fantasma te ha atacado\n ¡Agita el móvil para quitarte el ectoplasma de encima!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.splatAppears), Toast.LENGTH_LONG).show();
 
                 Log.d("E", "TOCADO Y HUNDIDO");
 
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 vib.vibrate(500);
 
             } else if (message == "moveSoft") {
-                Toast.makeText(getApplicationContext(), "¡Tienes que agitar más fuerte para que se vaya el ectoplasma!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.shakeStronger), Toast.LENGTH_LONG).show();
 
             }
                 break;
@@ -133,7 +133,8 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 if(message == "pathStart") {
                     vib.vibrate(100);
                 }else if(message == "destinyReached"){
-                    Toast.makeText(getApplicationContext(), "¡Bien, has derrotado al fantasma!", Toast.LENGTH_LONG).show();
+                    //TODO CAMBIAR TEXTO
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.ghostDefeated), Toast.LENGTH_LONG).show();
                    sound.play(tada);
                     //Creating new activity
                     if (getIntent().getStringExtra("Mode")=="GYROSCOPE"){

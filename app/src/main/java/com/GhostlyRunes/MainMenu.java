@@ -40,7 +40,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
             //Checks if gyroscope is available
              if(sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE)==null){
                     Log.w("GYROSCOPE", "NOT FOUND");
-                    Toast.makeText(getApplicationContext(), "Su dispositivo no tiene giroscopio.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.noGyroscope), Toast.LENGTH_LONG).show();
              }else{
 
                   Intent intent = new Intent(this, GyroActivity.class);
@@ -52,7 +52,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
             //Checks if gyroscope is available
              if(sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)==null) {
                     Log.w("COMPASS", "NOT FOUND");
-                    Toast.makeText(getApplicationContext(), "Su dispositivo no tiene brújula.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.noCompass), Toast.LENGTH_LONG).show();
              }else {
                  Intent intent = new Intent(this, CompassActivity.class);
                  startActivity(intent);
