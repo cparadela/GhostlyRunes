@@ -77,10 +77,14 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     }
 
     @Override
-    protected void onStop() { //anular el registro del listener
-        super.onStop();
+    protected void onPause() { //anular el registro del listener
+        super.onPause();
         SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
         if(hasAccel && !splat_gone) sm.unregisterListener(AH);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override
