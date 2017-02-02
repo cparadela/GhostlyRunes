@@ -9,6 +9,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -75,7 +76,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         else if (v==credits){
             new AlertDialog.Builder(this)
                     .setTitle(getResources().getString(R.string.creditTitle))
-                    .setMessage(getResources().getString(R.string.creditMessage))
+                    .setMessage(Html.fromHtml("<b>"+getResources().getString(R.string.creditCarlos)+"</b>"+getResources().getString(R.string.emailCarlos)
+                            +"<br><br><b>"+getResources().getString(R.string.creditMiguel)+"</b>"+ getResources().getString(R.string.emailMiguel) ))
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
 

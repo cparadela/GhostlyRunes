@@ -60,8 +60,11 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
         ran= new Random();
         vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.lookGhost), Toast.LENGTH_LONG).show();
+
 
         newGhost(); //Asignamos pos al ghost
+
 
 
     }
