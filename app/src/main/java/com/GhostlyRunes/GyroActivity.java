@@ -72,11 +72,21 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
         super.onResume();
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE ), SensorManager.SENSOR_DELAY_GAME);
     }
+    @Override
+    public void onPause(){
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+    }
+
 
     @Override
     public void onStop(){
         super.onStop();
-        mSensorManager.unregisterListener(this);
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
         finish();
     }
 
@@ -218,7 +228,7 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
 
         //TODO añadir que utiliza giroscopio para proximos intent (SET EXTRA)
 
-        Intent intent = new Intent(this, StarPatternActivity.class);
+        Intent intent = new Intent(this, SlimerPatternActivity.class);
         startActivity(intent);
     }
 

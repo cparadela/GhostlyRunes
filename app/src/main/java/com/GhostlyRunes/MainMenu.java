@@ -59,10 +59,5 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
              }
         }
     }
-    /*
-    @Override
-    public void onStop(){
-        finish();
-    }*/
 }
 

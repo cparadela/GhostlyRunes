@@ -68,10 +68,11 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION ), SensorManager.SENSOR_DELAY_GAME);
     }
     @Override
-    protected void onStop() { //parar el registro del listener
+    protected void onPause() { //parar el registro del listener
         mSensorManager.unregisterListener(this);
-        super.onStop();
+        super.onPause();
     }
+
 
 
 
