@@ -220,7 +220,6 @@ public class GyroActivity extends AppCompatActivity implements SensorEventListen
 
         Intent intent = new Intent(this, StarPatternActivity.class);
         startActivity(intent);
-        finish();
     }
 
     void startChecking(){
