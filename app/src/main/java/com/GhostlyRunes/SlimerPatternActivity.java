@@ -35,16 +35,4 @@ public class SlimerPatternActivity extends MainActivity {
         touch.setPattern(pattern);
         touch.startChecking();
     }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            first_touch=true;
-            Log.d("E", "TOCADO Y HUNDIDO");
-            splat.setAlpha(1.0f);
-        }
-        return super.onTouchEvent(event);
-    }
-
 }

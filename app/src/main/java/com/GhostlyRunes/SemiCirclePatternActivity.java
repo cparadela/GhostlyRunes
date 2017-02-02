@@ -3,6 +3,7 @@ package com.GhostlyRunes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 public class SemiCirclePatternActivity extends MainActivity {
 
@@ -10,6 +11,8 @@ public class SemiCirclePatternActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_semi_circle_pattern);
+        splat = (ImageView) findViewById(R.id.splat);
+        splat.setAlpha(0.0f);
 
         int[] pattern = new int[6];
         pattern[0]=R.id.Point1;

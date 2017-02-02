@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
 
         touch= new TouchHandler(this, TOUCHID);
+        touch.stopChecking();
 
         //TODO Para ignorar la splat y testear. Borrar al final
         //splat.setAlpha(0.0f);
@@ -85,13 +86,19 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if(!first_touch) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-               first_touch=true;
-            Log.d("E", "TOCADO Y HUNDIDO");
-               splat.setAlpha(0.0f);
+                splat.setAlpha(1.0f);
+
+                first_touch = true;
+                Log.d("E", "TOCADO Y HUNDIDO");
+
+            }
         }
+
         return super.onTouchEvent(event);
+
     }
 
     @Override

@@ -82,4 +82,13 @@
         android:layout_toEndOf="@+id/Point5"
         android:adjustViewBounds="false" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/splatblue"
+        android:layout_toStartOf="@+id/Point4"
+        android:id="@+id/splat"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>

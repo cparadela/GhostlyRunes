@@ -2,6 +2,7 @@ package com.GhostlyRunes;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 
 public class ZigZagPatternActivity extends MainActivity{
@@ -10,6 +11,9 @@ public class ZigZagPatternActivity extends MainActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zigzag_pattern);
+
+        splat = (ImageView) findViewById(R.id.splat);
+        splat.setAlpha(0.0f);
 
         int[] pattern = new int[5];
         pattern[0]=R.id.Point1;
