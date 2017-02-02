@@ -41,6 +41,17 @@ public class SoundHandler {
         sound.play(idSonido, leftVolume, rightVolume, 1, 0, rate);
     }
 
+    public void repeat(int idSonido, boolean rep) {
+        if(rep){
+            sound.play(idSonido, leftVolume, rightVolume, 1, -1, rate);
+        }
+        else{
+            sound.stop(idSonido);
+
+        }
+    }
+
+
     // Libera memoria de todos los objetos del sndPool que ya no son requeridos.
     public void unloadAll()
     {
