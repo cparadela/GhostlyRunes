@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ghostly Runes (EN)</string>
+    <string name="credit">CREDITS</string>
+    <string name="creditMessage"><b>Carlos Paradela Pérez:</b>  cparadela@correo.ugr.es     <b>Miguel Keane Cañizares:</b>  miguekeca@correo.ugr.es</string>
+    <string name="creditTitle">Credits</string>
+    <string name="ghostDefeated">Great! You\'ve defeated the ghost!</string>
+    <string name="ghostFound">You\'ve found a ghost! Unlock the pattern to defeat it!</string>
+    <string name="instructionMessage">Find and kill ghosts</string>
+    <string name="instructionTitle">Instructions</string>
+    <string name="instructions">INSTRUCTIONS</string>
+    <string name="lookGhost">Move the phone around you. The ghost is close by!</string>
+    <string name="noAccelerometer">This app does not support devices without acceletometer.</string>
+    <string name="noCompass">Your device does not have compass.</string>
+    <string name="noGyroscope">Your device does not have gyroscope</string>
+    <string name="shakeStronger">You need to shake stronger to escape the ectoplasm!</string>
+    <string name="splatAppears">\"Oh no! The ghost attacked you! Shake your device to escape the ectoplasm!</string>
+    <string name="start">START (GYROSCOPE)</string>
+    <string name="start2">START (COMPASS)</string>
+</resources>
