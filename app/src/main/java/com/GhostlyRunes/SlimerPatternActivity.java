@@ -17,6 +17,8 @@ public class SlimerPatternActivity extends MainActivity {
         splat = (ImageView) findViewById(R.id.splat);
         splat.setAlpha(0.0f);
 
+        splat_gone=false;
+
 
         int[] pattern = new int[6];
         pattern[0]=R.id.Point1;

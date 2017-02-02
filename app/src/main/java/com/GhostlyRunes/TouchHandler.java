@@ -25,8 +25,7 @@ public class TouchHandler implements View.OnTouchListener {
     public float error=100f; //error on fingertips
     public float alpha=0;//0.5f; //alpha in [0,1], checks optimality of the descent (1: optimality)
     boolean path=false; //If the events are a possible solution to the minigame
-    boolean checking=false; //enable minigame
-
+    boolean check=false; //enable minigame
 
 
     int[] pattern; //Vector of tags of elements to be done in order
@@ -54,7 +53,8 @@ public class TouchHandler implements View.OnTouchListener {
 
     @Override
     public boolean onTouch (View v, MotionEvent event){
-        if(checking) {
+
+        if(check) {
             float x = event.getX(), y = event.getY();
 
             //TODO borrar seguramente
@@ -226,11 +226,11 @@ public class TouchHandler implements View.OnTouchListener {
     }
 
     public void startChecking(){
-        checking=true;
+        check=true;
         pattern_new=true;
     }
     public void stopChecking(){
-        checking=false;
+        check=false;
         path=false;
     }
 

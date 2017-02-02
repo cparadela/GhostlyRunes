@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
     SensorManager mSensorManager;
 
-    boolean splat_gone=false;
+    boolean splat_gone=true;
 
     public AcceleratorHandler AH= new AcceleratorHandler(this, ACCELID);
     public SoundHandler sound;
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
 
         touch= new TouchHandler(this, TOUCHID);
-        touch.stopChecking();
+        //touch.stopChecking();
 
         //TODO Para ignorar la splat y testear. Borrar al final
         //splat.setAlpha(0.0f);
