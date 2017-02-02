@@ -7,16 +7,16 @@
     <string name="lookGhost">Mueve el teléfono por tus alrededores. \n ¡El fantasma está cerca!</string>
     <string name="noCompass">Su dispositivo no tiene brújula.</string>
     <string name="noGyroscope">Su dispositivo no tiene giroscopio.</string>
-    <string name="noAccelerometer">Esta apliación no soporta dispositivos sin acelerómetro.</string>
+    <string name="noAccelerometer">Esta aplicación no soporta dispositivos sin acelerómetro.</string>
     <string name="splatAppears">¡Oh no! ¡El fantasma te ha atacado\n ¡Agita el móvil para quitarte el ectoplasma de encima!</string>
     <string name="ghostFound">¡Fantasma encontrado! \n ¡Desbloquea el patrón para derrotarlo!</string>
     <string name="shakeStronger"> ¡Tienes que agitar más fuerte para que se vaya el ectoplasma!</string>
     <string name="ghostDefeated">¡Bien, has derrotado al fantasma!</string>
     <string name="creditTitle">Créditos</string>
-    <string name="emailCarlos">cparadela@correo.ugr.es</string>
-    <string name="emailMiguel">miguekeca@correo.ugr.es</string>
-    <string name="creditCarlos">Carlos Paradela Pérez:\n</string>
-    <string name="creditMiguel">Miguel Keane Cañizares:\n</string>
+    <string name="emailCarlos" translatable="false">cparadela@correo.ugr.es</string>
+    <string name="emailMiguel" translatable="false">miguekeca@correo.ugr.es</string>
+    <string name="creditCarlos" translatable="false">Carlos Paradela Pérez:\n</string>
+    <string name="creditMiguel" translatable="false">Miguel Keane Cañizares:\n</string>
     <string name="instructionTitle">Instrucciones</string>
     <string name="instructionMessage">Encontrar y matar fantasmas</string>
 

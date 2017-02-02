@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">Ghostly Runes (EN)</string>
     <string name="credit">CREDITS</string>
-    <string name="creditMessage"><b>Carlos Paradela Pérez:</b>  cparadela@correo.ugr.es     <b>Miguel Keane Cañizares:</b>  miguekeca@correo.ugr.es</string>
     <string name="creditTitle">Credits</string>
     <string name="ghostDefeated">Great! You\'ve defeated the ghost!</string>
     <string name="ghostFound">You\'ve found a ghost! Unlock the pattern to defeat it!</string>
@@ -17,4 +16,5 @@
     <string name="splatAppears">\"Oh no! The ghost attacked you! Shake your device to escape the ectoplasm!</string>
     <string name="start">START (GYROSCOPE)</string>
     <string name="start2">START (COMPASS)</string>
+    <string name="creditCarlos" translatable="false"></string>
 </resources>

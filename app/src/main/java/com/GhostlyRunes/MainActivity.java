@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     boolean first_touch=false;
 
     ImageView splat;
-    int tada, blow;
+    int tada, blow, piano;
 
     SensorManager sm;
 
@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         sound = new SoundHandler(getApplicationContext());
         tada=sound.load(R.raw.tada);
         blow=sound.load(R.raw.blow);
+        piano=sound.load(R.raw.piano);
 
         vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
 
@@ -64,8 +65,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     protected void onResume() {
         super.onResume();
         //registro del listener
-
-
+        sound.play(piano);
         if(!hasAccel || sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)==null){
           Log.w("ACCELEROMETER", "NOT FOUND");
             if(hasAccel) Toast.makeText(getApplicationContext(),getResources().getString(R.string.noAccelerometer) , Toast.LENGTH_LONG).show();
