@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 
 //TODO: multilenguaje
-public class MainActivity extends AppCompatActivity implements MessageReceiver{
+public class PatternActivity extends AppCompatActivity implements MessageReceiver{
     //Messages
     final String ACCELID="Accelerometer";
     final String TOUCHID="Screen Touch";

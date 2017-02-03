@@ -3,7 +3,7 @@
     <string name="app_name">Ghostly Runes</string>
     <string name="ghostDefeated">Super! Du hast der Geist zestört!</string>
     <string name="credit">KREDITE</string>
-    <string name="ghostFound">\"Geist wird gefunden!  Entsperrt das Bild um der Geist zu schlagen!\"</string>
+    <string name="ghostFound">Geist wird gefunden!  Entsperrt das Bild um der Geist zu schlagen!</string>
     <string name="instructions">ANLEITUGEN</string>
     <string name="lookGhost">Bewegt das Handie um deine Umgebung! Der Geist is in der Nahe!</string>
     <string name="noAccelerometer">Dieses App funktioniert nicht mit Gerät ohne Beschleunigungsmesser.</string>
