@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 
-//TODO Quizá burrada. Solución---> 1. Hacer herencia de una actividad común a toda la aplicación? o 2. Crear actividades desde 0
 public class StarPatternActivity extends MainActivity{
 
 

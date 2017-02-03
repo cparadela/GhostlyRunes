@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-//TODO: multilenguaje
+
 public class MainActivity extends AppCompatActivity implements MessageReceiver{
     //Messages
     final String ACCELID="Accelerometer";
@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
     public TouchHandler touch;
     Vibrator vib;
 
-    //TODO Quitar supressWarnings y controlar versiones
     //@SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
         sm = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        //TODO cargar antes
         sound = new SoundHandler(getApplicationContext());
         tada=sound.load(R.raw.tada);
         blow=sound.load(R.raw.blow);
@@ -56,12 +54,9 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         touch= new TouchHandler(this, TOUCHID);
         touch.stopChecking();
 
-        //TODO Para ignorar la splat y testear. Borrar al final
-        //splat.setAlpha(0.0f);
-        //touch.startChecking();
     }
 
-    @Override //TODO Cambiar comentarios y cosillas
+    @Override
     protected void onResume() {
         super.onResume();
         //registro del listener
@@ -73,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
         }else if(!splat_gone){
             sm.registerListener(AH,sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_GAME);
         }
-        //TODO Solucionar que no entre en giroscopio sino lo tiene
     }
 
     @Override
@@ -133,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
                 if(message == "pathStart") {
                     vib.vibrate(100);
                 }else if(message == "destinyReached"){
-                    //TODO CAMBIAR TEXTO
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.ghostDefeated), Toast.LENGTH_LONG).show();
                    sound.play(tada);
                     //Creating new activity
