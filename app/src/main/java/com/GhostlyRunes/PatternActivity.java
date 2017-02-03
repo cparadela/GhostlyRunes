@@ -1,6 +1,5 @@
 package com.GhostlyRunes;
 
-import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -9,13 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 
-
-public class MainActivity extends AppCompatActivity implements MessageReceiver{
+public class PatternActivity extends AppCompatActivity implements MessageReceiver{
     //Messages
     final String ACCELID="Accelerometer";
     final String TOUCHID="Screen Touch";
@@ -32,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements MessageReceiver{
 
     boolean splat_gone=true;
 
-    public AcceleratorHandler AH= new AcceleratorHandler(this, ACCELID);
+    public AccelerometerHandler AH= new AccelerometerHandler(this, ACCELID);
     public SoundHandler sound;
     public TouchHandler touch;
     Vibrator vib;

@@ -9,7 +9,7 @@ import android.util.Log;
  * Created by Miguel on 21/01/2017.
  */
 
-public class AcceleratorHandler implements SensorEventListener {
+public class AccelerometerHandler implements SensorEventListener {
 
     //------------- GYROSCOPE VARIABLES BEGIN ---------------------
 
@@ -44,7 +44,7 @@ public class AcceleratorHandler implements SensorEventListener {
 
 
 
-    public AcceleratorHandler(MessageReceiver MR, String accelid){
+    public AccelerometerHandler(MessageReceiver MR, String accelid){
         rotationCurrent[0]=1.0f;
         rotationCurrent[4]=1.0f;
         rotationCurrent[8]=1.0f;

@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 
-public class StarPatternActivity extends MainActivity{
+public class StarPatternActivity extends PatternActivity {
 
 
     @Override

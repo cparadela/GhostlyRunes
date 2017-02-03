@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 
-public class ZigZagPatternActivity extends MainActivity{
+public class ZigZagPatternActivity extends PatternActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
