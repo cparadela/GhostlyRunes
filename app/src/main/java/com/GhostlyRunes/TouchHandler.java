@@ -83,7 +83,7 @@ public class TouchHandler implements View.OnTouchListener {
             }
             */
 
-            //TODO Pasar a constructor?
+            //TODO a
             if (pattern_new) { //Gets the points to a correct state the first time it triggers
                 resetPattern(v);
                 if(debug) Log.d("Points", "Origin: " + ox + " " + oy);
