@@ -28,7 +28,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener,
     private Button volume;
     private int piano;
     private Button spanish, english, german;
-    //TODO chapucilla
+
     private boolean vol=false;
     SensorManager sm;
 
