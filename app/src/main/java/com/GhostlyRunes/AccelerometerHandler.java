@@ -11,17 +11,6 @@ import android.util.Log;
 
 public class AccelerometerHandler implements SensorEventListener {
 
-    //------------- GYROSCOPE VARIABLES BEGIN ---------------------
-
-    // Create a constant to convert nanoseconds to seconds.
-    private static final float NS2S = 1.0f / 1000000000.0f;
-    private final float[] deltaRotationVector = new float[4];
-    private float timestamp;
-    private final float EPSILON=  0.000001f;
-
-    public float [] rotationCurrent = new float[9];
-
-    //------------- GYROSCOPE VARIABLES END ---------------------
 
     //------------- ACCELEROMETER VARIABLES BEGIN ---------------------
     private float accX, accY, accZ;
@@ -30,6 +19,7 @@ public class AccelerometerHandler implements SensorEventListener {
     private boolean move=false;
     private boolean enter=true, mist_half_gone=false, mist_gone=false;
     private String ACCELID;
+    public float [] rotationCurrent = new float[9];
 
 
 
