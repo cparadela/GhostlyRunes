@@ -14,7 +14,6 @@ import static java.lang.System.in;
  */
 
 public class TouchHandler implements View.OnTouchListener {
-    //TODO resolver dependencia de nombres
     View p1,p2; //Image of points p1 and p2 of our minimgame. Its names should be Point1 and Point2 if default is used.
 
 
@@ -57,33 +56,7 @@ public class TouchHandler implements View.OnTouchListener {
         if(checking) {
             float x = event.getX(), y = event.getY();
 
-            //TODO borrar seguramente
-            /*
-            if (draw) {
-                // RelativeLayout. though you can use xml RelativeLayout here too by `findViewById()`
 
-                RelativeLayout relativeLayout = (RelativeLayout) v.findViewById(R.id.activity_main);
-                // ImageView
-                ImageView imageView = new ImageView(v.getContext());
-
-                // Setting layout params to our RelativeLayout
-                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT);
-                // Setting position of our ImageView
-                int[] location = new int[2];
-                v.getLocationOnScreen(location);
-                imageView.setImageResource(R.drawable.abc_btn_radio_to_on_mtrl_000);
-                layoutParams.leftMargin = (int) (event.getX());
-                layoutParams.topMargin = (int) (event.getY());
-                imageView.setLayoutParams(layoutParams);
-                if(debug) Log.d("Adding point in ", "" + layoutParams.leftMargin + " " + layoutParams.topMargin);
-                // Finally Adding the imageView to RelativeLayout and its position
-                //relativeLayout.addView(imageView, layoutParams);
-                ((ViewGroup) v).addView(imageView);
-            }
-            */
-
-            //TODO Pasar a constructor?
             if (pattern_new) { //Gets the points to a correct state the first time it triggers
                 resetPattern(v);
                 if(debug) Log.d("Points", "Origin: " + ox + " " + oy);
@@ -120,7 +93,6 @@ public class TouchHandler implements View.OnTouchListener {
 
 
                 }else{
-                //TODO a
                 if (path) {
                     if (debug)
                         Log.d("MOVE_EVENT", "Position: " + event.getX() + " " + event.getY() + ". Distance: " + distance(x, y, dx, dy));
@@ -131,7 +103,6 @@ public class TouchHandler implements View.OnTouchListener {
                             if (debug) Log.d("END OF PATTERN", "" + pattern_done);
                             path = false;
 
-                            //TODO Quizá cambiar este comportamiento. Ahora reinicia el patrón.
                             resetPattern(v);
                             //pattern_new=true;
                             MR.transmitMessage(TOUCHID, "destinyReached");
@@ -245,7 +216,7 @@ public class TouchHandler implements View.OnTouchListener {
         }
         pattern_new=true;
 
-        //TODO strict debug, crash if null
+        //strict debug, crashes if null
         if(debug) Log.d("NEW PATTERN","LENGTH: "+points_id.length);
     }
 
@@ -275,7 +246,6 @@ public class TouchHandler implements View.OnTouchListener {
     }
     }
 
-    //TODO no funciona
     private void continuePattern(View v){
         //p1=p2;
 

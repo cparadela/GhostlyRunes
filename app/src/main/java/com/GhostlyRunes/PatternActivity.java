@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+//*PATTERN IS COOL*/
 public class PatternActivity extends AppCompatActivity implements MessageReceiver{
     //Messages
     final String ACCELID="Accelerometer";
