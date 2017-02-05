@@ -82,7 +82,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener,
     protected void onPause() {
         super.onPause();
         sm=null;
-        sound.repeat(piano, false);
+        sound.stop(piano);
     }
 
     public void onClick(View v) {
@@ -166,11 +166,13 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener,
         } else if (v == volume) {
             if (!vol) {
                 volume.setBackgroundResource(R.drawable.vol_on);
-                sound.repeat(piano, true);
+                sound.repeat(piano);
                 vol = true;
             } else {
                 volume.setBackgroundResource(R.drawable.vol_off);
-                sound.repeat(piano, false);
+                sound.stop(piano);
+                Toast.makeText(getApplicationContext(), "OFF", Toast.LENGTH_LONG).show();
+
                 vol = false;
             }
         }
