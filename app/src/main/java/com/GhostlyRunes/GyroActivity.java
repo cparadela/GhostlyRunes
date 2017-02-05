@@ -22,7 +22,6 @@ import java.util.Random;
  * Created by Charlie 28/01/2017.
  */
 
-//TODO Gyrosmola
 public class GyroActivity extends AppCompatActivity implements SensorEventListener {
     //DEBUG VARIABLES
     int count=0;
