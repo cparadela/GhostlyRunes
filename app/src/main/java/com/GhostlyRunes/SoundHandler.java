@@ -41,14 +41,10 @@ public class SoundHandler {
         sound.play(idSonido, leftVolume, rightVolume, 1, 0, rate);
     }
 
-    public void repeat(int idSonido, boolean rep) {
-        if(rep){
-            sound.play(idSonido, leftVolume, rightVolume, 1, -1, rate);
-        }
-        else{
-            sound.stop(idSonido);
+    public void stop(int idSonido) {  sound.stop(idSonido);}
 
-        }
+    public void repeat(int idSonido) {
+            sound.play(idSonido, leftVolume, rightVolume, 1, -1, rate);
     }
 
 
