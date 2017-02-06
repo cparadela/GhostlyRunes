@@ -171,8 +171,6 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener,
             } else {
                 volume.setBackgroundResource(R.drawable.vol_off);
                 sound.stop(piano);
-                Toast.makeText(getApplicationContext(), "OFF", Toast.LENGTH_LONG).show();
-
                 vol = false;
             }
         }
