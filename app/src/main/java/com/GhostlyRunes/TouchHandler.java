@@ -92,7 +92,6 @@ public class TouchHandler implements View.OnTouchListener {
 
 
                 }else{
-                //TODO a
                 if (path) {
                     if (debug)
                         Log.d("MOVE_EVENT", "Position: " + event.getX() + " " + event.getY() + ". Distance: " + distance(x, y, dx, dy));
