@@ -14,7 +14,6 @@ import static java.lang.System.in;
  */
 
 public class TouchHandler implements View.OnTouchListener {
-    //TODO resolver dependencia de nombres
     View p1,p2; //Image of points p1 and p2 of our minimgame. Its names should be Point1 and Point2 if default is used.
 
 
@@ -57,33 +56,6 @@ public class TouchHandler implements View.OnTouchListener {
         if(checking) {
             float x = event.getX(), y = event.getY();
 
-            //TODO borrar seguramente
-            /*
-            if (draw) {
-                // RelativeLayout. though you can use xml RelativeLayout here too by `findViewById()`
-
-                RelativeLayout relativeLayout = (RelativeLayout) v.findViewById(R.id.activity_main);
-                // ImageView
-                ImageView imageView = new ImageView(v.getContext());
-
-                // Setting layout params to our RelativeLayout
-                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT);
-                // Setting position of our ImageView
-                int[] location = new int[2];
-                v.getLocationOnScreen(location);
-                imageView.setImageResource(R.drawable.abc_btn_radio_to_on_mtrl_000);
-                layoutParams.leftMargin = (int) (event.getX());
-                layoutParams.topMargin = (int) (event.getY());
-                imageView.setLayoutParams(layoutParams);
-                if(debug) Log.d("Adding point in ", "" + layoutParams.leftMargin + " " + layoutParams.topMargin);
-                // Finally Adding the imageView to RelativeLayout and its position
-                //relativeLayout.addView(imageView, layoutParams);
-                ((ViewGroup) v).addView(imageView);
-            }
-            */
-
-            //TODO a
             if (pattern_new) { //Gets the points to a correct state the first time it triggers
                 resetPattern(v);
                 if(debug) Log.d("Points", "Origin: " + ox + " " + oy);
@@ -131,7 +103,6 @@ public class TouchHandler implements View.OnTouchListener {
                             if (debug) Log.d("END OF PATTERN", "" + pattern_done);
                             path = false;
 
-                            //TODO Quizá cambiar este comportamiento. Ahora reinicia el patrón.
                             resetPattern(v);
                             //pattern_new=true;
                             MR.transmitMessage(TOUCHID, "destinyReached");
@@ -167,22 +138,7 @@ public class TouchHandler implements View.OnTouchListener {
 
                             MR.transmitMessage(TOUCHID, "partialPatternDone");
                         }
-                    }   /*else{
-                        float pvx=(error*(-dy+oy)/distance(ox,oy,dx,dy));
-                        float pvy=(error*(-dx+ox)/distance(ox,oy,dx,dy));
-                        float ax=ox+pvx;
-                        float ay=oy+pvy;
-                        float bx=dx+pvx;
-                        float by=dx+pvy;
-                        float cx=ox-pvx;
-                        float cy=ox-pvy;
-                        float APAB=(x-ax)*(bx-ax)+(y-ay)*(by-ay);
-                        float ABAB=(bx-ax)*(bx-ax)+(by-ay)*(by-ay);
-                        float APAC=(x-ax)*(cx-ax)+(y-ay)*(cy-ay);
-                        float ACAC=(cx-ax)*(cx-ax)+(cy-ay)*(cy-ay);
-                        if(!(0<APAB && APAB<ABAB && 0<APAC && APAC<ACAC) && distance(x,y,ox,oy)>error && distance(x,y,dx,dy)>error) {*/
-                            else if((distance(x,y,ox,oy)+distance(x,y,dx,dy))>error+distance(ox,oy,dx,dy)){ //If not within the ellipse with origin and destiny as focus and constant error+distance
-                            //else if ((distance(lkx, lky, dx, dy) - distance(x, y, dx, dy)) < distance(lkx, lky, x, y) * alpha && distance(x, y, ox, ox) > error && distance(x, y, dx, dy) > error) { //Original check
+                    } else if((distance(x,y,ox,oy)+distance(x,y,dx,dy))>error+distance(ox,oy,dx,dy)){ //If not within the ellipse with origin and destiny as focus and constant error+distance
                             path = false;
 
 
@@ -245,7 +201,7 @@ public class TouchHandler implements View.OnTouchListener {
         }
         pattern_new=true;
 
-        //TODO strict debug, crash if null
+        //strict debug, crash if null
         if(debug) Log.d("NEW PATTERN","LENGTH: "+points_id.length);
     }
 
@@ -274,8 +230,6 @@ public class TouchHandler implements View.OnTouchListener {
         }
     }
     }
-
-    //TODO no funciona
     private void continuePattern(View v){
         //p1=p2;
 
